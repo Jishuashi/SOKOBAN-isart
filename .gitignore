@@ -1,5 +1,5 @@
 RECOVER_*
 RECUPERE_*
-game/bin/haxe
-game/bin/obj
+game/bin/html5/haxe
+game/bin/html5/obj
 *.swf
