@@ -1,5 +1,6 @@
 package com.isartdigital.nabokos;
 
+import com.isartdigital.nabokos.game.LevelManager;
 import com.isartdigital.nabokos.ui.GraphicLoader;
 import com.isartdigital.nabokos.ui.TitleCard;
 import com.isartdigital.nabokos.ui.UIManager;
@@ -87,7 +88,10 @@ class Main extends Sprite
 		
 		//Chargement des colliders
 		lGameLoader.addText("assets/colliders.json");
-			
+		
+		//Chargemente des niveaux
+		lGameLoader.addText("assets/levels/leveldesign.json");
+		
 		lGameLoader.load();
 	}
 
@@ -110,6 +114,8 @@ class Main extends Sprite
 		StateManager.addColliders(Json.parse(GameLoader.getText("assets/colliders.json")));
 		
 		UIManager.addScreen(TitleCard.getInstance());
+		
+		LevelManager.init();
 	}
 
 	private static function importClasses() : Void {
