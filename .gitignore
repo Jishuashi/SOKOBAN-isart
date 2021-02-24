@@ -1,4 +1,5 @@
 RECOVER_*
 RECUPERE_*
-game/bin/
+game/bin/haxe
+game/bin/obj
 *.swf
