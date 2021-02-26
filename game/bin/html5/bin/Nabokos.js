@@ -892,7 +892,7 @@ ApplicationMain.main = function() {
 ApplicationMain.create = function(config) {
 	var app = new openfl_display_Application();
 	ManifestResources.init(config);
-	app.meta.h["build"] = "5";
+	app.meta.h["build"] = "9";
 	app.meta.h["company"] = "Nabokos";
 	app.meta.h["file"] = "Nabokos";
 	app.meta.h["name"] = "Structure Haxe OpenFL";
@@ -9927,16 +9927,18 @@ com_isartdigital_nabokos_game_LevelManager.init = function() {
 	var levelObject = JSON.parse(levelData);
 	var levelDesign = Reflect.field(levelObject,"levelDesign");
 	com_isartdigital_nabokos_game_LevelManager.currentLevel = [];
+	com_isartdigital_nabokos_game_LevelManager.levels = [];
 	var _g = 0;
 	while(_g < levelDesign.length) {
 		var level = levelDesign[_g];
 		++_g;
+		com_isartdigital_nabokos_game_LevelManager.levels.push([]);
 		var _g1 = 0;
 		var _g2 = level.map;
 		while(_g1 < _g2.length) {
 			var row = _g2[_g1];
 			++_g1;
-			com_isartdigital_nabokos_game_LevelManager.currentLevel.push([]);
+			var currentRow = [];
 			var _g3 = 0;
 			var _g4 = row.split("");
 			while(_g3 < _g4.length) {
@@ -9944,28 +9946,41 @@ com_isartdigital_nabokos_game_LevelManager.init = function() {
 				++_g3;
 				switch(char) {
 				case " ":
-					com_isartdigital_nabokos_game_LevelManager.currentLevel[com_isartdigital_nabokos_game_LevelManager.currentLevel.length - 1].push(com_isartdigital_nabokos_game_Blocks.GROUND);
+					currentRow.push(com_isartdigital_nabokos_game_Blocks.GROUND);
 					break;
 				case "#":
-					com_isartdigital_nabokos_game_LevelManager.currentLevel[com_isartdigital_nabokos_game_LevelManager.currentLevel.length - 1].push(com_isartdigital_nabokos_game_Blocks.WALL);
+					currentRow.push(com_isartdigital_nabokos_game_Blocks.WALL);
 					break;
 				case "$":
-					com_isartdigital_nabokos_game_LevelManager.currentLevel[com_isartdigital_nabokos_game_LevelManager.currentLevel.length - 1].push(com_isartdigital_nabokos_game_Blocks.BOX);
+					currentRow.push(com_isartdigital_nabokos_game_Blocks.BOX);
 					break;
 				case ".":
-					com_isartdigital_nabokos_game_LevelManager.currentLevel[com_isartdigital_nabokos_game_LevelManager.currentLevel.length - 1].push(com_isartdigital_nabokos_game_Blocks.TARGET);
+					currentRow.push(com_isartdigital_nabokos_game_Blocks.TARGET);
 					break;
 				case "@":
-					com_isartdigital_nabokos_game_LevelManager.currentLevel[com_isartdigital_nabokos_game_LevelManager.currentLevel.length - 1].push(com_isartdigital_nabokos_game_Blocks.PLAYER);
+					currentRow.push(com_isartdigital_nabokos_game_Blocks.PLAYER);
 					break;
 				case "M":
-					com_isartdigital_nabokos_game_LevelManager.currentLevel[com_isartdigital_nabokos_game_LevelManager.currentLevel.length - 1].push(com_isartdigital_nabokos_game_Blocks.MIRROR);
+					currentRow.push(com_isartdigital_nabokos_game_Blocks.MIRROR);
 					break;
 				}
 			}
+			if(level.locked) {
+				currentRow.push(com_isartdigital_nabokos_game_Blocks.WALL);
+				currentRow.unshift(com_isartdigital_nabokos_game_Blocks.WALL);
+			}
+			com_isartdigital_nabokos_game_LevelManager.levels[com_isartdigital_nabokos_game_LevelManager.levels.length - 1].push(currentRow);
 		}
-		haxe_Log.trace(com_isartdigital_nabokos_game_LevelManager.currentLevel,{ fileName : "src/com/isartdigital/nabokos/game/LevelManager.hx", lineNumber : 49, className : "com.isartdigital.nabokos.game.LevelManager", methodName : "init"});
-		return;
+		if(level.locked) {
+			com_isartdigital_nabokos_game_LevelManager.levels[com_isartdigital_nabokos_game_LevelManager.levels.length - 1].push(com_isartdigital_nabokos_game_LevelManager.FULL_WALL.slice());
+			com_isartdigital_nabokos_game_LevelManager.levels[com_isartdigital_nabokos_game_LevelManager.levels.length - 1].unshift(com_isartdigital_nabokos_game_LevelManager.FULL_WALL.slice());
+		}
+	}
+	var _g = 0;
+	var _g1 = com_isartdigital_nabokos_game_LevelManager.levels.length;
+	while(_g < _g1) {
+		var i = _g++;
+		haxe_Log.trace(Std.string(com_isartdigital_nabokos_game_LevelManager.levels[i]) + "\n",{ fileName : "src/com/isartdigital/nabokos/game/LevelManager.hx", lineNumber : 69, className : "com.isartdigital.nabokos.game.LevelManager", methodName : "init"});
 	}
 };
 com_isartdigital_nabokos_game_LevelManager.prototype = {
@@ -34615,7 +34630,7 @@ var lime_utils_AssetCache = function() {
 	this.audio = new haxe_ds_StringMap();
 	this.font = new haxe_ds_StringMap();
 	this.image = new haxe_ds_StringMap();
-	this.version = 4431;
+	this.version = 155932;
 };
 $hxClasses["lime.utils.AssetCache"] = lime_utils_AssetCache;
 lime_utils_AssetCache.__name__ = "lime.utils.AssetCache";
@@ -85231,6 +85246,7 @@ openfl_display_BitmapData.__meta__ = { fields : { image : { SuppressWarnings : [
 openfl_display_BitmapData.VERTEX_BUFFER_STRIDE = 14;
 openfl_display_BitmapData.__tempVector = new lime_math_Vector2();
 animateAtlasPlayer_textures_SubTexture.E = 0.000001;
+com_isartdigital_nabokos_game_LevelManager.FULL_WALL = [com_isartdigital_nabokos_game_Blocks.WALL,com_isartdigital_nabokos_game_Blocks.WALL,com_isartdigital_nabokos_game_Blocks.WALL,com_isartdigital_nabokos_game_Blocks.WALL,com_isartdigital_nabokos_game_Blocks.WALL,com_isartdigital_nabokos_game_Blocks.WALL,com_isartdigital_nabokos_game_Blocks.WALL,com_isartdigital_nabokos_game_Blocks.WALL,com_isartdigital_nabokos_game_Blocks.WALL,com_isartdigital_nabokos_game_Blocks.WALL];
 com_isartdigital_utils_game_stateObjects_StateObject.defaultColliderType = com_isartdigital_utils_game_stateObjects_colliders_ColliderType.NONE;
 com_isartdigital_utils_game_stateObjects_StateObject.defaultStateDefault = "";
 com_isartdigital_utils_game_stateObjects_StateMovieClip.defaultLibraryName = "assets";
