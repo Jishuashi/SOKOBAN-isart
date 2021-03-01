@@ -1,9 +1,13 @@
 package com.isartdigital.nabokos.game;
+import com.isartdigital.nabokos.game.sprites.PlayerActions;
 import com.isartdigital.utils.loader.GameLoader;
 import haxe.Json;
+import openfl.geom.Point;
+
 
 /**
- * ...
+ * Classe côté model
+ * Gère le niveau et le résultat des actions du joueur sur celui-ci
  * @author Anthony TIREL--TARTUFFE
  */
 
@@ -23,6 +27,9 @@ class LevelManager {
 	
 	private function new() {}
 	
+	/**
+	 * Initialise le tableau levels, contenant l'entièreté des niveaux du jeu.
+	 */
 	public static function init(): Void {
 		var levelData: String = GameLoader.getText("assets/levels/leveldesign.json");
 		
