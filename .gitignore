@@ -1,4 +1,4 @@
 RECOVER_*
 RECUPERE_*
-game/bin/html5/haxe
-game/bin/html5/obj
+game/bin/*
+game/Nabokos.hxproj
