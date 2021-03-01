@@ -892,7 +892,7 @@ ApplicationMain.main = function() {
 ApplicationMain.create = function(config) {
 	var app = new openfl_display_Application();
 	ManifestResources.init(config);
-	app.meta.h["build"] = "12";
+	app.meta.h["build"] = "14";
 	app.meta.h["company"] = "Nabokos";
 	app.meta.h["file"] = "Nabokos";
 	app.meta.h["name"] = "Structure Haxe OpenFL";
@@ -4495,7 +4495,7 @@ ManifestResources.init = function(config) {
 	lime_utils_Assets.bundlePaths.h["ui"] = v;
 	var v = ManifestResources.rootPath + "lib/assets.zip";
 	lime_utils_Assets.bundlePaths.h["assets"] = v;
-	var data = "{\"name\":null,\"assets\":\"aoy4:pathy23:assets%2Fcolliders.jsony4:sizei737y4:typey4:TEXTy2:idR1goR0y20:assets%2Fconfig.jsonR2i95R3R4R5R6goR2i25792R3y4:FONTy9:classNamey30:__ASSET__assets_fonts_arco_ttfR5y25:assets%2Ffonts%2FARCO.ttfy7:preloadtgoR2i48820R3R7R8y31:__ASSET__assets_fonts_edosz_ttfR5y26:assets%2Ffonts%2Fedosz.ttfR11tgoR2i32900R3R7R8y33:__ASSET__assets_fonts_unxgala_ttfR5y28:assets%2Ffonts%2FUnxgala.ttfR11tgoR0y52:assets%2Fimages%2Fatlas%2FAstronaut%2FAnimation.jsonR2i1513874R3R4R5R16goR0y53:assets%2Fimages%2Fatlas%2FAstronaut%2Fspritemap1.jsonR2i15864R3R4R5R17goR0y52:assets%2Fimages%2Fatlas%2FAstronaut%2Fspritemap1.pngR2i435373R3y5:IMAGER5R18goR0y34:assets%2Flevels%2Fleveldesign.jsonR2i2813R3R4R5R20goR0y29:assets%2Flib%2Fdat.gui.min.jsR2i50180R3R4R5R21goR0y31:assets%2Flibraries%2Fassets.swfR2i829R3y6:BINARYR5R22goR0y31:assets%2Flibraries%2Floader.swfR2i506R3R23R5R24goR0y27:assets%2Flibraries%2Fui.swfR2i246400R3R23R5R25goR0y31:assets%2Fparticles%2Ffire.plistR2i3289R3R4R5R26goR0y29:assets%2Fparticles%2Ffire.pngR2i2567R3R19R5R27goR0y31:assets%2Fsettings%2Fplayer.jsonR2i266R3R4R5R28goR2i15859R3y5:SOUNDR5y27:assets%2Fsounds%2Fclick.oggy9:pathGroupaR30hgoR0y36:assets%2Fsounds%2Fclick.ogg.reapeaksR2i2530R3R23R5R32goR2i2590458R3y5:MUSICR5y32:assets%2Fsounds%2FDerpNugget.oggR31aR34hgoR0y29:assets%2Fsounds%2Fsounds.jsonR2i231R3R4R5R35goR0R6R2i95R3R4R5R6R11tgoR0R35R2i231R3R4R5R35R11tgoR0y26:Astronaut%2FAnimation.jsonR2i1513874R3R4R5R36goR0y27:Astronaut%2Fspritemap1.jsonR2i15864R3R4R5R37goR0y26:Astronaut%2Fspritemap1.pngR2i435373R3R19R5R38goR0y97:C%3A%5CUsers%5CBlanco%5CDesktop%5CSokoban_3_SEL%5Cgame%5Cbin%5Chtml5%2Fhaxe%2F_generated%2FHud.hxR2i100R3y8:TEMPLATER5R39goR0y105:C%3A%5CUsers%5CBlanco%5CDesktop%5CSokoban_3_SEL%5Cgame%5Cbin%5Chtml5%2Fhaxe%2F_generated%2FLevelScreen.hxR2i100R3R40R5R41goR0y99:C%3A%5CUsers%5CBlanco%5CDesktop%5CSokoban_3_SEL%5Cgame%5Cbin%5Chtml5%2Fhaxe%2F_generated%2FLogin.hxR2i100R3R40R5R42goR0y103:C%3A%5CUsers%5CBlanco%5CDesktop%5CSokoban_3_SEL%5Cgame%5Cbin%5Chtml5%2Fhaxe%2F_generated%2FTitleCard.hxR2i100R3R40R5R43goR0y98:C%3A%5CUsers%5CBlanco%5CDesktop%5CSokoban_3_SEL%5Cgame%5Cbin%5Chtml5%2Fhaxe%2F_generated%2FHelp.hxR2i100R3R40R5R44goR0y104:C%3A%5CUsers%5CBlanco%5CDesktop%5CSokoban_3_SEL%5Cgame%5Cbin%5Chtml5%2Fhaxe%2F_generated%2FHighscores.hxR2i100R3R40R5R45gh\",\"rootPath\":null,\"version\":2,\"libraryArgs\":[],\"libraryType\":null}";
+	var data = "{\"name\":null,\"assets\":\"aoy4:pathy23:assets%2Fcolliders.jsony4:sizei737y4:typey4:TEXTy2:idR1goR0y20:assets%2Fconfig.jsonR2i95R3R4R5R6goR2i25792R3y4:FONTy9:classNamey30:__ASSET__assets_fonts_arco_ttfR5y25:assets%2Ffonts%2FARCO.ttfy7:preloadtgoR2i48820R3R7R8y31:__ASSET__assets_fonts_edosz_ttfR5y26:assets%2Ffonts%2Fedosz.ttfR11tgoR2i32900R3R7R8y33:__ASSET__assets_fonts_unxgala_ttfR5y28:assets%2Ffonts%2FUnxgala.ttfR11tgoR0y52:assets%2Fimages%2Fatlas%2FAstronaut%2FAnimation.jsonR2i1513874R3R4R5R16goR0y53:assets%2Fimages%2Fatlas%2FAstronaut%2Fspritemap1.jsonR2i15864R3R4R5R17goR0y52:assets%2Fimages%2Fatlas%2FAstronaut%2Fspritemap1.pngR2i435373R3y5:IMAGER5R18goR0y34:assets%2Flevels%2Fleveldesign.jsonR2i2627R3R4R5R20goR0y29:assets%2Flib%2Fdat.gui.min.jsR2i50167R3R4R5R21goR0y31:assets%2Flibraries%2Fassets.swfR2i829R3y6:BINARYR5R22goR0y31:assets%2Flibraries%2Floader.swfR2i506R3R23R5R24goR0y27:assets%2Flibraries%2Fui.swfR2i246400R3R23R5R25goR0y31:assets%2Fparticles%2Ffire.plistR2i3289R3R4R5R26goR0y29:assets%2Fparticles%2Ffire.pngR2i2567R3R19R5R27goR0y31:assets%2Fsettings%2Fplayer.jsonR2i266R3R4R5R28goR2i15859R3y5:SOUNDR5y27:assets%2Fsounds%2Fclick.oggy9:pathGroupaR30hgoR0y36:assets%2Fsounds%2Fclick.ogg.reapeaksR2i2530R3R23R5R32goR2i2590458R3y5:MUSICR5y32:assets%2Fsounds%2FDerpNugget.oggR31aR34hgoR0y29:assets%2Fsounds%2Fsounds.jsonR2i231R3R4R5R35goR0R6R2i95R3R4R5R6R11tgoR0R35R2i231R3R4R5R35R11tgoR0y26:Astronaut%2FAnimation.jsonR2i1513874R3R4R5R36goR0y27:Astronaut%2Fspritemap1.jsonR2i15864R3R4R5R37goR0y26:Astronaut%2Fspritemap1.pngR2i435373R3R19R5R38gh\",\"rootPath\":null,\"version\":2,\"libraryArgs\":[],\"libraryType\":null}";
 	var manifest = lime_utils_AssetManifest.parse(data,ManifestResources.rootPath);
 	var library = lime_utils_AssetLibrary.fromManifest(manifest);
 	lime_utils_Assets.registerLibrary("default",library);
@@ -10034,8 +10034,36 @@ com_isartdigital_nabokos_game_LevelManager.init = function() {
 	var _g1 = com_isartdigital_nabokos_game_LevelManager.levels.length;
 	while(_g < _g1) {
 		var i = _g++;
-		haxe_Log.trace(Std.string(com_isartdigital_nabokos_game_LevelManager.levels[i]) + "\n",{ fileName : "src/com/isartdigital/nabokos/game/LevelManager.hx", lineNumber : 69, className : "com.isartdigital.nabokos.game.LevelManager", methodName : "init"});
+		haxe_Log.trace(Std.string(com_isartdigital_nabokos_game_LevelManager.levels[i]) + "\n",{ fileName : "src/com/isartdigital/nabokos/game/LevelManager.hx", lineNumber : 76, className : "com.isartdigital.nabokos.game.LevelManager", methodName : "init"});
 	}
+};
+com_isartdigital_nabokos_game_LevelManager.selectLevel = function(pLevel) {
+	if(pLevel < 0 || pLevel >= com_isartdigital_nabokos_game_LevelManager.levels.length) {
+		return false;
+	}
+	com_isartdigital_nabokos_game_LevelManager.currentLevel = com_isartdigital_nabokos_game_LevelManager.levels[pLevel];
+	return true;
+};
+com_isartdigital_nabokos_game_LevelManager.canPlayerDoAction = function(pPlayerPosition,pMove) {
+	var lNextPosPlayer = new openfl_geom_Point(pPlayerPosition.x,pPlayerPosition.y);
+	switch(pMove._hx_index) {
+	case 0:
+		lNextPosPlayer.x--;
+		break;
+	case 1:
+		lNextPosPlayer.x++;
+		break;
+	case 2:
+		lNextPosPlayer.y--;
+		break;
+	case 3:
+		lNextPosPlayer.y++;
+		break;
+	}
+	if(com_isartdigital_nabokos_game_LevelManager.currentLevel[lNextPosPlayer.y | 0][lNextPosPlayer.x | 0] == com_isartdigital_nabokos_game_Blocks.WALL || com_isartdigital_nabokos_game_LevelManager.currentLevel[lNextPosPlayer.y | 0][lNextPosPlayer.x | 0] == com_isartdigital_nabokos_game_Blocks.MIRROR) {
+		return false;
+	}
+	return true;
 };
 com_isartdigital_nabokos_game_LevelManager.prototype = {
 	__class__: com_isartdigital_nabokos_game_LevelManager
@@ -10323,6 +10351,12 @@ com_isartdigital_nabokos_game_sprites_Astronaut.prototype = $extend(com_isartdig
 	}
 	,__class__: com_isartdigital_nabokos_game_sprites_Astronaut
 });
+var com_isartdigital_nabokos_game_sprites_PlayerActions = $hxEnums["com.isartdigital.nabokos.game.sprites.PlayerActions"] = { __ename__ : "com.isartdigital.nabokos.game.sprites.PlayerActions", __constructs__ : ["LEFT","RIGHT","UP","DOWN"]
+	,LEFT: {_hx_index:0,__enum__:"com.isartdigital.nabokos.game.sprites.PlayerActions",toString:$estr}
+	,RIGHT: {_hx_index:1,__enum__:"com.isartdigital.nabokos.game.sprites.PlayerActions",toString:$estr}
+	,UP: {_hx_index:2,__enum__:"com.isartdigital.nabokos.game.sprites.PlayerActions",toString:$estr}
+	,DOWN: {_hx_index:3,__enum__:"com.isartdigital.nabokos.game.sprites.PlayerActions",toString:$estr}
+};
 var com_isartdigital_utils_game_stateObjects_StateMovieClip = function(pAssetName) {
 	this.assetName = pAssetName;
 	com_isartdigital_utils_game_stateObjects_StateObject.call(this);
@@ -34680,7 +34714,7 @@ var lime_utils_AssetCache = function() {
 	this.audio = new haxe_ds_StringMap();
 	this.font = new haxe_ds_StringMap();
 	this.image = new haxe_ds_StringMap();
-	this.version = 475904;
+	this.version = 429294;
 };
 $hxClasses["lime.utils.AssetCache"] = lime_utils_AssetCache;
 lime_utils_AssetCache.__name__ = "lime.utils.AssetCache";

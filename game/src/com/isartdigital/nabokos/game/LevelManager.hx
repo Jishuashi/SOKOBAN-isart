@@ -77,4 +77,16 @@ class LevelManager {
 		}
 	}
 	
+	/**
+	 * Permet de sélectionner le niveau qui doit-être joué
+	 * @param	pLevel 	Le numéro du niveau à sélectionner
+	 * @return	Bool définissant si la sélection du niveau a réussi ou non
+	 */
+	public static function selectLevel(pLevel: Int): Bool{
+		if (pLevel < 0 || pLevel >= levels.length) return false;
+		
+		currentLevel = levels[pLevel];
+		return true;
+	}
+
 }
