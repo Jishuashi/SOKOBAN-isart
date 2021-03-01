@@ -892,7 +892,7 @@ ApplicationMain.main = function() {
 ApplicationMain.create = function(config) {
 	var app = new openfl_display_Application();
 	ManifestResources.init(config);
-	app.meta.h["build"] = "9";
+	app.meta.h["build"] = "12";
 	app.meta.h["company"] = "Nabokos";
 	app.meta.h["file"] = "Nabokos";
 	app.meta.h["name"] = "Structure Haxe OpenFL";
@@ -4229,13 +4229,11 @@ var com_isartdigital_nabokos_Main = function() {
 		++_g;
 		lGameLoader.addSound(soundPath);
 	}
-	lGameLoader.addAtlas("Astronaut");
 	lGameLoader.addText("assets/settings/player.json");
-	lGameLoader.addText("assets/particles/fire.plist");
-	lGameLoader.addBitmapData("assets/particles/fire.png");
-	lGameLoader.addLibrary("assets");
 	lGameLoader.addLibrary("ui");
 	lGameLoader.addFont("assets/fonts/Unxgala.ttf");
+	lGameLoader.addFont("assets/fonts/edosz.ttf");
+	lGameLoader.addFont("assets/fonts/ARCO.ttf");
 	lGameLoader.addText("assets/colliders.json");
 	lGameLoader.addText("assets/levels/leveldesign.json");
 	lGameLoader.load();
@@ -4253,7 +4251,7 @@ com_isartdigital_nabokos_Main.prototype = $extend(openfl_display_Sprite.prototyp
 		com_isartdigital_nabokos_ui_GraphicLoader.getInstance().setProgress(pEvent.filesLoaded / pEvent.nbFiles);
 	}
 	,onLoadComplete: function(pEvent) {
-		haxe_Log.trace("LOAD COMPLETE",{ fileName : "src/com/isartdigital/nabokos/Main.hx", lineNumber : 105, className : "com.isartdigital.nabokos.Main", methodName : "onLoadComplete"});
+		haxe_Log.trace("LOAD COMPLETE",{ fileName : "src/com/isartdigital/nabokos/Main.hx", lineNumber : 107, className : "com.isartdigital.nabokos.Main", methodName : "onLoadComplete"});
 		var lGameLoader = js_Boot.__cast(pEvent.target , com_isartdigital_utils_loader_GameLoader);
 		lGameLoader.removeEventListener("progress",$bind(this,this.onLoadProgress));
 		lGameLoader.removeEventListener("complete",$bind(this,this.onLoadComplete));
@@ -4487,6 +4485,8 @@ ManifestResources.init = function(config) {
 	if(ManifestResources.rootPath == null) {
 		ManifestResources.rootPath = "./";
 	}
+	openfl_text_Font.registerFont(_$_$ASSET_$_$OPENFL_$_$assets_$fonts_$arco_$ttf);
+	openfl_text_Font.registerFont(_$_$ASSET_$_$OPENFL_$_$assets_$fonts_$edosz_$ttf);
 	openfl_text_Font.registerFont(_$_$ASSET_$_$OPENFL_$_$assets_$fonts_$unxgala_$ttf);
 	var bundle;
 	var v = ManifestResources.rootPath + "lib/loader.zip";
@@ -4495,7 +4495,7 @@ ManifestResources.init = function(config) {
 	lime_utils_Assets.bundlePaths.h["ui"] = v;
 	var v = ManifestResources.rootPath + "lib/assets.zip";
 	lime_utils_Assets.bundlePaths.h["assets"] = v;
-	var data = "{\"name\":null,\"assets\":\"aoy4:pathy23:assets%2Fcolliders.jsony4:sizei737y4:typey4:TEXTy2:idR1goR0y20:assets%2Fconfig.jsonR2i95R3R4R5R6goR2i32900R3y4:FONTy9:classNamey33:__ASSET__assets_fonts_unxgala_ttfR5y28:assets%2Ffonts%2FUnxgala.ttfy7:preloadtgoR0y52:assets%2Fimages%2Fatlas%2FAstronaut%2FAnimation.jsonR2i1513874R3R4R5R12goR0y53:assets%2Fimages%2Fatlas%2FAstronaut%2Fspritemap1.jsonR2i15864R3R4R5R13goR0y52:assets%2Fimages%2Fatlas%2FAstronaut%2Fspritemap1.pngR2i435373R3y5:IMAGER5R14goR0y29:assets%2Flevels%2FLevel1.jsonR2i11840R3R4R5R16goR0y34:assets%2Flevels%2Fleveldesign.jsonR2i2627R3R4R5R17goR0y29:assets%2Flib%2Fdat.gui.min.jsR2i50167R3R4R5R18goR0y31:assets%2Flibraries%2Fassets.swfR2i829R3y6:BINARYR5R19goR0y31:assets%2Flibraries%2Floader.swfR2i506R3R20R5R21goR0y27:assets%2Flibraries%2Fui.swfR2i14338R3R20R5R22goR0y31:assets%2Fparticles%2Ffire.plistR2i3289R3R4R5R23goR0y29:assets%2Fparticles%2Ffire.pngR2i2567R3R15R5R24goR0y31:assets%2Fsettings%2Fplayer.jsonR2i266R3R4R5R25goR2i15859R3y5:SOUNDR5y27:assets%2Fsounds%2Fclick.oggy9:pathGroupaR27hgoR0y36:assets%2Fsounds%2Fclick.ogg.reapeaksR2i2530R3R20R5R29goR2i2590458R3y5:MUSICR5y32:assets%2Fsounds%2FDerpNugget.oggR28aR31hgoR0y29:assets%2Fsounds%2Fsounds.jsonR2i231R3R4R5R32goR0R6R2i95R3R4R5R6R11tgoR0R32R2i231R3R4R5R32R11tgoR0y26:Astronaut%2FAnimation.jsonR2i1513874R3R4R5R33goR0y27:Astronaut%2Fspritemap1.jsonR2i15864R3R4R5R34goR0y26:Astronaut%2Fspritemap1.pngR2i435373R3R15R5R35gh\",\"rootPath\":null,\"version\":2,\"libraryArgs\":[],\"libraryType\":null}";
+	var data = "{\"name\":null,\"assets\":\"aoy4:pathy23:assets%2Fcolliders.jsony4:sizei737y4:typey4:TEXTy2:idR1goR0y20:assets%2Fconfig.jsonR2i95R3R4R5R6goR2i25792R3y4:FONTy9:classNamey30:__ASSET__assets_fonts_arco_ttfR5y25:assets%2Ffonts%2FARCO.ttfy7:preloadtgoR2i48820R3R7R8y31:__ASSET__assets_fonts_edosz_ttfR5y26:assets%2Ffonts%2Fedosz.ttfR11tgoR2i32900R3R7R8y33:__ASSET__assets_fonts_unxgala_ttfR5y28:assets%2Ffonts%2FUnxgala.ttfR11tgoR0y52:assets%2Fimages%2Fatlas%2FAstronaut%2FAnimation.jsonR2i1513874R3R4R5R16goR0y53:assets%2Fimages%2Fatlas%2FAstronaut%2Fspritemap1.jsonR2i15864R3R4R5R17goR0y52:assets%2Fimages%2Fatlas%2FAstronaut%2Fspritemap1.pngR2i435373R3y5:IMAGER5R18goR0y34:assets%2Flevels%2Fleveldesign.jsonR2i2813R3R4R5R20goR0y29:assets%2Flib%2Fdat.gui.min.jsR2i50180R3R4R5R21goR0y31:assets%2Flibraries%2Fassets.swfR2i829R3y6:BINARYR5R22goR0y31:assets%2Flibraries%2Floader.swfR2i506R3R23R5R24goR0y27:assets%2Flibraries%2Fui.swfR2i246400R3R23R5R25goR0y31:assets%2Fparticles%2Ffire.plistR2i3289R3R4R5R26goR0y29:assets%2Fparticles%2Ffire.pngR2i2567R3R19R5R27goR0y31:assets%2Fsettings%2Fplayer.jsonR2i266R3R4R5R28goR2i15859R3y5:SOUNDR5y27:assets%2Fsounds%2Fclick.oggy9:pathGroupaR30hgoR0y36:assets%2Fsounds%2Fclick.ogg.reapeaksR2i2530R3R23R5R32goR2i2590458R3y5:MUSICR5y32:assets%2Fsounds%2FDerpNugget.oggR31aR34hgoR0y29:assets%2Fsounds%2Fsounds.jsonR2i231R3R4R5R35goR0R6R2i95R3R4R5R6R11tgoR0R35R2i231R3R4R5R35R11tgoR0y26:Astronaut%2FAnimation.jsonR2i1513874R3R4R5R36goR0y27:Astronaut%2Fspritemap1.jsonR2i15864R3R4R5R37goR0y26:Astronaut%2Fspritemap1.pngR2i435373R3R19R5R38goR0y97:C%3A%5CUsers%5CBlanco%5CDesktop%5CSokoban_3_SEL%5Cgame%5Cbin%5Chtml5%2Fhaxe%2F_generated%2FHud.hxR2i100R3y8:TEMPLATER5R39goR0y105:C%3A%5CUsers%5CBlanco%5CDesktop%5CSokoban_3_SEL%5Cgame%5Cbin%5Chtml5%2Fhaxe%2F_generated%2FLevelScreen.hxR2i100R3R40R5R41goR0y99:C%3A%5CUsers%5CBlanco%5CDesktop%5CSokoban_3_SEL%5Cgame%5Cbin%5Chtml5%2Fhaxe%2F_generated%2FLogin.hxR2i100R3R40R5R42goR0y103:C%3A%5CUsers%5CBlanco%5CDesktop%5CSokoban_3_SEL%5Cgame%5Cbin%5Chtml5%2Fhaxe%2F_generated%2FTitleCard.hxR2i100R3R40R5R43goR0y98:C%3A%5CUsers%5CBlanco%5CDesktop%5CSokoban_3_SEL%5Cgame%5Cbin%5Chtml5%2Fhaxe%2F_generated%2FHelp.hxR2i100R3R40R5R44goR0y104:C%3A%5CUsers%5CBlanco%5CDesktop%5CSokoban_3_SEL%5Cgame%5Cbin%5Chtml5%2Fhaxe%2F_generated%2FHighscores.hxR2i100R3R40R5R45gh\",\"rootPath\":null,\"version\":2,\"libraryArgs\":[],\"libraryType\":null}";
 	var manifest = lime_utils_AssetManifest.parse(data,ManifestResources.rootPath);
 	var library = lime_utils_AssetLibrary.fromManifest(manifest);
 	lime_utils_Assets.registerLibrary("default",library);
@@ -4712,6 +4712,40 @@ lime_text_Font.prototype = {
 	}
 	,__class__: lime_text_Font
 };
+var _$_$ASSET_$_$assets_$fonts_$arco_$ttf = $hx_exports["__ASSET__assets_fonts_arco_ttf"] = function() {
+	this.ascender = 2153;
+	this.descender = -151;
+	this.height = 2304;
+	this.numGlyphs = 118;
+	this.underlinePosition = 0;
+	this.underlineThickness = 0;
+	this.unitsPerEM = 2048;
+	this.name = "ARCO Typography";
+	lime_text_Font.call(this);
+};
+$hxClasses["__ASSET__assets_fonts_arco_ttf"] = _$_$ASSET_$_$assets_$fonts_$arco_$ttf;
+_$_$ASSET_$_$assets_$fonts_$arco_$ttf.__name__ = "__ASSET__assets_fonts_arco_ttf";
+_$_$ASSET_$_$assets_$fonts_$arco_$ttf.__super__ = lime_text_Font;
+_$_$ASSET_$_$assets_$fonts_$arco_$ttf.prototype = $extend(lime_text_Font.prototype,{
+	__class__: _$_$ASSET_$_$assets_$fonts_$arco_$ttf
+});
+var _$_$ASSET_$_$assets_$fonts_$edosz_$ttf = $hx_exports["__ASSET__assets_fonts_edosz_ttf"] = function() {
+	this.ascender = 1854;
+	this.descender = -434;
+	this.height = 2355;
+	this.numGlyphs = 245;
+	this.underlinePosition = -292;
+	this.underlineThickness = 150;
+	this.unitsPerEM = 2048;
+	this.name = "Edo SZ";
+	lime_text_Font.call(this);
+};
+$hxClasses["__ASSET__assets_fonts_edosz_ttf"] = _$_$ASSET_$_$assets_$fonts_$edosz_$ttf;
+_$_$ASSET_$_$assets_$fonts_$edosz_$ttf.__name__ = "__ASSET__assets_fonts_edosz_ttf";
+_$_$ASSET_$_$assets_$fonts_$edosz_$ttf.__super__ = lime_text_Font;
+_$_$ASSET_$_$assets_$fonts_$edosz_$ttf.prototype = $extend(lime_text_Font.prototype,{
+	__class__: _$_$ASSET_$_$assets_$fonts_$edosz_$ttf
+});
 var _$_$ASSET_$_$assets_$fonts_$unxgala_$ttf = $hx_exports["__ASSET__assets_fonts_unxgala_ttf"] = function() {
 	this.ascender = 766;
 	this.descender = -202;
@@ -4802,6 +4836,26 @@ openfl_text_Font.prototype = $extend(lime_text_Font.prototype,{
 	}
 	,__class__: openfl_text_Font
 	,__properties__: {set_fontName:"set_fontName",get_fontName:"get_fontName"}
+});
+var _$_$ASSET_$_$OPENFL_$_$assets_$fonts_$arco_$ttf = $hx_exports["__ASSET__OPENFL__assets_fonts_arco_ttf"] = function() {
+	this.name = "ARCO Typography";
+	openfl_text_Font.call(this);
+};
+$hxClasses["__ASSET__OPENFL__assets_fonts_arco_ttf"] = _$_$ASSET_$_$OPENFL_$_$assets_$fonts_$arco_$ttf;
+_$_$ASSET_$_$OPENFL_$_$assets_$fonts_$arco_$ttf.__name__ = "__ASSET__OPENFL__assets_fonts_arco_ttf";
+_$_$ASSET_$_$OPENFL_$_$assets_$fonts_$arco_$ttf.__super__ = openfl_text_Font;
+_$_$ASSET_$_$OPENFL_$_$assets_$fonts_$arco_$ttf.prototype = $extend(openfl_text_Font.prototype,{
+	__class__: _$_$ASSET_$_$OPENFL_$_$assets_$fonts_$arco_$ttf
+});
+var _$_$ASSET_$_$OPENFL_$_$assets_$fonts_$edosz_$ttf = $hx_exports["__ASSET__OPENFL__assets_fonts_edosz_ttf"] = function() {
+	this.name = "Edo SZ";
+	openfl_text_Font.call(this);
+};
+$hxClasses["__ASSET__OPENFL__assets_fonts_edosz_ttf"] = _$_$ASSET_$_$OPENFL_$_$assets_$fonts_$edosz_$ttf;
+_$_$ASSET_$_$OPENFL_$_$assets_$fonts_$edosz_$ttf.__name__ = "__ASSET__OPENFL__assets_fonts_edosz_ttf";
+_$_$ASSET_$_$OPENFL_$_$assets_$fonts_$edosz_$ttf.__super__ = openfl_text_Font;
+_$_$ASSET_$_$OPENFL_$_$assets_$fonts_$edosz_$ttf.prototype = $extend(openfl_text_Font.prototype,{
+	__class__: _$_$ASSET_$_$OPENFL_$_$assets_$fonts_$edosz_$ttf
 });
 var _$_$ASSET_$_$OPENFL_$_$assets_$fonts_$unxgala_$ttf = $hx_exports["__ASSET__OPENFL__assets_fonts_unxgala_ttf"] = function() {
 	this.name = "Unexplored Galaxies -BRK-";
@@ -10520,10 +10574,6 @@ com_isartdigital_nabokos_ui_Hud.prototype = $extend(com_isartdigital_utils_ui_Sc
 var com_isartdigital_nabokos_ui_TitleCard = function() {
 	com_isartdigital_utils_ui_Screen.call(this);
 	this.content.getChildByName("btnPlay").addEventListener("click",$bind(this,this.onClick));
-	var lPositionnable = { item : this.content.getChildByName("btnPlay"), align : com_isartdigital_utils_ui_AlignType.BOTTOM, offsetY : 450};
-	this.positionables.push(lPositionnable);
-	lPositionnable = { item : this.content.getChildByName("background"), align : com_isartdigital_utils_ui_AlignType.FIT_SCREEN};
-	this.positionables.push(lPositionnable);
 };
 $hxClasses["com.isartdigital.nabokos.ui.TitleCard"] = com_isartdigital_nabokos_ui_TitleCard;
 com_isartdigital_nabokos_ui_TitleCard.__name__ = "com.isartdigital.nabokos.ui.TitleCard";
@@ -34630,7 +34680,7 @@ var lime_utils_AssetCache = function() {
 	this.audio = new haxe_ds_StringMap();
 	this.font = new haxe_ds_StringMap();
 	this.image = new haxe_ds_StringMap();
-	this.version = 155932;
+	this.version = 475904;
 };
 $hxClasses["lime.utils.AssetCache"] = lime_utils_AssetCache;
 lime_utils_AssetCache.__name__ = "lime.utils.AssetCache";

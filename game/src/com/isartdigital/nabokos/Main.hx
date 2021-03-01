@@ -69,22 +69,24 @@ class Main extends Sprite
 		}
 		
 		//Chargement des atlas
-		lGameLoader.addAtlas("Astronaut");
+		//lGameLoader.addAtlas("Astronaut");
 		
 		//Chargement des settings
 		lGameLoader.addText("assets/settings/player.json");
 		
         //Chargement des particules
-		lGameLoader.addText("assets/particles/fire.plist");
-		lGameLoader.addBitmapData("assets/particles/fire.png");
+		//lGameLoader.addText("assets/particles/fire.plist");
+		//lGameLoader.addBitmapData("assets/particles/fire.png");
 		
 		//Chargement des swf
-		lGameLoader.addLibrary("assets");
+		//lGameLoader.addLibrary("assets");
 		
 		//Chargement de l'ui
 		lGameLoader.addLibrary("ui");
 		
 		lGameLoader.addFont("assets/fonts/Unxgala.ttf");
+		lGameLoader.addFont("assets/fonts/edosz.ttf");
+		lGameLoader.addFont("assets/fonts/ARCO.ttf");
 		
 		//Chargement des colliders
 		lGameLoader.addText("assets/colliders.json");
