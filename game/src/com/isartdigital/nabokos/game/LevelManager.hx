@@ -21,7 +21,7 @@ class LevelManager {
 	
 	private static var FULL_WALL: Array<Blocks> = [Blocks.WALL, Blocks.WALL, Blocks.WALL, Blocks.WALL, Blocks.WALL, Blocks.WALL, Blocks.WALL, Blocks.WALL, Blocks.WALL, Blocks.WALL];
 
-	public static var currentLevel(default, null): Array<Array<Blocks>>;
+	public static var currentLevel(get, null): Array<Array<Blocks>>;
 	
 	private static var levels(default, null): Array<Array<Array<Blocks>>>;
 	
@@ -166,6 +166,17 @@ class LevelManager {
 		if (lTargetTile == Blocks.WALL || lTargetTile == Blocks.MIRROR || lTargetTile == Blocks.BOX) return false;
 		
 		return false;
+	}
+	
+	/**
+	 * Getter du level actuel, qui place le player là où il est censé être
+	 */
+	static function get_currentLevel(){
+		var lReturnedLevel: Array<Array<Blocks>> = currentLevel.copy();
+		
+		lReturnedLevel[Std.int(playerPos.y)][Std.int(playerPos.x)] = Blocks.PLAYER;
+		
+		return lReturnedLevel;
 	}
 
 }
