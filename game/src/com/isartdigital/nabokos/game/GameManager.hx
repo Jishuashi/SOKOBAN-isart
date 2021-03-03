@@ -4,6 +4,7 @@ import com.isartdigital.nabokos.game.sprites.Template;
 import com.isartdigital.nabokos.ui.UIManager;
 import com.isartdigital.utils.debug.Debug;
 import com.isartdigital.utils.game.GameStage;
+import com.isartdigital.utils.game.KeyboardController;
 import com.isartdigital.utils.loader.GameLoader;
 import com.isartdigital.utils.sound.SoundManager;
 import com.isartdigital.utils.system.DeviceCapabilities;
@@ -20,22 +21,22 @@ import org.zamedev.particles.ParticleSystem;
 import org.zamedev.particles.loaders.ParticleLoader;
 import org.zamedev.particles.renderers.DefaultParticleRenderer;
 
-
 /**
  * ...
  * @author Chadi Husser
  */
-class GameManager 
+class GameManager
 {
-	
+	public static var controller:KeyboardController;
 	private static var particleSystem :ParticleSystem;
-	
-	public static function start() : Void {
+
+	public static function start() : Void
+	{
 		
 		UIManager.closeScreens();
 		
 		UIManager.openHud();
-				
+		
 		var lJson:Dynamic = Json.parse(GameLoader.getText("assets/settings/player.json"));
 		Monitor.setSettings(lJson, Template.getInstance());
 		
@@ -43,7 +44,7 @@ class GameManager
 		Monitor.start(Template.getInstance(), fields, lJson);
 		
 		var lRect :Rectangle = DeviceCapabilities.getScreenRect(GameStage.getInstance());
-
+		
 		var lParticleRenderer = DefaultParticleRenderer.createInstance();
 		GameStage.getInstance().getGameContainer().addChild(cast lParticleRenderer);
 		
@@ -52,10 +53,9 @@ class GameManager
 		
 		GameStage.getInstance().stage.addEventListener(MouseEvent.CLICK, onClick);
 		
-		
 		GameStage.getInstance().getGameContainer().addChild(Template.getInstance());
 		Template.getInstance().start();
-			
+		
 		var lPos:Point = new Point(lRect.x + lRect.width / 2, lRect.y + lRect.height / 2);
 		
 		Template.getInstance().x = lPos.x;
@@ -72,30 +72,37 @@ class GameManager
 		lAstronaut.x =  lRect.x + Math.random() * lRect.width;
 		lAstronaut.y = lRect.y + Math.random() * lRect.height;
 		
+		controller = new KeyboardController(Main.getInstance().stage);
+		
 		resumeGame();
 		
 		Lib.current.stage.addEventListener(Event.ENTER_FRAME, gameLoop);
 	}
-	
-	public static function resumeGame() : Void {
+
+	public static function resumeGame() : Void
+	{
 		SoundManager.getSound("world1").start();
 	}
-	
-	private static function onClick(pEvent:MouseEvent) : Void {
-		
+
+	private static function onClick(pEvent:MouseEvent) : Void
+	{
 		particleSystem.emit(GameStage.getInstance().getGameContainer().mouseX, GameStage.getInstance().getGameContainer().mouseY);
 		particleSystem.resume();
 	}
-	
-	private static function onChange(pValue:Bool) : Void {
+
+	private static function onChange(pValue:Bool) : Void
+	{
 		trace(pValue);
 	}
-	
-	public static function pauseGame() : Void {
+
+	public static function pauseGame() : Void
+	{
 		
 	}
-	
-	private static function gameLoop(pEvent:Event) : Void {
-		
+
+	private static function gameLoop(pEvent:Event) : Void
+	{
+		controller.doAction();
+		if (controller.leftDown) trace("patate");
 	}
 }

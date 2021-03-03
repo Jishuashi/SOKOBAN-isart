@@ -2,7 +2,7 @@ package com.isartdigital.nabokos;
 
 import com.isartdigital.nabokos.game.LevelManager;
 import com.isartdigital.nabokos.ui.GraphicLoader;
-import com.isartdigital.nabokos.ui.TitleCard;
+import com.isartdigital.nabokos.ui.screen.TitleCard;
 import com.isartdigital.nabokos.ui.UIManager;
 import com.isartdigital.utils.Config;
 import com.isartdigital.utils.debug.Debug;
@@ -19,6 +19,7 @@ import openfl.display.Sprite;
 import openfl.display.StageAlign;
 import openfl.display.StageScaleMode;
 import openfl.events.Event;
+import openfl.ui.Keyboard;
 
 
 class Main extends Sprite
@@ -53,9 +54,9 @@ class Main extends Sprite
 		
 		//SETUP du debug
 		Debug.init();
-
+		
 		UIManager.addScreen(GraphicLoader.getInstance());
-
+		
 		//CHARGEMENT
 		var lGameLoader:GameLoader = new GameLoader();
 		lGameLoader.addEventListener(AssetsLoaderEvent.PROGRESS, onLoadProgress);
@@ -111,7 +112,7 @@ class Main extends Sprite
 		lGameLoader.removeEventListener(AssetsLoaderEvent.COMPLETE, onLoadComplete);		
 		
 		SoundManager.initSounds();
-	
+		
 		//Ajout des colliders des stateObjects
 		StateManager.addColliders(Json.parse(GameLoader.getText("assets/colliders.json")));
 		
