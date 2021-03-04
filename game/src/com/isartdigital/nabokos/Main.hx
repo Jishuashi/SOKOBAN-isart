@@ -2,6 +2,7 @@ package com.isartdigital.nabokos;
 
 import com.isartdigital.nabokos.game.LevelManager;
 import com.isartdigital.nabokos.ui.GraphicLoader;
+import com.isartdigital.nabokos.ui.screen.LoginScreen;
 import com.isartdigital.nabokos.ui.screen.TitleCard;
 import com.isartdigital.nabokos.ui.UIManager;
 import com.isartdigital.utils.Config;
@@ -19,6 +20,7 @@ import openfl.display.Sprite;
 import openfl.display.StageAlign;
 import openfl.display.StageScaleMode;
 import openfl.events.Event;
+import openfl.text.TextFormat;
 import openfl.ui.Keyboard;
 
 
@@ -26,6 +28,7 @@ class Main extends Sprite
 {
 	
 	private static var instance:Main;
+	public var ARCO:TextFormat;
 	
 	public static function getInstance():Main {
 		return instance;
@@ -116,7 +119,8 @@ class Main extends Sprite
 		//Ajout des colliders des stateObjects
 		StateManager.addColliders(Json.parse(GameLoader.getText("assets/colliders.json")));
 		
-		UIManager.addScreen(TitleCard.getInstance());
+		//UIManager.addScreen(TitleCard.getInstance());
+		UIManager.addScreen(LoginScreen.getInstance());
 		
 		LevelManager.init();
 	}

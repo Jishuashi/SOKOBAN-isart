@@ -7,6 +7,8 @@ import com.isartdigital.utils.ui.UIPositionable;
 import com.isartdigital.utils.ui.Screen;
 import openfl.display.DisplayObject;
 import openfl.events.MouseEvent;
+import openfl.text.TextField;
+import openfl.text.TextFormat;
 
 /**
  * ...
@@ -21,10 +23,16 @@ class TitleCard extends Screen
 	private var buttonHighscores:DisplayObject;
 	private var buttonSound:DisplayObject;
 	private var buttonLangues:DisplayObject;
+	//private var modifiedPlayText:TextField;
 
 	private function new()
 	{
 		super();
+		
+		//modifiedPlayText	= cast(content.getChildByName("modifiedPlayText"), TextField);
+		//var Arco:TextFormat = new TextFormat(Assets.getFont("fonts/ARCO.ttf").fontName);
+		//modifiedPlayText.setTextFormat(Arco);
+		
 		backgroundTitle		= content.getChildByName("backgroundTitle");
 		buttonPlay 			= content.getChildByName("btnPlay");
 		buttonHelp			= content.getChildByName("btnHelp");

@@ -1,0 +1,38 @@
+{
+    "LABEL_PLAY":
+    {
+    "en":"Play",
+    "fr":"Jouer"
+    },
+    "LABEL_HELP":
+    {
+    "en":"Help",
+    "fr":"Aide"
+    },
+    "LABEL_SOUND":
+    {
+    "en":"Sound on/off",
+    "fr":"Musique on/off"
+    },
+	"LABEL_LEVELS":
+    {
+    "en":"Levels",
+    "fr":"Niveaux"
+    },
+	"LABEL_LEVEL":
+    {
+    "en":"level",
+    "fr":"niveau"
+    },
+	"LABEL_BACK":
+    {
+    "en":"Back",
+    "fr":"Retour"
+    },
+	"LABEL_TUTORIAL":
+    {
+    "en":"Tutorial",
+    "fr":"Tutoriel"
+    }
+}
+

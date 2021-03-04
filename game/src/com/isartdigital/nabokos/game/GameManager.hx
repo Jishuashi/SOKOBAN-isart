@@ -103,6 +103,9 @@ class GameManager
 	private static function gameLoop(pEvent:Event) : Void
 	{
 		controller.doAction();
-		if (controller.leftDown) trace("patate");
+		if (controller.leftDown) trace("lefted");
+		else if (controller.rightDown) trace("righted");
+		else if (controller.downDown) trace("downed");
+		else if (controller.upDown) trace("uped");
 	}
 }

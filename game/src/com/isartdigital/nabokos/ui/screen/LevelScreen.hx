@@ -66,23 +66,23 @@ class LevelScreen extends Screen
 		positionables.push(lPositionnable);
 		lPositionnable = { item:buttonTuto, align:AlignType.TOP, offsetY:350};
 		positionables.push(lPositionnable);
-		lPositionnable = { item:buttonLvl1, align:AlignType.TOP_LEFT, offsetY:600, offsetX:900};
+		lPositionnable = { item:buttonLvl1, align:AlignType.TOP, offsetY:600};
 		positionables.push(lPositionnable);
 		lPositionnable = { item:buttonLvl2, align:AlignType.TOP, offsetY:600};
 		positionables.push(lPositionnable);
-		lPositionnable = { item:buttonLvl3, align:AlignType.TOP_RIGHT, offsetY:600, offsetX:950};
+		lPositionnable = { item:buttonLvl3, align:AlignType.TOP, offsetY:600};
 		positionables.push(lPositionnable);
-		lPositionnable = { item:buttonLvl4, align:AlignType.TOP_LEFT, offsetY:850, offsetX:900};
+		lPositionnable = { item:buttonLvl4, align:AlignType.TOP, offsetY:850};
 		positionables.push(lPositionnable);
 		lPositionnable = { item:buttonLvl5, align:AlignType.TOP, offsetY:850};
 		positionables.push(lPositionnable);
-		lPositionnable = { item:buttonLvl6, align:AlignType.TOP_RIGHT, offsetY:850, offsetX:950};
+		lPositionnable = { item:buttonLvl6, align:AlignType.TOP, offsetY:850};
 		positionables.push(lPositionnable);
-		lPositionnable = { item:buttonLvl7, align:AlignType.TOP_LEFT, offsetY:1100, offsetX:900};
+		lPositionnable = { item:buttonLvl7, align:AlignType.TOP, offsetY:1100};
 		positionables.push(lPositionnable);
 		lPositionnable = { item:buttonLvl8, align:AlignType.TOP, offsetY:1100};
 		positionables.push(lPositionnable);
-		lPositionnable = { item:buttonLvl9, align:AlignType.TOP_RIGHT, offsetY:1100, offsetX:950};
+		lPositionnable = { item:buttonLvl9, align:AlignType.TOP, offsetY:1100};
 		positionables.push(lPositionnable);
 	}
 
