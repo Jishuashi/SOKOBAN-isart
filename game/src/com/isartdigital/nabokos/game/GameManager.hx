@@ -78,9 +78,7 @@ class GameManager
 		
 		controller = new KeyboardController(Main.getInstance().stage);
 		
-		trace(LevelManager.currentLevel);
-		
-		radarView.updateView(LevelManager.currentLevel);	
+		radarView.updateView(LevelManager.getCurrentLevel());	
 		
 		//Lib.current.stage.addEventListener(Event.ENTER_FRAME, gameLoop);
 	}

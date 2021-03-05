@@ -19,9 +19,9 @@ typedef Level = {
 
 class LevelManager {
 	
-	private static var FULL_WALL: Array<Blocks> = [Blocks.WALL, Blocks.WALL, Blocks.WALL, Blocks.WALL, Blocks.WALL, Blocks.WALL, Blocks.WALL, Blocks.WALL, Blocks.WALL, Blocks.WALL];
+	private static var FULL_WALL: Array<Blocks> = [Blocks.WALL, Blocks.WALL, Blocks.WALL, Blocks.WALL, Blocks.WALL, Blocks.WALL, Blocks.WALL, Blocks.WALL, Blocks.WALL, Blocks.WALL, Blocks.WALL];
 
-	public static var currentLevel(get, null): Array<Array<Blocks>>;
+	public static var currentLevel(null, null): Array<Array<Blocks>>;
 	
 	private static var levels(default, null): Array<Array<Array<Blocks>>>;
 	
@@ -74,11 +74,11 @@ class LevelManager {
 			}
 		}
 		
-		selectLevel(0);
-		
 		for (i in 0...levels.length) {
 			trace(levels[i] + "\n");
 		}
+		
+		selectLevel(0);
 	}
 	
 	/**
@@ -96,6 +96,8 @@ class LevelManager {
 		for (y in 0...currentLevel.length) {
 			for (x in 0...currentLevel[y].length) {
 				if (currentLevel[y][x] == Blocks.PLAYER) {
+					trace("test");
+					
 					currentLevel[y][x] = Blocks.GROUND;
 					
 					playerPos.x = x;
@@ -106,6 +108,8 @@ class LevelManager {
 			
 			if (playerPos.x != 0 || playerPos.y != 0) break;
 		}
+		
+		trace(getCurrentLevel());
 		
 		return true;
 	}
@@ -171,7 +175,7 @@ class LevelManager {
 	/**
 	 * Getter du level actuel, qui place le player là où il est censé être
 	 */
-	static function get_currentLevel(){
+	public static function getCurrentLevel(): Array<Array<Blocks>>{
 		var lReturnedLevel: Array<Array<Blocks>> = currentLevel.copy();
 		
 		lReturnedLevel[Std.int(playerPos.y)][Std.int(playerPos.x)] = Blocks.PLAYER;
