@@ -12,11 +12,6 @@ class KeyboardController
 	private var myStage:Stage;
 	private var allKeysJustDown:Array<Bool>	= [];
 	private var allKeysDown:Array<Bool> = [];
-	
-	public var leftDown(get, null):Bool;
-	public var rightDown(get, null):Bool;
-	public var upDown(get, null):Bool;
-	public var downDown(get, null):Bool;
 
 	public function new(pStage:Stage)
 	{
@@ -25,35 +20,36 @@ class KeyboardController
 		myStage.addEventListener(KeyboardEvent.KEY_UP, onKeyboardUp);
 	}
 
-	public function doAction():Void
-	{
-		for (i in allKeysJustDown.length-1...0) 
-		{
+	public function doAction():Void {
+		var tabLength: Int = allKeysJustDown.length;
+		
+		for (i in 0...tabLength) {
 			allKeysJustDown[i] = false;
 		}
 	}
 
-	private function get_leftDown():Bool
+	public function isLeftDown():Bool
 	{
-		trace("left");
+		//trace(allKeysJustDown[Keyboard.LEFT]);
+		//trace(allKeysJustDown[Keyboard.Q]);
 		return (allKeysJustDown[Keyboard.LEFT] || allKeysJustDown[Keyboard.Q]);
 	}
 	
-	private function get_rightDown():Bool
+	public function isRightDown():Bool
 	{
-		trace("right");
+		//trace("right");
 		return (allKeysJustDown[Keyboard.RIGHT] || allKeysJustDown[Keyboard.D]);
 	}
 
-	private function get_upDown():Bool
+	public function isUpDown():Bool
 	{
-		trace("up");
+		//trace("up");
 		return (allKeysJustDown[Keyboard.UP] || allKeysJustDown[Keyboard.Z]);
 	}
 
-	private function get_downDown():Bool
+	public function isDownDown():Bool
 	{
-		trace("down");
+		//trace("down");
 		return (allKeysJustDown[Keyboard.DOWN] || allKeysJustDown[Keyboard.S]);
 	}
 
@@ -76,7 +72,7 @@ class KeyboardController
 		myStage.removeEventListener(KeyboardEvent.KEY_UP, onKeyboardUp);
 		
 		allKeysDown = null;
-		myStage       = null;
+		myStage     = null;
 	}
 
 }

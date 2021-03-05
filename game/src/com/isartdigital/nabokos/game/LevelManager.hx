@@ -19,13 +19,13 @@ typedef Level = {
 
 class LevelManager {
 	
-	private static var FULL_WALL: Array<Blocks> = [Blocks.WALL, Blocks.WALL, Blocks.WALL, Blocks.WALL, Blocks.WALL, Blocks.WALL, Blocks.WALL, Blocks.WALL, Blocks.WALL, Blocks.WALL, Blocks.WALL];
+	private static var FULL_WALL: Array<Array<Blocks>> = [[Blocks.WALL], [Blocks.WALL], [Blocks.WALL], [Blocks.WALL], [Blocks.WALL], [Blocks.WALL], [Blocks.WALL], [Blocks.WALL], [Blocks.WALL], [Blocks.WALL], [Blocks.WALL]];
 
-	public static var currentLevel(null, null): Array<Array<Blocks>>;
+	public static var currentLevel(null, null): Array<Array<Array<Blocks>>>;
 	
-	private static var levels(default, null): Array<Array<Array<Blocks>>>;
+	private static var levels(default, null): Array<Array<Array<Array<Blocks>>>>;
 	
-	private static var playerPos: Point = new Point();
+	private static var levelNum: Int = 0;
 	
 	private function new() {}
 	
@@ -39,30 +39,32 @@ class LevelManager {
 		
 		var levelDesign: Array<Level> = Reflect.field(levelObject, "levelDesign");
         
-        currentLevel = new Array<Array<Blocks>>();
-		levels = new Array<Array<Array<Blocks>>>();
+        currentLevel = new Array<Array<Array<Blocks>>>();
+		levels = new Array<Array<Array<Array<Blocks>>>>();
 		
 		for (level in levelDesign) {
 			
-			levels.push(new Array<Array<Blocks>>());
+			levels.push(new Array<Array<Array<Blocks>>>());
 			
 			for (row in level.map) {
-				var currentRow: Array<Blocks> = new Array<Blocks>();
+				var currentRow: Array<Array<Blocks>> = new Array<Array<Blocks>>();
 				
 				for (char in row.split("")) {
 					switch (char) {
-						case " ": currentRow.push(Blocks.GROUND);
-						case "#": currentRow.push(Blocks.WALL);
-						case ".": currentRow.push(Blocks.TARGET);
-						case "$": currentRow.push(Blocks.BOX);
-						case "@": currentRow.push(Blocks.PLAYER);
-						case "M": currentRow.push(Blocks.MIRROR);
+						case " ": currentRow.push([Blocks.GROUND]);
+						case "#": currentRow.push([Blocks.WALL]);
+						case ".": currentRow.push([Blocks.TARGET]);
+						case "$": currentRow.push([Blocks.BOX, Blocks.GROUND]);
+						case "@": currentRow.push([Blocks.PLAYER, Blocks.GROUND]);
+						case "M": currentRow.push([Blocks.MIRROR]);
+						case "+": currentRow.push([Blocks.PLAYER, Blocks.TARGET]);
+						case "*": currentRow.push([Blocks.BOX, Blocks.TARGET]);
 					}
 				}
 				
 				if (level.locked) {
-					currentRow.push(Blocks.WALL);
-					currentRow.unshift(Blocks.WALL);
+					currentRow.push([Blocks.WALL]);
+					currentRow.unshift([Blocks.WALL]);
 				}
 				
 				levels[levels.length - 1].push(currentRow);
@@ -78,7 +80,7 @@ class LevelManager {
 			trace(levels[i] + "\n");
 		}
 		
-		selectLevel(0);
+		selectLevel(1);
 	}
 	
 	/**
@@ -91,23 +93,7 @@ class LevelManager {
 		
 		currentLevel = levels[pLevel].copy();
 		
-		playerPos = new Point();
-		
-		for (y in 0...currentLevel.length) {
-			for (x in 0...currentLevel[y].length) {
-				if (currentLevel[y][x] == Blocks.PLAYER) {
-					trace("test");
-					
-					currentLevel[y][x] = Blocks.GROUND;
-					
-					playerPos.x = x;
-					playerPos.y = y;
-					break;
-				}
-			}
-			
-			if (playerPos.x != 0 || playerPos.y != 0) break;
-		}
+		levelNum = pLevel;
 		
 		trace(getCurrentLevel());
 		
@@ -121,53 +107,65 @@ class LevelManager {
 	 * @return	Bool indiquant si l'action que le joueur veut effectuer est faisable, ou non
 	 */
 	public static function playerAction(pMove: PlayerActions): Bool {
-		var lNextPosPlayer: Point = new Point(playerPos.x, playerPos.y);
+		var lPlayerPos: Point = new Point();
+		
+		for (y in 0...currentLevel.length) {
+			for (x in 0...currentLevel[y].length) {
+				if (currentLevel[y][x].contains(Blocks.PLAYER))
+					lPlayerPos.setTo(x, y);
+			}
+		}
+		
+		var lPlayerNextPos: Point = new Point(lPlayerPos.x, lPlayerPos.y);
 		
 		switch (pMove) {
 			case PlayerActions.LEFT:
-				lNextPosPlayer.x--;
+				lPlayerNextPos.x--;
 			
 			case PlayerActions.RIGHT:
-				lNextPosPlayer.x++;
+				lPlayerNextPos.x++;
 			
 			case PlayerActions.DOWN:
-				lNextPosPlayer.y++;
+				lPlayerNextPos.y++;
 			
 			case PlayerActions.UP:
-				lNextPosPlayer.y--;
+				lPlayerNextPos.y--;
 			
 			default:
 				return false;
 		}
 		
-		var lTargetTile: Blocks = currentLevel[Std.int(lNextPosPlayer.y)][Std.int(lNextPosPlayer.x)];
+		var lTargetTile: Array<Blocks> = currentLevel[Std.int(lPlayerNextPos.y)][Std.int(lPlayerNextPos.x)];
 		
-		if (lTargetTile == Blocks.GROUND || lTargetTile == Blocks.TARGET) {
-			playerPos = lNextPosPlayer;
+		if (lTargetTile[0] == Blocks.GROUND || lTargetTile[0] == Blocks.TARGET) {
+			lTargetTile.unshift(Blocks.PLAYER);
+			currentLevel[Std.int(lPlayerPos.y)][Std.int(lPlayerPos.x)].shift();
 			
 			return true;
 		}
 		
-		if (lTargetTile == Blocks.BOX) {
-			var lNextPosBox: Point = new Point(lNextPosPlayer.x, lNextPosPlayer.y);
+		if (lTargetTile.contains(Blocks.BOX)) {
+			var lNextPosBox: Point = new Point(lPlayerNextPos.x, lPlayerNextPos.y);
 			
-			lNextPosBox.x += lNextPosPlayer.x - playerPos.x;
-			lNextPosBox.y += lNextPosPlayer.y - playerPos.y;
+			lNextPosBox.x += lPlayerNextPos.x - lPlayerPos.x;
+			lNextPosBox.y += lPlayerNextPos.y - lPlayerPos.y;
 			
-			lTargetTile = currentLevel[Std.int(lNextPosPlayer.y)][Std.int(lNextPosPlayer.x)];
+			lTargetTile = currentLevel[Std.int(lNextPosBox.y)][Std.int(lNextPosBox.x)];
 			
-			if (lTargetTile == Blocks.GROUND || lTargetTile == Blocks.TARGET) {
-				currentLevel[Std.int(lNextPosBox.y)][Std.int(lNextPosBox.x)] = Blocks.BOX;
-				currentLevel[Std.int(lNextPosPlayer.y)][Std.int(lNextPosPlayer.x)] = levels[levels.indexOf(currentLevel)][Std.int(lNextPosPlayer.y)][Std.int(lNextPosPlayer.x)];
+			if (lTargetTile[0] == Blocks.GROUND || lTargetTile[0] == Blocks.TARGET) {
+				lTargetTile.unshift(Blocks.BOX);
 				
-				playerPos.x = lNextPosPlayer.x;
-				playerPos.y = lNextPosPlayer.y;
+				currentLevel[Std.int(lPlayerNextPos.y)][Std.int(lPlayerNextPos.x)].shift();
+				
+				currentLevel[Std.int(lPlayerNextPos.y)][Std.int(lPlayerNextPos.x)].unshift(Blocks.PLAYER);
+				
+				currentLevel[Std.int(lPlayerPos.y)][Std.int(lPlayerPos.x)].shift();
 				
 				return true;
 			}
 		}
 		
-		if (lTargetTile == Blocks.WALL || lTargetTile == Blocks.MIRROR || lTargetTile == Blocks.BOX) return false;
+		if (lTargetTile.contains(Blocks.WALL) || lTargetTile.contains(Blocks.MIRROR) || lTargetTile.contains(Blocks.BOX)) return false;
 		
 		return false;
 	}
@@ -175,12 +173,10 @@ class LevelManager {
 	/**
 	 * Getter du level actuel, qui place le player là où il est censé être
 	 */
-	public static function getCurrentLevel(): Array<Array<Blocks>>{
-		var lReturnedLevel: Array<Array<Blocks>> = currentLevel.copy();
+	public static function getCurrentLevel(): Array<Array<Array<Blocks>>>{
+		trace(currentLevel);
 		
-		lReturnedLevel[Std.int(playerPos.y)][Std.int(playerPos.x)] = Blocks.PLAYER;
-		
-		return lReturnedLevel;
+		return currentLevel.copy();
 	}
 
 }
