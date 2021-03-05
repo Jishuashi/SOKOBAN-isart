@@ -2,7 +2,7 @@
 <project>
 	
 	<meta version="2.0.0" package="com.isartdigital.nabokos.Nabokos" title="Structure Haxe OpenFL" company="Nabokos"/>
-	<app file="Nabokos " path="bin" main="com.isartdigital.nabokos.Main"/>
+	<app file="Nabokos" path="bin" main="com.isartdigital.nabokos.Main"/>
 	
 	<source path="src"/>
 	<haxelib name="openfl"/> 

@@ -1,5 +1,8 @@
 package com.isartdigital.nabokos.game;
 import com.isartdigital.nabokos.game.sprites.Astronaut;
+import com.isartdigital.nabokos.game.sprites.GameView;
+import com.isartdigital.nabokos.game.sprites.RadarAssets;
+import com.isartdigital.nabokos.game.sprites.RadarView;
 import com.isartdigital.nabokos.game.sprites.Template;
 import com.isartdigital.nabokos.ui.UIManager;
 import com.isartdigital.utils.debug.Debug;
@@ -29,6 +32,7 @@ class GameManager
 {
 	public static var controller:KeyboardController;
 	private static var particleSystem :ParticleSystem;
+	public static var radarView : GameView = new RadarView();
 
 	public static function start() : Void
 	{
@@ -45,7 +49,7 @@ class GameManager
 		
 		var lRect :Rectangle = DeviceCapabilities.getScreenRect(GameStage.getInstance());
 		
-		var lParticleRenderer = DefaultParticleRenderer.createInstance();
+		/*var lParticleRenderer = DefaultParticleRenderer.createInstance();
 		GameStage.getInstance().getGameContainer().addChild(cast lParticleRenderer);
 		
 		particleSystem = ParticleLoader.load("assets/particles/fire.plist");
@@ -70,13 +74,15 @@ class GameManager
 		lAstronaut.start();
 		
 		lAstronaut.x =  lRect.x + Math.random() * lRect.width;
-		lAstronaut.y = lRect.y + Math.random() * lRect.height;
+		lAstronaut.y = lRect.y + Math.random() * lRect.height;*/
 		
 		controller = new KeyboardController(Main.getInstance().stage);
 		
-		resumeGame();
+		trace(LevelManager.currentLevel);
 		
-		Lib.current.stage.addEventListener(Event.ENTER_FRAME, gameLoop);
+		radarView.updateView(LevelManager.currentLevel);	
+		
+		//Lib.current.stage.addEventListener(Event.ENTER_FRAME, gameLoop);
 	}
 
 	public static function resumeGame() : Void

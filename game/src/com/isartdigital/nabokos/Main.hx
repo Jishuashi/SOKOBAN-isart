@@ -74,6 +74,8 @@ class Main extends Sprite
 		
 		//Chargement des atlas
 		//lGameLoader.addAtlas("Astronaut");
+		lGameLoader.addAtlas("RadarAssets");
+		
 		
 		//Chargement des settings
 		lGameLoader.addText("assets/settings/player.json");
@@ -83,7 +85,7 @@ class Main extends Sprite
 		//lGameLoader.addBitmapData("assets/particles/fire.png");
 		
 		//Chargement des swf
-		//lGameLoader.addLibrary("assets");
+		lGameLoader.addLibrary("assets");
 		
 		//Chargement de l'ui
 		lGameLoader.addLibrary("ui");

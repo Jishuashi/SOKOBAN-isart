@@ -68,8 +68,8 @@ class TitleCard extends Screen
 
 	private function onClickPlay(pEvent:MouseEvent) : Void
 	{
-		UIManager.addScreen(LevelScreen.getInstance());
-		//GameManager.start();
+		//UIManager.addScreen(LevelScreen.getInstance());
+		GameManager.start();
 		SoundManager.getSound("click").start();
 	}
 
