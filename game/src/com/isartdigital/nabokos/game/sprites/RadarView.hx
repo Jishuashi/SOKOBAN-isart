@@ -18,76 +18,65 @@ class RadarView extends GameView
 	private var cellSize : Point = new Point(0, 0);
 	private var radarCellDef : CellDef = { gridX : 100, gridY : 100 };
 
+	
+	private static var instance: RadarView;
+	public static function getInstance(): RadarView {
+		if (instance == null) instance = new RadarView();
+		return instance;
+	}
+	
 	public function new()
 	{
 		super();
 	}
 
-	override public function updateView(pLevel:Array<Array<Blocks>>)
+	override public function updateView(pLevel:Array<Array<Array<Blocks>>>)
 	{
 		super.updateView(pLevel);
-
+		
 		var lAssets : Animation;
-
-		for (i in 0 ... pLevel.length)
+		
+		for (y in 0 ... pLevel.length)
 		{
-			for (j in 0 ... pLevel[i].length)
+			for (x in 0 ... pLevel[y].length)
 			{
-
-				if (pLevel[i][j] == Blocks.WALL)
-				{
-					lAssets = GameLoader.getAnimationFromAtlas("RadarWall");
-
-					lAssets.x += j * radarCellDef.gridX;
-					lAssets.y += i * radarCellDef.gridY;
-
+				var k: Int = pLevel[y][x].length-1;
+				
+				while (k >= 0) {
+					
+					switch (pLevel[y][x][k]) {
+						case Blocks.WALL:
+							lAssets = GameLoader.getAnimationFromAtlas("RadarWall");
+							
+						case Blocks.PLAYER :
+							lAssets = GameLoader.getAnimationFromAtlas("RadarPlayer");
+						
+						case Blocks.GROUND :
+							lAssets = GameLoader.getAnimationFromAtlas("RadarFloor");
+						
+						case Blocks.TARGET :
+							lAssets = GameLoader.getAnimationFromAtlas("RadarGoal");
+						
+						case Blocks.BOX :
+							lAssets = GameLoader.getAnimationFromAtlas("RadarBox");
+							
+						default:
+							lAssets = GameLoader.getAnimationFromAtlas("RadarFloor");
+					}
+					
+					lAssets.x += x * radarCellDef.gridX;
+					lAssets.y += y * radarCellDef.gridY;
+					
 					GameStage.getInstance().getGameContainer().addChild(lAssets);
-					continue;
-				}
-				else if (pLevel[i][j] == Blocks.PLAYER)
-				{
-					lAssets = GameLoader.getAnimationFromAtlas("RadarPlayer");
-
-					lAssets.x += j * radarCellDef.gridX;
-					lAssets.y += i * radarCellDef.gridY;
-
-					GameStage.getInstance().getGameContainer().addChild(lAssets);
-					continue;
-				}
-				else if (pLevel[i][j] == Blocks.GROUND)
-				{
-					lAssets = GameLoader.getAnimationFromAtlas("RadarFloor");
-
-					lAssets.x += j * radarCellDef.gridX;
-					lAssets.y += i * radarCellDef.gridY;
-
-					GameStage.getInstance().getGameContainer().addChild(lAssets);
-					continue;
-				}
-				else if (pLevel[i][j] == Blocks.TARGET)
-				{
-					lAssets = GameLoader.getAnimationFromAtlas("RadarGoal");
-
-					lAssets.x += j * radarCellDef.gridX;
-					lAssets.y += i * radarCellDef.gridY;
-
-					GameStage.getInstance().getGameContainer().addChild(lAssets);
-					continue;
-				}
-				else if (pLevel[i][j] == Blocks.BOX)
-				{
-					lAssets = GameLoader.getAnimationFromAtlas("RadarBox");
-
-					lAssets.x += j * radarCellDef.gridX;
-					lAssets.y += i * radarCellDef.gridY;
-
-					GameStage.getInstance().getGameContainer().addChild(lAssets);
-					continue;
+					
+					k--;
 				}
 			}
-
 		}
-
 	}
-
+	
+	override public function destroy(): Void {
+		super.destroy();
+		instance = null;
+	}
 }

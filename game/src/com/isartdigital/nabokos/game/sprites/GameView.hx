@@ -1,5 +1,6 @@
 package com.isartdigital.nabokos.game.sprites;
 
+import com.isartdigital.utils.game.GameStage;
 import openfl.display.Sprite;
 
 /**
@@ -15,10 +16,18 @@ class GameView extends Sprite
 
 	}
 
-	public function updateView(pLevel : Array<Array<Blocks>>)
+	public function updateView(pLevel : Array<Array<Array<Blocks>>>)
 	{
 		// met à jour la vue en fonction du niveau qu'on lui donne en paramètre
 		
+		resetView();
+	}
+	
+	public function resetView(): Void{
+		GameStage.getInstance().getGameContainer().removeChildren();
+	}
+	
+	public function destroy():Void {
 		
 	}
 	

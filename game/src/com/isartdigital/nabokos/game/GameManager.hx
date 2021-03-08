@@ -1,6 +1,7 @@
 package com.isartdigital.nabokos.game;
 import com.isartdigital.nabokos.game.sprites.Astronaut;
 import com.isartdigital.nabokos.game.sprites.GameView;
+import com.isartdigital.nabokos.game.sprites.PlayerActions;
 import com.isartdigital.nabokos.game.sprites.RadarAssets;
 import com.isartdigital.nabokos.game.sprites.RadarView;
 import com.isartdigital.nabokos.game.sprites.Template;
@@ -78,11 +79,9 @@ class GameManager
 		
 		controller = new KeyboardController(Main.getInstance().stage);
 		
-		trace(LevelManager.currentLevel);
+		radarView.updateView(LevelManager.getCurrentLevel());	
 		
-		radarView.updateView(LevelManager.currentLevel);	
-		
-		//Lib.current.stage.addEventListener(Event.ENTER_FRAME, gameLoop);
+		Lib.current.stage.addEventListener(Event.ENTER_FRAME, gameLoop);
 	}
 
 	public static function resumeGame() : Void
@@ -108,10 +107,31 @@ class GameManager
 
 	private static function gameLoop(pEvent:Event) : Void
 	{
+		var lPlayerAction: PlayerActions = null;
+		
+		if (controller.isLeftDown()) {
+			trace("lefted");
+			lPlayerAction = PlayerActions.LEFT;
+		}
+		else if (controller.isRightDown()) {
+			trace("righted");
+			lPlayerAction = PlayerActions.RIGHT;
+		}
+		else if (controller.isDownDown()) {
+			trace("downed");
+			lPlayerAction = PlayerActions.DOWN;
+		}
+		else if (controller.isUpDown()) {
+			trace("uped");
+			lPlayerAction = PlayerActions.UP;
+		}
+		
+		if (lPlayerAction != null) {
+			if (LevelManager.playerAction(lPlayerAction)) {
+				RadarView.getInstance().updateView(LevelManager.getCurrentLevel());
+			}
+		}
+		
 		controller.doAction();
-		if (controller.leftDown) trace("lefted");
-		else if (controller.rightDown) trace("righted");
-		else if (controller.downDown) trace("downed");
-		else if (controller.upDown) trace("uped");
 	}
 }
