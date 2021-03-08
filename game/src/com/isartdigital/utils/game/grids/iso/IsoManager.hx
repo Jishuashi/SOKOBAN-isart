@@ -1,5 +1,5 @@
 package com.isartdigital.utils.game.grids.iso;
-import com.isartdigital.game.sprites.tiles.TileObject;
+//import com.isartdigital.game.sprites.tiles.TileObject;
 import com.isartdigital.utils.game.grids.CellDef;
 import openfl.display.DisplayObject;
 import openfl.geom.Point;

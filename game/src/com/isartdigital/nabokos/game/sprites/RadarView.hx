@@ -15,9 +15,6 @@ import openfl.geom.Point;
  */
 class RadarView extends GameView
 {
-	private var cellSize : Point = new Point(0, 0);
-	private var radarCellDef : CellDef = { gridX : 100, gridY : 100 };
-
 	
 	private static var instance: RadarView;
 	public static function getInstance(): RadarView {
@@ -28,6 +25,11 @@ class RadarView extends GameView
 	public function new()
 	{
 		super();
+		cellSize = { gridX : 100, gridY : 100 };
+		
+		viewContainer = new Sprite();
+		viewContainer.scaleX = 0.8;
+		viewContainer.scaleY = 0.8;
 	}
 
 	override public function updateView(pLevel:Array<Array<Array<Blocks>>>)
@@ -60,19 +62,26 @@ class RadarView extends GameView
 						case Blocks.BOX :
 							lAssets = GameLoader.getAnimationFromAtlas("RadarBox");
 							
+						case Blocks.MIRROR :
+							lAssets = GameLoader.getAnimationFromAtlas("RadarMirror");
+							
 						default:
 							lAssets = GameLoader.getAnimationFromAtlas("RadarFloor");
 					}
 					
-					lAssets.x += x * radarCellDef.gridX;
-					lAssets.y += y * radarCellDef.gridY;
+					lAssets.x += x * cellSize.gridX;
+					lAssets.y += y * cellSize.gridY;
 					
-					GameStage.getInstance().getGameContainer().addChild(lAssets);
+					viewContainer.addChild(lAssets);
 					
 					k--;
 				}
 			}
 		}
+		
+		viewContainer.alpha = 0.65;
+		
+		GameStage.getInstance().getGameContainer().addChild(viewContainer);
 	}
 	
 	override public function destroy(): Void {
