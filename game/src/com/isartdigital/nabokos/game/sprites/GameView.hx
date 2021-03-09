@@ -24,6 +24,8 @@ class GameView extends Sprite
 	{
 		// met à jour la vue en fonction du niveau qu'on lui donne en paramètre
 		
+		trace("Updated");
+		
 		resetView();
 	}
 	
