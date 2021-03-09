@@ -28,8 +28,8 @@ class RadarView extends GameView
 		cellSize = { gridX : 100, gridY : 100 };
 		
 		viewContainer = new Sprite();
-		viewContainer.scaleX = 0.8;
-		viewContainer.scaleY = 0.8;
+		viewContainer.scaleX = 0.66;
+		viewContainer.scaleY = 0.66;
 	}
 
 	override public function updateView(pLevel:Array<Array<Array<Blocks>>>)
