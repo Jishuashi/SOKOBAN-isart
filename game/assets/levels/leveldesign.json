@@ -1,9 +1,9 @@
 {
-	"configNumber": 3.5,
 	"configString": "texte d'exemple",
+	"configBoolean": true,
 	"levelDesign": [
 		{
-			"par": 3,
+			"par": 11,
 			"locked": false,
 			"map": [
 				"         ",
@@ -18,7 +18,7 @@
 			]
 		},
 		{
-			"par": 5,
+			"par": 17,
 			"locked": false,
 			"map": [
 				"         ",
@@ -27,13 +27,13 @@
 				" #@   M# ",
 				" #  M  # ",
 				" # M   # ",
-				" #  M. # ",
+				" #  #. # ",
 				" ####### ",
 				"         "
 			]
 		},
 		{
-			"par": 7,
+			"par": 35,
 			"locked": false,
 			"map": [
 				"         ",
@@ -48,7 +48,7 @@
 			]
 		},
 		{
-			"par": 3,
+			"par": 55,
 			"locked": true,
 			"map": [
 				"## #M# ##",
@@ -63,7 +63,7 @@
 			]
 		},
 		{
-			"par": 9,
+			"par": 20,
 			"locked": true,
 			"map": [
 				"#########",
@@ -78,7 +78,7 @@
 			]
 		},
 		{
-			"par": 11,
+			"par": 30,
 			"locked": true,
 			"map": [
 				"         ",
@@ -93,7 +93,7 @@
 			]
 		},
 		{
-			"par": 3,
+			"par": 51,
 			"locked": true,
 			"map": [
 				"##   M# #",
@@ -108,7 +108,7 @@
 			]
 		},
 		{
-			"par": 3,
+			"par": 54,
 			"locked": false,
 			"map": [
 				"   ##### ",
@@ -116,14 +116,14 @@
 				"####   # ",
 				"#  #$. # ",
 				"#  $ M$# ",
-				"#  #@ .# ",
+				"#  M@ .# ",
 				"##$#.### ",
 				" #  .#   ",
 				" #####   "
 			]
 		},
 		{
-			"par": 3,
+			"par": 68,
 			"locked": true,
 			"map": [
 				"    $    ",
@@ -138,7 +138,7 @@
 			]
 		},
 		{
-			"par": 3,
+			"par": 36,
 			"locked": true,
 			"map": [
 				"##.  M  #",
@@ -153,7 +153,7 @@
 			]
 		},
 		{
-			"par": 3,
+			"par": 112,
 			"locked": false,
 			"map": [
 				" ########",
@@ -168,5 +168,5 @@
 			]
 		}
 	],
-	"configBoolean": true
+	"configNumber": 3.5
 }
