@@ -1,6 +1,7 @@
 package com.isartdigital.nabokos.game.sprites;
 
 import com.isartdigital.utils.game.GameStage;
+import com.isartdigital.utils.game.grids.CellDef;
 import openfl.display.Sprite;
 
 /**
@@ -9,6 +10,9 @@ import openfl.display.Sprite;
  */
 class GameView extends Sprite
 {
+	
+	private var cellSize : CellDef;
+	private var viewContainer: Sprite;
 
 	public function new()
 	{
@@ -20,11 +24,13 @@ class GameView extends Sprite
 	{
 		// met à jour la vue en fonction du niveau qu'on lui donne en paramètre
 		
+		trace("Updated");
+		
 		resetView();
 	}
 	
 	public function resetView(): Void{
-		GameStage.getInstance().getGameContainer().removeChildren();
+		viewContainer.removeChildren();
 	}
 	
 	public function destroy():Void {
