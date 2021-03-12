@@ -3,7 +3,6 @@ import com.isartdigital.nabokos.game.model.LevelManager;
 import com.isartdigital.nabokos.game.view.GameView;
 import com.isartdigital.nabokos.game.view.IsoView;
 import com.isartdigital.nabokos.game.view.RadarView;
-import com.isartdigital.nabokos.game.sprites.Template;
 import com.isartdigital.nabokos.game.model.PlayerActions;
 import com.isartdigital.nabokos.ui.UIManager;
 import com.isartdigital.utils.debug.Debug;
@@ -15,6 +14,7 @@ import com.isartdigital.utils.system.DeviceCapabilities;
 import com.isartdigital.utils.system.Monitor;
 import com.isartdigital.utils.system.MonitorField;
 import haxe.Json;
+import haxe.Template;
 import haxe.Timer;
 import openfl.Lib;
 import openfl.events.Event;
@@ -40,12 +40,6 @@ class GameManager
 		UIManager.closeScreens();
 		
 		UIManager.openHud();
-		
-		var lJson:Dynamic = Json.parse(GameLoader.getText("assets/settings/player.json"));
-		Monitor.setSettings(lJson, Template.getInstance());
-		
-		var fields : Array<MonitorField> = [{name:"smoothing", onChange:onChange}, {name:"x", step:1}, {name:"y", step:100}];
-		Monitor.start(Template.getInstance(), fields, lJson);
 		
 		var lRect :Rectangle = DeviceCapabilities.getScreenRect(GameStage.getInstance());
 		
