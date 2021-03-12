@@ -75,7 +75,7 @@ class Main extends Sprite
 		//Chargement des atlas
 		//lGameLoader.addAtlas("Astronaut");
 		lGameLoader.addAtlas("RadarAssets");
-		
+		lGameLoader.addAtlas("IsoAssets");
 		
 		//Chargement des settings
 		lGameLoader.addText("assets/settings/player.json");

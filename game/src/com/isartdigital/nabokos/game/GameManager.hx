@@ -1,8 +1,8 @@
 package com.isartdigital.nabokos.game;
 import com.isartdigital.nabokos.game.sprites.Astronaut;
 import com.isartdigital.nabokos.game.sprites.GameView;
+import com.isartdigital.nabokos.game.sprites.IsoView;
 import com.isartdigital.nabokos.game.sprites.PlayerActions;
-import com.isartdigital.nabokos.game.sprites.RadarAssets;
 import com.isartdigital.nabokos.game.sprites.RadarView;
 import com.isartdigital.nabokos.game.sprites.Template;
 import com.isartdigital.nabokos.ui.UIManager;
@@ -33,7 +33,6 @@ class GameManager
 {
 	public static var controller:KeyboardController;
 	private static var particleSystem :ParticleSystem;
-	public static var radarView : GameView = new RadarView();
 
 	public static function start() : Void
 	{
@@ -79,7 +78,8 @@ class GameManager
 		
 		controller = new KeyboardController(Main.getInstance().stage);
 		
-		radarView.updateView(LevelManager.getCurrentLevel());	
+		IsoView.getInstance().updateView(LevelManager.getCurrentLevel());
+		RadarView.getInstance().updateView(LevelManager.getCurrentLevel());	
 		
 		Lib.current.stage.addEventListener(Event.ENTER_FRAME, gameLoop);
 	}
@@ -110,24 +110,25 @@ class GameManager
 		var lPlayerAction: PlayerActions = null;
 		
 		if (controller.isLeftDown()) {
-			trace("lefted");
+			IsoView.getInstance().updatePlayerAsset(PlayerActions.LEFT);
 			lPlayerAction = PlayerActions.LEFT;
 		}
 		else if (controller.isRightDown()) {
-			trace("righted");
+			IsoView.getInstance().updatePlayerAsset(PlayerActions.RIGHT);
 			lPlayerAction = PlayerActions.RIGHT;
 		}
 		else if (controller.isDownDown()) {
-			trace("downed");
+			IsoView.getInstance().updatePlayerAsset(PlayerActions.DOWN);
 			lPlayerAction = PlayerActions.DOWN;
 		}
 		else if (controller.isUpDown()) {
-			trace("uped");
+			IsoView.getInstance().updatePlayerAsset(PlayerActions.UP);
 			lPlayerAction = PlayerActions.UP;
 		}
 		
 		if (lPlayerAction != null) {
 			if (LevelManager.playerAction(lPlayerAction)) {
+				IsoView.getInstance().updateView(LevelManager.getCurrentLevel());
 				RadarView.getInstance().updateView(LevelManager.getCurrentLevel());
 			}
 		}
