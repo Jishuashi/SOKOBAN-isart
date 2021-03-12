@@ -1,5 +1,6 @@
-package com.isartdigital.nabokos.game.sprites;
+package com.isartdigital.nabokos.game.view;
 
+import com.isartdigital.nabokos.game.model.Blocks;
 import com.isartdigital.utils.game.GameStage;
 import com.isartdigital.utils.game.grids.CellDef;
 import openfl.display.Sprite;

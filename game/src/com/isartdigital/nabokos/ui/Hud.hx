@@ -1,8 +1,8 @@
 package com.isartdigital.nabokos.ui;
 
-import com.isartdigital.nabokos.game.LevelManager;
-import com.isartdigital.nabokos.game.sprites.IsoView;
-import com.isartdigital.nabokos.game.sprites.RadarView;
+import com.isartdigital.nabokos.game.model.LevelManager;
+import com.isartdigital.nabokos.game.view.IsoView;
+import com.isartdigital.nabokos.game.view.RadarView;
 import com.isartdigital.utils.ui.AlignType;
 import com.isartdigital.utils.ui.Screen;
 import com.isartdigital.utils.ui.UIPositionable;

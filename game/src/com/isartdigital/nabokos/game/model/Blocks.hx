@@ -1,4 +1,4 @@
-package com.isartdigital.nabokos.game;
+package com.isartdigital.nabokos.game.model;
 
 /**
  * @author Anthony TIREL--TARTUFFE

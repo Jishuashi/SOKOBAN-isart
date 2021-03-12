@@ -1,14 +1,14 @@
-package com.isartdigital.nabokos.game;
-import com.isartdigital.nabokos.game.sprites.Astronaut;
-import com.isartdigital.nabokos.game.sprites.GameView;
-import com.isartdigital.nabokos.game.sprites.IsoView;
-import com.isartdigital.nabokos.game.sprites.PlayerActions;
-import com.isartdigital.nabokos.game.sprites.RadarView;
+package com.isartdigital.nabokos.game.presenter;
+import com.isartdigital.nabokos.game.model.LevelManager;
+import com.isartdigital.nabokos.game.view.GameView;
+import com.isartdigital.nabokos.game.view.IsoView;
+import com.isartdigital.nabokos.game.view.RadarView;
 import com.isartdigital.nabokos.game.sprites.Template;
+import com.isartdigital.nabokos.game.model.PlayerActions;
 import com.isartdigital.nabokos.ui.UIManager;
 import com.isartdigital.utils.debug.Debug;
 import com.isartdigital.utils.game.GameStage;
-import com.isartdigital.utils.game.KeyboardController;
+import com.isartdigital.nabokos.game.presenter.KeyboardController;
 import com.isartdigital.utils.loader.GameLoader;
 import com.isartdigital.utils.sound.SoundManager;
 import com.isartdigital.utils.system.DeviceCapabilities;
@@ -48,33 +48,6 @@ class GameManager
 		Monitor.start(Template.getInstance(), fields, lJson);
 		
 		var lRect :Rectangle = DeviceCapabilities.getScreenRect(GameStage.getInstance());
-		
-		/*var lParticleRenderer = DefaultParticleRenderer.createInstance();
-		GameStage.getInstance().getGameContainer().addChild(cast lParticleRenderer);
-		
-		particleSystem = ParticleLoader.load("assets/particles/fire.plist");
-		lParticleRenderer.addParticleSystem(particleSystem);
-		
-		GameStage.getInstance().stage.addEventListener(MouseEvent.CLICK, onClick);
-		
-		GameStage.getInstance().getGameContainer().addChild(Template.getInstance());
-		Template.getInstance().start();
-		
-		var lPos:Point = new Point(lRect.x + lRect.width / 2, lRect.y + lRect.height / 2);
-		
-		Template.getInstance().x = lPos.x;
-		Template.getInstance().y = lPos.y;
-		
-		Debug.drawPoint(lPos);
-		
-		Debug.drawVector(lPos, new Point(250,0), 0x0000ff);
-		
-		var lAstronaut:Astronaut = new Astronaut();
-		GameStage.getInstance().getGameContainer().addChild(lAstronaut);
-		lAstronaut.start();
-		
-		lAstronaut.x =  lRect.x + Math.random() * lRect.width;
-		lAstronaut.y = lRect.y + Math.random() * lRect.height;*/
 		
 		controller = new KeyboardController(Main.getInstance().stage);
 		

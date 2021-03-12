@@ -1,11 +1,11 @@
-package com.isartdigital.utils.game;
+package com.isartdigital.nabokos.game.presenter;
 import openfl.display.Stage;
 import openfl.events.KeyboardEvent;
 import openfl.ui.Keyboard;
 
 /**
  * ...
- * @author Blanco
+ * @author Garance LESPAGNOL
  */
 class KeyboardController
 {

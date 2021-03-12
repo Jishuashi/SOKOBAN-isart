@@ -1,6 +1,6 @@
 package com.isartdigital.nabokos;
 
-import com.isartdigital.nabokos.game.LevelManager;
+import com.isartdigital.nabokos.game.model.LevelManager;
 import com.isartdigital.nabokos.ui.GraphicLoader;
 import com.isartdigital.nabokos.ui.screen.LoginScreen;
 import com.isartdigital.nabokos.ui.screen.TitleCard;

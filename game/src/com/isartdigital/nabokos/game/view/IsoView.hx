@@ -1,6 +1,8 @@
-package com.isartdigital.nabokos.game.sprites;
-import com.isartdigital.nabokos.game.Blocks;
+package com.isartdigital.nabokos.game.view;
+import com.isartdigital.nabokos.game.model.Blocks;
 import animateAtlasPlayer.core.Animation;
+import com.isartdigital.nabokos.game.model.PlayerActions;
+import com.isartdigital.nabokos.game.view.GameView;
 import com.isartdigital.utils.game.GameStage;
 import com.isartdigital.utils.game.grids.CellDef;
 import com.isartdigital.utils.game.grids.iso.IsoManager;

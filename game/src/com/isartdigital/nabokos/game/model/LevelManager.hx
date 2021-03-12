@@ -1,5 +1,6 @@
-package com.isartdigital.nabokos.game;
-import com.isartdigital.nabokos.game.sprites.PlayerActions;
+package com.isartdigital.nabokos.game.model;
+import com.isartdigital.nabokos.game.model.Blocks;
+import com.isartdigital.nabokos.game.model.PlayerActions;
 import com.isartdigital.utils.loader.GameLoader;
 import haxe.Json;
 import openfl.geom.Point;
