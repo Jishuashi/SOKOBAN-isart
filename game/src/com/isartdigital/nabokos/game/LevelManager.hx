@@ -27,12 +27,6 @@ class LevelManager
 	private static var levels(default, null): Array<Array<Array<Array<Blocks>>>>;
 
 	public static var levelNum: Int = 1;
-	
-	public static var boxList: Array<Blocks>;
-	public static var boxPosition: Array<Point>;
-	
-	public static var mirrorList: Array<Blocks>;
-	public static var mirrorPosition: Array<Point>;
 
 	private function new() {}
 
@@ -203,26 +197,13 @@ class LevelManager
 
 		return false;
 	}
-	
-	/**
-	 * responsable de refléter les boites
-	 */
-	private function reflectBoxes(): Void
-	{
-		for (t in 0...mirrorList.length){
-			for (q in 0...boxList.length){
-				if (mirrorPosition[t].x == boxPosition[q].x || mirrorPosition[t].y == boxPosition[q].y){
-					trace ("pipi");
-				}
-			}
-		}
-	}
 
 	/**
 	 * Getter du level actuel, qui place le player là où il est censé être
 	 */
 	public static function getCurrentLevel(): Array<Array<Array<Blocks>>>
 	{
+
 		return currentLevel.copy();
 	}
 
