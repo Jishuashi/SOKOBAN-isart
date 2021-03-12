@@ -1,4 +1,4 @@
-package com.isartdigital.nabokos;
+	package com.isartdigital.nabokos;
 
 import com.isartdigital.nabokos.game.model.LevelManager;
 import com.isartdigital.nabokos.ui.GraphicLoader;

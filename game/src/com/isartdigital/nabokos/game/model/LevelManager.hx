@@ -198,7 +198,12 @@ class LevelManager
 
 		return false;
 	}
-
+	
+	public static function editCurrentLevel(pLevel : Array<Array<Array<Blocks>>>): Void {
+		if (pLevel != null)
+			currentLevel = pLevel;
+	}
+	
 	/**
 	 * Getter du level actuel, qui place le player là où il est censé être
 	 */
