@@ -1,6 +1,8 @@
 package com.isartdigital.nabokos.ui;
 
+import com.isartdigital.nabokos.game.model.Blocks;
 import com.isartdigital.nabokos.game.model.LevelManager;
+import com.isartdigital.nabokos.game.model.MoveHistory;
 import com.isartdigital.nabokos.game.view.IsoView;
 import com.isartdigital.nabokos.game.view.RadarView;
 import com.isartdigital.utils.ui.AlignType;
@@ -43,14 +45,33 @@ class Hud extends Screen
 		
 		btnRetry.addEventListener(MouseEvent.CLICK, retry);
 		btnRedo.addEventListener(MouseEvent.CLICK, redo);
-		btnRedo.addEventListener(MouseEvent.CLICK, undo);
+		btnUndo.addEventListener(MouseEvent.CLICK, undo);
 	}
-	//
-	//public function redo(pEvent : MouseEvent){}
-	//
-	//public function undo(pEvent : MouseEvent){}
 	
-	public function retry(pEvent : MouseEvent)
+	public function redo(pEvent : MouseEvent): Void {
+		var lLevel: Array<Array<Array<Blocks>>> = MoveHistory.getInstance().redo();
+		
+		if (lLevel != null) {
+			LevelManager.editCurrentLevel(lLevel);
+			
+			IsoView.getInstance().updateView(lLevel);
+			RadarView.getInstance().updateView(lLevel);
+		}
+		
+	}
+	
+	public function undo(pEvent : MouseEvent): Void {
+		var lLevel: Array<Array<Array<Blocks>>> = MoveHistory.getInstance().undo();
+		
+		if (lLevel != null) {
+			LevelManager.editCurrentLevel(lLevel);
+			
+			IsoView.getInstance().updateView(lLevel);
+			RadarView.getInstance().updateView(lLevel);
+		}		
+	}
+	
+	public function retry(pEvent : MouseEvent): Void
 	{		
 		LevelManager.selectLevel(LevelManager.levelNum);
 		

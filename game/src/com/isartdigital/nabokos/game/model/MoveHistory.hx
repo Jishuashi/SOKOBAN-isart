@@ -34,7 +34,16 @@ class MoveHistory {
 	/**
 	 * constructeur privé pour éviter qu'une instance soit créée directement
 	 */
-	private function new() {}
+	private function new() {
+		resetTab();
+	}
+
+	
+	public function resetTab(): Void {
+		moveTab = new Array<Array<Array<Array<Blocks>>>>();
+		
+		cursor = -1;
+	}
 	
 	public function undo(): Array<Array<Array<Blocks>>> {
 		if (cursor > 0) {
@@ -46,6 +55,7 @@ class MoveHistory {
 		return null;
 	}
 	
+	
 	public function redo(): Array<Array<Array<Blocks>>> {
 		if (cursor < moveTab.length-1) {
 			cursor++;
@@ -56,14 +66,24 @@ class MoveHistory {
 		return null;
 	}
 	
+	
 	public function newMove(pLevel: Array<Array<Array<Blocks>>>): Void {
-		for (i in cursor+1...moveTab.length-1) {
-			moveTab[i] = null;
+		trace("cursor = " + cursor);
+		trace("moveTab.length = " + moveTab.length);
+		
+		while (cursor < moveTab.length - 1) {
+			moveTab.pop();
 		}
+		
+		trace("cursor = " + cursor);
+		trace("moveTab.length = " + moveTab.length);
 		
 		moveTab.push(pLevel);
 		
 		cursor++;
+		
+		trace("cursor = " + cursor);
+		trace("moveTab.length = " + moveTab.length);
 	}
 	
 	/**

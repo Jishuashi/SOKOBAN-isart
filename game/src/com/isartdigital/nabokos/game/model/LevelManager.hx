@@ -43,6 +43,7 @@ class LevelManager
 		var levelDesign: Array<Level> = Reflect.field(levelObject, "levelDesign");
 
 		currentLevel = new Array<Array<Array<Blocks>>>();
+		
 		levels = new Array<Array<Array<Array<Blocks>>>>();
 
 		for (level in levelDesign)
@@ -89,8 +90,6 @@ class LevelManager
 		{
 			trace(levels[i] + "\n");
 		}
-
-		selectLevel(1);
 	}
 
 	/**
@@ -102,30 +101,19 @@ class LevelManager
 	{
 		if (pLevel < 0 || pLevel >= levels.length) return false;
 
-		currentLevel = levels[pLevel].copy();
-
-		for (y in 0...currentLevel.length)
-		{
-			currentLevel[y] = levels[pLevel][y].copy();
-
-			for (x in 0...currentLevel[y].length)
-			{
-				currentLevel[y][x] = levels[pLevel][y][x].copy();
-			}
-		}
-
-		trace(currentLevel);
-		trace(levels[pLevel]);
-
+		currentLevel = copyLevel(levels[pLevel]);
+		
 		levelNum = pLevel;
+		
+		MoveHistory.getInstance().resetTab();
+		MoveHistory.getInstance().newMove(copyLevel(currentLevel));
 
 		return true;
 	}
 
 	/**
 	 * Simule les conséquences de l'action du joueur sur le plateau de jeu, puis effectue cette action si elle est valide
-	 * @param	pPlayerPosition
-	 * @param	pMove
+	 * @param	pMove action du joueur
 	 * @return	Bool indiquant si l'action que le joueur veut effectuer est faisable, ou non
 	 */
 	public static function playerAction(pMove: PlayerActions): Bool
@@ -199,9 +187,13 @@ class LevelManager
 		return false;
 	}
 	
+	/**
+	 * Permet de modifier depuis l'extérieur le niveau actuellement joué (surtout pour le MoveHistory)
+	 * @param	pLevel level a mettre en currentLevel
+	 */
 	public static function editCurrentLevel(pLevel : Array<Array<Array<Blocks>>>): Void {
 		if (pLevel != null)
-			currentLevel = pLevel;
+			currentLevel = copyLevel(pLevel);
 	}
 	
 	/**
@@ -209,8 +201,33 @@ class LevelManager
 	 */
 	public static function getCurrentLevel(): Array<Array<Array<Blocks>>>
 	{
-
-		return currentLevel.copy();
+		return copyLevel(currentLevel);
 	}
-
+	
+	/**
+	 * La fonction .copy() d'une array crée une seconde instance de tableau, mais avec les mêmes objets.
+	 * Ainsi, afin d'éviter de modifier tous les tableaux en même temps, on doit copier tous les éléments du tableau à la main
+	 * @param	pLevel level à copier
+	 * @return level copié
+	 */
+	private static function copyLevel(pLevel: Array<Array<Array<Blocks>>>): Array<Array<Array<Blocks>>> {
+		var lReturnedLevel: Array<Array<Array<Blocks>>> = new Array<Array<Array<Blocks>>>();
+		
+		for (y in 0...pLevel.length) {
+			
+			lReturnedLevel[y] = new Array<Array<Blocks>>();
+			
+			for (x in 0...pLevel[y].length) {
+				
+				lReturnedLevel[y][x] = new Array<Blocks>();
+				
+				for (z in 0...pLevel[y][x].length) {
+					
+					lReturnedLevel[y][x][z] = pLevel[y][x][z];
+				}
+			}
+		}
+		
+		return lReturnedLevel;
+	}
 }

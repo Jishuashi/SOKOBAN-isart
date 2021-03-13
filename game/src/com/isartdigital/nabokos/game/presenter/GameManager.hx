@@ -1,5 +1,6 @@
 package com.isartdigital.nabokos.game.presenter;
 import com.isartdigital.nabokos.game.model.LevelManager;
+import com.isartdigital.nabokos.game.model.MoveHistory;
 import com.isartdigital.nabokos.game.view.GameView;
 import com.isartdigital.nabokos.game.view.IsoView;
 import com.isartdigital.nabokos.game.view.RadarView;
@@ -95,6 +96,8 @@ class GameManager
 		
 		if (lPlayerAction != null) {
 			if (LevelManager.playerAction(lPlayerAction)) {
+				MoveHistory.getInstance().newMove(LevelManager.getCurrentLevel());
+				
 				IsoView.getInstance().updateView(LevelManager.getCurrentLevel());
 				RadarView.getInstance().updateView(LevelManager.getCurrentLevel());
 			}
