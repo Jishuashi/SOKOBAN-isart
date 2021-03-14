@@ -59,7 +59,7 @@ class IsoView extends GameView {
 					
 					switch (pLevel[y][x][k]) {
 						case Blocks.WALL:
-							lAsset = GameLoader.getAnimationFromAtlas("IsoWall");
+							lAsset = GameLoader.getAnimationFromAtlas("IsoWallPlate");
 							
 						case Blocks.PLAYER :
 							lAsset = player;

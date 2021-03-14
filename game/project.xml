@@ -2,7 +2,8 @@
 <project>
 	
 	<meta version="2.0.0" package="com.isartdigital.nabokos.Nabokos" title="Structure Haxe OpenFL" company="Nabokos"/>
-	<app file="Nabokos" path="bin" main="com.isartdigital.nabokos.Main"/>
+	<app file="Nabokos"  path="bin" main="com.isartdigital.nabokos.Main"/>
+	
 	
 	<source path="src"/>
 	<haxelib name="openfl"/> 
@@ -21,6 +22,7 @@
 	<library preload="false" path="assets/libraries/ui.swf"/>
 	
 	<library preload="false" path="assets/libraries/assets.swf"/>
+	
 	
 	<section if="html5">
 		<dependency path="assets/lib/dat.gui.min.js"/>

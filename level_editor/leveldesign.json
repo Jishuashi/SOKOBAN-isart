@@ -1,6 +1,4 @@
 {
-	"configString": "texte d'exemple",
-	"configBoolean": true,
 	"levelDesign": [
 		{
 			"par": 11,
@@ -51,14 +49,14 @@
 			"par": 55,
 			"locked": true,
 			"map": [
-				"## #M# ##",
+				"##. M .##",
 				"#######  ",
 				"  M   M  ",
 				"  # ###  ",
 				"  M  #   ",
 				"  #  ## #",
 				"# #   # #",
-				"$ M $#M $",
+				"  M $#M  ",
 				"    @    "
 			]
 		},
@@ -86,7 +84,7 @@
 				"#######  ",
 				"*M  M  # ",
 				".  M  M# ",
-				"* M$ M # ",
+				". M$ M # ",
 				"######M@ ",
 				"         ",
 				"         "
@@ -168,5 +166,7 @@
 			]
 		}
 	],
+	"configString": "texte d'exemple",
+	"configBoolean": true,
 	"configNumber": 3.5
 }
