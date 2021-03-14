@@ -5,6 +5,7 @@ import com.isartdigital.utils.ui.AlignType;
 import com.isartdigital.utils.ui.Screen;
 import com.isartdigital.utils.ui.UIPositionable;
 import openfl.display.DisplayObject;
+import openfl.display.SimpleButton;
 import openfl.events.MouseEvent;
 import openfl.text.TextField;
 import openfl.text.TextFieldType;
@@ -22,6 +23,7 @@ class LoginScreen extends Screen
 	private var backgroundLogin:DisplayObject;
 	private var buttonEnter:DisplayObject;
 	private var loginTitle:DisplayObject;
+	//private var pseudoButton:DisplayObject;
 	public var pseudo(get, null):String;
 
 	private function new()
@@ -29,7 +31,9 @@ class LoginScreen extends Screen
 		super();
 		
 		backgroundLogin		= content.getChildByName("backgroundLogin");
-		buttonEnter			= content.getChildByName("btnEnter");		
+		loginTitle			= content.getChildByName("loginTitle");
+		buttonEnter			= content.getChildByName("btnEnter");
+		//pseudoButton		= content.getChildByName("btnPseudo");
 		errorText 			= cast(content.getChildByName("errorTextField"), TextField);
 		mdpText 			= cast(content.getChildByName("mdpText"), TextField);
 		mdpText.text = "pseudo";
@@ -39,8 +43,11 @@ class LoginScreen extends Screen
 		mdpText.restrict = "A-Z a-z 0-9";
 		
 		buttonEnter.addEventListener(MouseEvent.CLICK, onClickEnter);
+		//pseudoButton.addEventListener(MouseEvent.CLICK, onClickPseudo);
 		
 		var lPositionnable:UIPositionable = { item:backgroundLogin, align:AlignType.FIT_SCREEN};
+		positionables.push(lPositionnable);
+		lPositionnable = { item:loginTitle, align:AlignType.TOP, offsetY:100};
 		positionables.push(lPositionnable);
 	}
 	
@@ -65,11 +72,17 @@ class LoginScreen extends Screen
 		}
 		else errorText.text = "password too short";
 	}
+	
+	//private function onClickPseudo(pEvent:MouseEvent) : Void
+	//{
+		//mdpText.text = "";
+	//}
 
 	override public function destroy (): Void
 	{
 		instance = null;
 		buttonEnter.removeEventListener(MouseEvent.CLICK, onClickEnter);
+		//pseudoButton.removeEventListener(MouseEvent.CLICK, onClickPseudo);
 		super.destroy();
 	}
 }

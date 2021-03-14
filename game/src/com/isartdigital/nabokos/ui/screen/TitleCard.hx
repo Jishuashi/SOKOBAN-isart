@@ -5,6 +5,7 @@ import com.isartdigital.utils.sound.SoundManager;
 import com.isartdigital.utils.ui.AlignType;
 import com.isartdigital.utils.ui.UIPositionable;
 import com.isartdigital.utils.ui.Screen;
+import openfl.Assets;
 import openfl.display.DisplayObject;
 import openfl.events.MouseEvent;
 import openfl.text.TextField;
@@ -21,8 +22,6 @@ class TitleCard extends Screen
 	private var buttonPlay:DisplayObject;
 	private var buttonHelp:DisplayObject;
 	private var buttonHighscores:DisplayObject;
-	private var buttonSound:DisplayObject;
-	private var buttonLangues:DisplayObject;
 	//private var modifiedPlayText:TextField;
 
 	private function new()
@@ -37,26 +36,18 @@ class TitleCard extends Screen
 		buttonPlay 			= content.getChildByName("btnPlay");
 		buttonHelp			= content.getChildByName("btnHelp");
 		buttonHighscores 	= content.getChildByName("btnHighscores");
-		buttonSound			= content.getChildByName("btnSound");
-		buttonLangues		= content.getChildByName("btnLangues");
 		
 		buttonPlay.addEventListener(MouseEvent.CLICK, onClickPlay);
 		buttonHelp.addEventListener(MouseEvent.CLICK, onClickHelp);
 		buttonHighscores.addEventListener(MouseEvent.CLICK, onClickHighscores);
-		buttonSound.addEventListener(MouseEvent.CLICK, onClickSound);
-		buttonLangues.addEventListener(MouseEvent.CLICK, onClickLangues);
 		
 		var lPositionnable:UIPositionable = { item:backgroundTitle, align:AlignType.FIT_SCREEN};
 		positionables.push(lPositionnable);
 		lPositionnable = { item:buttonPlay, align:AlignType.BOTTOM, offsetY:150};
 		positionables.push(lPositionnable);
-		lPositionnable = { item:buttonHelp, align:AlignType.BOTTOM, offsetY:250};
+		lPositionnable = { item:buttonHelp, align:AlignType.BOTTOM_RIGHT, offsetY:100, offsetX:500};
 		positionables.push(lPositionnable);
-		lPositionnable = { item:buttonHighscores, align:AlignType.BOTTOM, offsetY:100};
-		positionables.push(lPositionnable);
-		lPositionnable = { item:buttonSound, align:AlignType.BOTTOM, offsetY:100};
-		positionables.push(lPositionnable);
-		lPositionnable = { item:buttonLangues, align:AlignType.BOTTOM, offsetY:250};
+		lPositionnable = { item:buttonHighscores, align:AlignType.BOTTOM_LEFT, offsetY:100, offsetX:500};
 		positionables.push(lPositionnable);
 	}
 
@@ -84,26 +75,12 @@ class TitleCard extends Screen
 		SoundManager.getSound("click").start();
 	}
 
-	private function onClickSound(pEvent:MouseEvent) : Void
-	{
-		//changer le son
-		SoundManager.getSound("click").start();
-	}
-
-	private function onClickLangues(pEvent:MouseEvent) : Void
-	{
-		//changer le json de langue
-		SoundManager.getSound("click").start();
-	}
-
 	override public function destroy():Void
 	{
 		instance = null;
 		buttonPlay.removeEventListener(MouseEvent.CLICK, onClickPlay);
 		buttonHelp.removeEventListener(MouseEvent.CLICK, onClickHelp);
 		buttonHighscores.removeEventListener(MouseEvent.CLICK, onClickHighscores);
-		buttonSound.removeEventListener(MouseEvent.CLICK, onClickSound);
-		buttonLangues.removeEventListener(MouseEvent.CLICK, onClickLangues);
 		super.destroy();
 	}
 }

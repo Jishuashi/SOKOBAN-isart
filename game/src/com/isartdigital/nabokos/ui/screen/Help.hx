@@ -30,8 +30,8 @@ class Help extends Screen
 		
 		var lPositionnable:UIPositionable = { item:backgroundHelp, align:AlignType.FIT_SCREEN};
 		positionables.push(lPositionnable);
-		//lPositionnable = { item:helpTitle, align:AlignType.TOP};
-		//positionables.push(lPositionnable);
+		lPositionnable = { item:helpTitle, align:AlignType.TOP, offsetY:100};
+		positionables.push(lPositionnable);
 		lPositionnable = { item:buttonBack, align:AlignType.BOTTOM, offsetY:100};
 		positionables.push(lPositionnable);
 	}

@@ -30,26 +30,21 @@ class KeyboardController
 
 	public function isLeftDown():Bool
 	{
-		//trace(allKeysJustDown[Keyboard.LEFT]);
-		//trace(allKeysJustDown[Keyboard.Q]);
 		return (allKeysJustDown[Keyboard.LEFT] || allKeysJustDown[Keyboard.Q]);
 	}
 	
 	public function isRightDown():Bool
 	{
-		//trace("right");
 		return (allKeysJustDown[Keyboard.RIGHT] || allKeysJustDown[Keyboard.D]);
 	}
 
 	public function isUpDown():Bool
 	{
-		//trace("up");
 		return (allKeysJustDown[Keyboard.UP] || allKeysJustDown[Keyboard.Z]);
 	}
 
 	public function isDownDown():Bool
 	{
-		//trace("down");
 		return (allKeysJustDown[Keyboard.DOWN] || allKeysJustDown[Keyboard.S]);
 	}
 
