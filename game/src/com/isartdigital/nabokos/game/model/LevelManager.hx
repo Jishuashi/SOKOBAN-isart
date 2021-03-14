@@ -28,6 +28,13 @@ class LevelManager
 	private static var levels(default, null): Array<Array<Array<Array<Blocks>>>>;
 
 	public static var levelNum: Int = 1;
+	
+	private static var boxList: Array<Array<Blocks>>;
+	private static var boxCurrentPosition: Array<Array<Point>>;
+	private static var boxPreviousPosition: Array<Array<Point>>;
+	
+	private static var mirrorList: Array<Blocks>;
+	private static var mirrorPosition: Array<Point>;
 
 	private function new() {}
 
@@ -107,6 +114,9 @@ class LevelManager
 		
 		MoveHistory.getInstance().resetTab();
 		MoveHistory.getInstance().newMove(copyLevel(currentLevel));
+		
+		initBoxAndMirrorArrays();
+		reflectBoxes(); //reflète les boîtes pour la première fois dans le niveau
 
 		return true;
 	}
@@ -177,6 +187,10 @@ class LevelManager
 				currentLevel[Std.int(lPlayerNextPos.y)][Std.int(lPlayerNextPos.x)].unshift(Blocks.PLAYER);
 
 				currentLevel[Std.int(lPlayerPos.y)][Std.int(lPlayerPos.x)].shift();
+				
+				updateBoxArrays(lNextPosBox, lPlayerNextPos);
+				removeReflections();
+				reflectBoxes();
 
 				return true;
 			}
@@ -229,5 +243,155 @@ class LevelManager
 		}
 		
 		return lReturnedLevel;
+	}
+	
+	/**
+	 * responsable de refléter les boites
+	 */
+	private static function reflectBoxes(): Void
+	{
+		var lMirrorPosition: Point = new Point();
+		var lBoxPosition:Point = new Point();
+		var lTargetTilePosition: Point;
+		var lTargetTile: Array<Blocks> = new Array<Blocks>();
+		
+		//la boucle for vérifie si pour chaque miroir il y a des boites sur le même ligne que lui. Si oui, une boite apparait de l'autre côté
+		for (t in 0...mirrorList.length){
+			lMirrorPosition.x = mirrorPosition[t].x;
+			lMirrorPosition.y = mirrorPosition[t].y;
+			
+			for (q in 0...boxList.length){
+				for (v in 0...boxList[q].length){
+					lBoxPosition.x = boxCurrentPosition[q][v].x;
+					lBoxPosition.y = boxCurrentPosition[q][v].y;
+					
+					if (lMirrorPosition.x == lBoxPosition.x || lMirrorPosition.y == lBoxPosition.y){
+						lTargetTilePosition = calculateSymetricPoint(lMirrorPosition, lBoxPosition);
+						
+						if (lTargetTilePosition.x < currentLevel[0].length && lTargetTilePosition.y < currentLevel.length && lTargetTilePosition.x > 0 && lTargetTilePosition.y > 0){
+							lTargetTile = currentLevel[Std.int(lTargetTilePosition.y)][Std.int(lTargetTilePosition.x)];
+							
+							if (!lTargetTile.contains(Blocks.WALL) && !lTargetTile.contains(Blocks.MIRROR) && !lTargetTile.contains(Blocks.BOX) && !lTargetTile.contains(Blocks.PLAYER)){
+								lTargetTile.unshift(Blocks.BOX); // on pourra mettre une méthode ici pour faire apparaitre le bloc (feedback)
+								boxList[q].push(Blocks.BOX);
+								boxCurrentPosition[q].push(lTargetTilePosition);
+								boxPreviousPosition[q].push(new Point());
+								reflectBoxes();
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	/**
+	 * retire les reflets
+	 */
+	private static function removeReflections():Void
+	{
+		var lCurrentPosition: Point;
+		var lPreviousPosition: Point;
+		var lTargetTile: Array<Blocks> = new Array<Blocks>();
+		var lCheck:Int = 0;
+		
+		for (h in 0...boxList.length)
+		{
+			if (lCheck != 0) 
+				break;
+			
+			for (k in 0...boxList[h].length)
+			{
+				lCurrentPosition = boxCurrentPosition[h][k];
+				lPreviousPosition = boxPreviousPosition[h][k];
+				
+				if (lCurrentPosition.x != lPreviousPosition.x || lCurrentPosition.y != lPreviousPosition.y)
+				{
+					for (l in 0...boxList[h].length)
+					{
+						if (l != k)
+						{
+							trace ("non");
+							trace (lCurrentPosition, lPreviousPosition);
+							lCheck++;
+							lTargetTile = currentLevel[Std.int(boxCurrentPosition[h][l].y)][Std.int(boxCurrentPosition[h][l].x)];
+							lTargetTile.shift();
+							boxList[h].splice(l, 1);
+							boxCurrentPosition[h].splice(l, 1);
+							boxPreviousPosition[h].splice(l, 1);
+							
+						}
+					}
+					break;
+				}
+			}
+		}
+	}
+	
+	/**
+	 * initialise le tableau de box, de positions de box, de mirroirs et de position de mirroirs
+	 */
+	private static function initBoxAndMirrorArrays():Void
+	{
+		boxList = new Array<Array<Blocks>>();
+		boxCurrentPosition = new Array<Array<Point>>();
+		boxPreviousPosition = new Array<Array<Point>>();
+		
+		mirrorList = new Array<Blocks>();
+		mirrorPosition = new Array<Point>();
+		
+		var lTile:Array<Blocks> = new Array<Blocks>();
+		
+		// parcours le currentLevel et sauvegarde le nombre de miroirs et de boîtes, ainsi que leurs positions sur la grille
+		for (y in 0...currentLevel.length)
+		{
+			for (x in 0...currentLevel[y].length)
+			{
+				lTile = currentLevel[y][x];
+				
+				if (lTile.contains(Blocks.MIRROR)){
+					mirrorList.push(Blocks.MIRROR);
+					mirrorPosition.push(new Point(x, y));
+				} else if (lTile.contains(Blocks.BOX)){
+					boxList.push([Blocks.BOX]);
+					boxCurrentPosition.push([new Point(x, y)]);
+					boxPreviousPosition.push([new Point()]);
+				}
+			}
+		}
+	}
+	
+	/**
+	 * update les tableaux de boite
+	 * @param	pNewBoxTile: les nouvelles coordonnés de la boîte qui a bougé
+	 * @param	pOldBoxPosition: les anciennes coordonnés de la boîte qui a bougé
+	 */
+	private static function updateBoxArrays(pNewBoxPosition:Point, pOldBoxPosition:Point):Void
+	{
+		var lCurrentPosition: Point;
+		var lPreviousPosition: Point;
+		var lMovedBox: Point = new Point();
+		
+		for (i in 0...boxCurrentPosition.length)
+		{
+			for (j in 0...boxCurrentPosition[i].length){
+				lCurrentPosition = boxCurrentPosition[i][j];
+				lPreviousPosition = boxPreviousPosition[i][j];
+				
+				lPreviousPosition.x = lCurrentPosition.x;
+				lPreviousPosition.y = lCurrentPosition.y;
+				
+				if (lCurrentPosition.equals(pOldBoxPosition))
+				{
+					lCurrentPosition.x = pNewBoxPosition.x;
+					lCurrentPosition.y = pNewBoxPosition.y;
+				}
+			}
+		}
+	}
+	
+	private static function calculateSymetricPoint(pMirrorPosition:Point, pBoxPosition:Point):Point
+	{
+		return new Point(pBoxPosition.x + (pMirrorPosition.x - pBoxPosition.x) * 2, pBoxPosition.y + (pMirrorPosition.y - pBoxPosition.y) * 2);
 	}
 }
