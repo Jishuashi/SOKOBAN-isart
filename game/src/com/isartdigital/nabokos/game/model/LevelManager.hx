@@ -330,15 +330,21 @@ class LevelManager
 					{
 						if (l != k)
 						{
-							trace ("non");
-							trace (lCurrentPosition, lPreviousPosition);
 							lCheck++;
 							lTargetTile = currentLevel[Std.int(boxCurrentPosition[h][l].y)][Std.int(boxCurrentPosition[h][l].x)];
-							lTargetTile.shift();
-							boxList[h].splice(l, 1);
-							boxCurrentPosition[h].splice(l, 1);
-							boxPreviousPosition[h].splice(l, 1);
-
+							if (lTargetTile[0] == Blocks.BOX)
+								lTargetTile.shift();
+						}
+					}
+					
+					for (m in 0...boxList[h].length)
+					{
+						if (m != k)
+						{
+							boxList[h].splice(m, 1);
+							boxCurrentPosition[h].splice(m, 1);
+							boxPreviousPosition[h].splice(m, 1);
+							removeReflections();
 						}
 					}
 					break;
