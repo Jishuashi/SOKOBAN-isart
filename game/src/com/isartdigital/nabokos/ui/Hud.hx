@@ -3,6 +3,7 @@ package com.isartdigital.nabokos.ui;
 import com.isartdigital.nabokos.game.model.Blocks;
 import com.isartdigital.nabokos.game.model.LevelManager;
 import com.isartdigital.nabokos.game.model.MoveHistory;
+import com.isartdigital.nabokos.game.model.ScoreManager;
 import com.isartdigital.nabokos.game.view.IsoView;
 import com.isartdigital.nabokos.game.view.RadarView;
 import com.isartdigital.utils.ui.AlignType;
@@ -10,9 +11,11 @@ import com.isartdigital.utils.ui.Screen;
 import com.isartdigital.utils.ui.UIPositionable;
 import openfl.Lib;
 import openfl.display.DisplayObject;
+import openfl.display.MovieClip;
 import openfl.display.SimpleButton;
 import openfl.events.Event;
 import openfl.events.MouseEvent;
+import openfl.text.TextField;
 
 /**
  * ...
@@ -25,6 +28,9 @@ class Hud extends Screen
 	private var btnRetry : DisplayObject;
 	private var btnUndo : DisplayObject;
 	private var btnRedo : DisplayObject;
+	private static var mcTopCenter : MovieClip;
+	
+	public static var txtScore : TextField;
 	
 	public static function getInstance() : Hud {
 		if (instance == null) instance = new Hud();
@@ -38,6 +44,12 @@ class Hud extends Screen
 		var lPositionnable:UIPositionable;
 		lPositionnable = { item:content.getChildByName("mcTopCenter"), align:AlignType.TOP};
 		positionables.push(lPositionnable);
+		
+		mcTopCenter = cast(lPositionnable.item, MovieClip);
+		
+		txtScore = cast(mcTopCenter.getChildByName("txtScore"), TextField);
+		
+		txtScore.text = "Coups : " + ScoreManager.get_score();
 		
 		btnRetry = content.getChildByName("btnRetry");
 		btnUndo = content.getChildByName("btnUndo");
@@ -59,6 +71,7 @@ class Hud extends Screen
 		}
 		
 	}
+
 	
 	public function undo(pEvent : MouseEvent): Void {
 		var lLevel: Array<Array<Array<Blocks>>> = MoveHistory.getInstance().undo();

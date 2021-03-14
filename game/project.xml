@@ -23,6 +23,7 @@
 	
 	<library preload="false" path="assets/libraries/assets.swf"/>
 	
+	
 	<section if="html5">
 		<dependency path="assets/lib/dat.gui.min.js"/>
 	</section>

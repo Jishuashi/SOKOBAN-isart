@@ -29,14 +29,14 @@ class LevelManager
 	private static var levels(default, null): Array<Array<Array<Array<Blocks>>>>;
 
 	public static var levelNum: Int = 1;
-	
+
 	private static var boxList: Array<Array<Blocks>>;
 	private static var boxCurrentPosition: Array<Array<Point>>;
 	private static var boxPreviousPosition: Array<Array<Point>>;
-	
+
 	private static var mirrorList: Array<Blocks>;
 	private static var mirrorPosition: Array<Point>;
-	
+
 	private static var targetList : Array<Blocks>;
 	private static var targetPosition : Array<Point>;
 
@@ -54,7 +54,7 @@ class LevelManager
 		var levelDesign: Array<Level> = Reflect.field(levelObject, "levelDesign");
 
 		currentLevel = new Array<Array<Array<Blocks>>>();
-		
+
 		levels = new Array<Array<Array<Array<Blocks>>>>();
 
 		for (level in levelDesign)
@@ -113,12 +113,12 @@ class LevelManager
 		if (pLevel < 0 || pLevel >= levels.length) return false;
 
 		currentLevel = copyLevel(levels[pLevel]);
-		
+
 		levelNum = pLevel;
-		
+
 		MoveHistory.getInstance().resetTab();
 		MoveHistory.getInstance().newMove(copyLevel(currentLevel));
-		
+
 		initBlocksArrays();
 		reflectBoxes(); //reflète les boîtes pour la première fois dans le niveau
 
@@ -133,6 +133,9 @@ class LevelManager
 	public static function playerAction(pMove: PlayerActions): Bool
 	{
 		var lPlayerPos: Point = new Point();
+
+		ScoreManager.set_score(ScoreManager.get_score() + 1);
+		ScoreManager.updateScore();
 
 		for (y in 0...currentLevel.length)
 		{
@@ -191,7 +194,7 @@ class LevelManager
 				currentLevel[Std.int(lPlayerNextPos.y)][Std.int(lPlayerNextPos.x)].unshift(Blocks.PLAYER);
 
 				currentLevel[Std.int(lPlayerPos.y)][Std.int(lPlayerPos.x)].shift();
-				
+
 				updateBoxArrays(lNextPosBox, lPlayerNextPos);
 				removeReflections();
 				reflectBoxes();
@@ -205,16 +208,17 @@ class LevelManager
 
 		return false;
 	}
-	
+
 	/**
 	 * Permet de modifier depuis l'extérieur le niveau actuellement joué (surtout pour le MoveHistory)
 	 * @param	pLevel level a mettre en currentLevel
 	 */
-	public static function editCurrentLevel(pLevel : Array<Array<Array<Blocks>>>): Void {
+	public static function editCurrentLevel(pLevel : Array<Array<Array<Blocks>>>): Void
+	{
 		if (pLevel != null)
 			currentLevel = copyLevel(pLevel);
 	}
-	
+
 	/**
 	 * Getter du level actuel, qui place le player là où il est censé être
 	 */
@@ -222,34 +226,38 @@ class LevelManager
 	{
 		return copyLevel(currentLevel);
 	}
-	
+
 	/**
 	 * La fonction .copy() d'une array crée une seconde instance de tableau, mais avec les mêmes objets.
 	 * Ainsi, afin d'éviter de modifier tous les tableaux en même temps, on doit copier tous les éléments du tableau à la main
 	 * @param	pLevel level à copier
 	 * @return level copié
 	 */
-	private static function copyLevel(pLevel: Array<Array<Array<Blocks>>>): Array<Array<Array<Blocks>>> {
+	private static function copyLevel(pLevel: Array<Array<Array<Blocks>>>): Array<Array<Array<Blocks>>>
+	{
 		var lReturnedLevel: Array<Array<Array<Blocks>>> = new Array<Array<Array<Blocks>>>();
-		
-		for (y in 0...pLevel.length) {
-			
+
+		for (y in 0...pLevel.length)
+		{
+
 			lReturnedLevel[y] = new Array<Array<Blocks>>();
-			
-			for (x in 0...pLevel[y].length) {
-				
+
+			for (x in 0...pLevel[y].length)
+			{
+
 				lReturnedLevel[y][x] = new Array<Blocks>();
-				
-				for (z in 0...pLevel[y][x].length) {
-					
+
+				for (z in 0...pLevel[y][x].length)
+				{
+
 					lReturnedLevel[y][x][z] = pLevel[y][x][z];
 				}
 			}
 		}
-		
+
 		return lReturnedLevel;
 	}
-	
+
 	/**
 	 * responsable de refléter les boites
 	 */
@@ -259,24 +267,30 @@ class LevelManager
 		var lBoxPosition:Point = new Point();
 		var lTargetTilePosition: Point;
 		var lTargetTile: Array<Blocks> = new Array<Blocks>();
-		
+
 		//la boucle for vérifie si pour chaque miroir il y a des boites sur le même ligne que lui. Si oui, une boite apparait de l'autre côté
-		for (t in 0...mirrorList.length){
+		for (t in 0...mirrorList.length)
+		{
 			lMirrorPosition.x = mirrorPosition[t].x;
 			lMirrorPosition.y = mirrorPosition[t].y;
-			
-			for (q in 0...boxList.length){
-				for (v in 0...boxList[q].length){
+
+			for (q in 0...boxList.length)
+			{
+				for (v in 0...boxList[q].length)
+				{
 					lBoxPosition.x = boxCurrentPosition[q][v].x;
 					lBoxPosition.y = boxCurrentPosition[q][v].y;
-					
-					if (lMirrorPosition.x == lBoxPosition.x || lMirrorPosition.y == lBoxPosition.y){
+
+					if (lMirrorPosition.x == lBoxPosition.x || lMirrorPosition.y == lBoxPosition.y)
+					{
 						lTargetTilePosition = calculateSymetricPoint(lMirrorPosition, lBoxPosition);
-						
-						if (lTargetTilePosition.x < currentLevel[0].length && lTargetTilePosition.y < currentLevel.length && lTargetTilePosition.x > 0 && lTargetTilePosition.y > 0){
+
+						if (lTargetTilePosition.x < currentLevel[0].length && lTargetTilePosition.y < currentLevel.length && lTargetTilePosition.x > 0 && lTargetTilePosition.y > 0)
+						{
 							lTargetTile = currentLevel[Std.int(lTargetTilePosition.y)][Std.int(lTargetTilePosition.x)];
-							
-							if (!lTargetTile.contains(Blocks.WALL) && !lTargetTile.contains(Blocks.MIRROR) && !lTargetTile.contains(Blocks.BOX) && !lTargetTile.contains(Blocks.PLAYER)){
+
+							if (!lTargetTile.contains(Blocks.WALL) && !lTargetTile.contains(Blocks.MIRROR) && !lTargetTile.contains(Blocks.BOX) && !lTargetTile.contains(Blocks.PLAYER))
+							{
 								lTargetTile.unshift(Blocks.BOX); // on pourra mettre une méthode ici pour faire apparaitre le bloc (feedback)
 								boxList[q].push(Blocks.BOX);
 								boxCurrentPosition[q].push(lTargetTilePosition);
@@ -289,7 +303,7 @@ class LevelManager
 			}
 		}
 	}
-	
+
 	/**
 	 * retire les reflets
 	 */
@@ -299,17 +313,17 @@ class LevelManager
 		var lPreviousPosition: Point;
 		var lTargetTile: Array<Blocks> = new Array<Blocks>();
 		var lCheck:Int = 0;
-		
+
 		for (h in 0...boxList.length)
 		{
-			if (lCheck != 0) 
+			if (lCheck != 0)
 				break;
-			
+
 			for (k in 0...boxList[h].length)
 			{
 				lCurrentPosition = boxCurrentPosition[h][k];
 				lPreviousPosition = boxPreviousPosition[h][k];
-				
+
 				if (lCurrentPosition.x != lPreviousPosition.x || lCurrentPosition.y != lPreviousPosition.y)
 				{
 					for (l in 0...boxList[h].length)
@@ -324,7 +338,7 @@ class LevelManager
 							boxList[h].splice(l, 1);
 							boxCurrentPosition[h].splice(l, 1);
 							boxPreviousPosition[h].splice(l, 1);
-							
+
 						}
 					}
 					break;
@@ -332,7 +346,7 @@ class LevelManager
 			}
 		}
 	}
-	
+
 	/**
 	 * initialise le tableau de box, de positions de box, de mirroirs, de position de mirroirs, de target et de position de target
 	 */
@@ -341,37 +355,42 @@ class LevelManager
 		boxList = new Array<Array<Blocks>>();
 		boxCurrentPosition = new Array<Array<Point>>();
 		boxPreviousPosition = new Array<Array<Point>>();
-		
+
 		mirrorList = new Array<Blocks>();
 		mirrorPosition = new Array<Point>();
-		
+
 		targetList = new Array<Blocks>();
 		targetPosition = new Array<Point>();
-		
+
 		var lTile:Array<Blocks> = new Array<Blocks>();
-		
+
 		// parcours le currentLevel et sauvegarde le nombre de target, miroirs et de boîtes, ainsi que leurs positions sur la grille
 		for (y in 0...currentLevel.length)
 		{
 			for (x in 0...currentLevel[y].length)
 			{
 				lTile = currentLevel[y][x];
-				
-				if (lTile.contains(Blocks.MIRROR)){
+
+				if (lTile.contains(Blocks.MIRROR))
+				{
 					mirrorList.push(Blocks.MIRROR);
 					mirrorPosition.push(new Point(x, y));
-				} else if (lTile.contains(Blocks.BOX)){
+				}
+				else if (lTile.contains(Blocks.BOX))
+				{
 					boxList.push([Blocks.BOX]);
 					boxCurrentPosition.push([new Point(x, y)]);
 					boxPreviousPosition.push([new Point()]);
-				} else if (lTile.contains(Blocks.TARGET)){
+				}
+				else if (lTile.contains(Blocks.TARGET))
+				{
 					targetList.push(Blocks.TARGET);
 					targetPosition.push(new Point(x, y));
 				}
 			}
 		}
 	}
-	
+
 	/**
 	 * update les tableaux de boite
 	 * @param	pNewBoxTile: les nouvelles coordonnés de la boîte qui a bougé
@@ -382,16 +401,17 @@ class LevelManager
 		var lCurrentPosition: Point;
 		var lPreviousPosition: Point;
 		var lMovedBox: Point = new Point();
-		
+
 		for (i in 0...boxCurrentPosition.length)
 		{
-			for (j in 0...boxCurrentPosition[i].length){
+			for (j in 0...boxCurrentPosition[i].length)
+			{
 				lCurrentPosition = boxCurrentPosition[i][j];
 				lPreviousPosition = boxPreviousPosition[i][j];
-				
+
 				lPreviousPosition.x = lCurrentPosition.x;
 				lPreviousPosition.y = lCurrentPosition.y;
-				
+
 				if (lCurrentPosition.equals(pOldBoxPosition))
 				{
 					lCurrentPosition.x = pNewBoxPosition.x;
@@ -400,12 +420,12 @@ class LevelManager
 			}
 		}
 	}
-	
+
 	private static function calculateSymetricPoint(pMirrorPosition:Point, pBoxPosition:Point):Point
 	{
 		return new Point(pBoxPosition.x + (pMirrorPosition.x - pBoxPosition.x) * 2, pBoxPosition.y + (pMirrorPosition.y - pBoxPosition.y) * 2);
 	}
-	
+
 	/**
 	 * vérifie si il y a une boite sur toutes les targets
 	 */
@@ -415,26 +435,34 @@ class LevelManager
 		var lBoxPosition:Point = new Point();
 		var lSucces:Int = targetList.length;
 		var lCurrentSucces:Int = 0;
-		
-		for (t in 0...targetList.length){
+
+		for (t in 0...targetList.length)
+		{
 			lTargetPosition.x = targetPosition[t].x;
 			lTargetPosition.y = targetPosition[t].y;
-			
-			for (q in 0...boxList.length){
-				for (v in 0...boxList[q].length){
+
+			for (q in 0...boxList.length)
+			{
+				for (v in 0...boxList[q].length)
+				{
 					lBoxPosition.x = boxCurrentPosition[q][v].x;
 					lBoxPosition.y = boxCurrentPosition[q][v].y;
-					
+
 					if (lTargetPosition.x == lBoxPosition.x && lTargetPosition.y == lBoxPosition.y) lCurrentSucces++;
 				}
 			}
 		}
-		
-		if (lSucces == lCurrentSucces) {
+
+		if (lSucces == lCurrentSucces)
+		{
+			ScoreManager.set_endScore(ScoreManager.get_endScore() + ScoreManager.get_score());
+			ScoreManager.set_score(0);			
+			ScoreManager.updateScore();
+			
 			LevelManager.levelNum++;
 			
 			LevelManager.selectLevel(LevelManager.levelNum);
-			
+
 			GameManager.start();
 		}
 	}
