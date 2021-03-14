@@ -23,6 +23,8 @@ class Options extends Screen
 	private var buttonEnglish:DisplayObject;
 	private var buttonSoundOn:DisplayObject;
 	private var buttonSoundOff:DisplayObject;
+	private var buttonSmallWall:DisplayObject;
+	private var buttonBigWall:DisplayObject;
 	private var buttonBack:DisplayObject;
 
 	private function new()
@@ -37,9 +39,13 @@ class Options extends Screen
 		buttonEnglish			= content.getChildByName("buttonEnglish");
 		buttonSoundOn			= content.getChildByName("buttonSoundOn");
 		buttonSoundOff			= content.getChildByName("buttonSoundOff");
+		buttonSmallWall			= content.getChildByName("buttonSmallWall");
+		buttonBigWall			= content.getChildByName("buttonBigWall");
 		buttonBack				= content.getChildByName("btnBack");
 		
 		buttonBack.addEventListener(MouseEvent.CLICK, onClickBack);
+		buttonSmallWall.addEventListener(MouseEvent.CLICK, onClickSmall);
+		buttonBigWall.addEventListener(MouseEvent.CLICK, onClickBig);
 		
 		var lPositionnable:UIPositionable = { item:backgroundOptions, align:AlignType.FIT_SCREEN};
 		positionables.push(lPositionnable);
@@ -47,17 +53,21 @@ class Options extends Screen
 		positionables.push(lPositionnable);
 		lPositionnable = { item:buttonBack, align:AlignType.BOTTOM, offsetY:100};
 		positionables.push(lPositionnable);
-		lPositionnable = { item:buttonKeyboard, align:AlignType.TOP, offsetY:400};
+		lPositionnable = { item:buttonKeyboard, align:AlignType.TOP, offsetY:350};
 		positionables.push(lPositionnable);
-		lPositionnable = { item:buttonMouse, align:AlignType.TOP, offsetY:400};
+		lPositionnable = { item:buttonMouse, align:AlignType.TOP, offsetY:350};
 		positionables.push(lPositionnable);
-		lPositionnable = { item:buttonFrench, align:AlignType.TOP, offsetY:700};
+		lPositionnable = { item:buttonFrench, align:AlignType.TOP, offsetY:580};
 		positionables.push(lPositionnable);
-		lPositionnable = { item:buttonEnglish, align:AlignType.TOP, offsetY:700};
+		lPositionnable = { item:buttonEnglish, align:AlignType.TOP, offsetY:580};
 		positionables.push(lPositionnable);
-		lPositionnable = { item:buttonSoundOn, align:AlignType.TOP, offsetY:1000};
+		lPositionnable = { item:buttonSoundOn, align:AlignType.TOP, offsetY:810};
 		positionables.push(lPositionnable);
-		lPositionnable = { item:buttonSoundOff, align:AlignType.TOP, offsetY:1000};
+		lPositionnable = { item:buttonSoundOff, align:AlignType.TOP, offsetY:810};
+		positionables.push(lPositionnable);
+		lPositionnable = { item:buttonSmallWall, align:AlignType.TOP, offsetY:1100};
+		positionables.push(lPositionnable);
+		lPositionnable = { item:buttonBigWall, align:AlignType.TOP, offsetY:1170};
 		positionables.push(lPositionnable);
 	}
 
@@ -69,7 +79,19 @@ class Options extends Screen
 
 	private function onClickBack(pEvent:MouseEvent) : Void
 	{
-		UIManager.addScreen(TitleCard.getInstance());
+		UIManager.addScreen(Pause.getInstance());
+		SoundManager.getSound("click").start();
+	}
+	
+	private function onClickSmall(pEvent:MouseEvent) : Void
+	{
+		//implémenter les small wall
+		SoundManager.getSound("click").start();
+	}
+	
+	private function onClickBig(pEvent:MouseEvent) : Void
+	{
+		//implémenter les big wall
 		SoundManager.getSound("click").start();
 	}
 
@@ -77,6 +99,8 @@ class Options extends Screen
 	{
 		instance = null;
 		buttonBack.removeEventListener(MouseEvent.CLICK, onClickBack);
+		buttonSmallWall.removeEventListener(MouseEvent.CLICK, onClickSmall);
+		buttonBigWall.removeEventListener(MouseEvent.CLICK, onClickBig);
 		super.destroy();
 	}
 }

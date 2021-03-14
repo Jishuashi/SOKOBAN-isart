@@ -4,8 +4,12 @@ import com.isartdigital.nabokos.game.model.Blocks;
 import com.isartdigital.nabokos.game.model.LevelManager;
 import com.isartdigital.nabokos.game.model.MoveHistory;
 import com.isartdigital.nabokos.game.model.ScoreManager;
+import com.isartdigital.nabokos.game.presenter.GameManager;
 import com.isartdigital.nabokos.game.view.IsoView;
 import com.isartdigital.nabokos.game.view.RadarView;
+import com.isartdigital.nabokos.ui.screen.Pause;
+import com.isartdigital.utils.game.GameStage;
+import com.isartdigital.utils.sound.SoundManager;
 import com.isartdigital.utils.ui.AlignType;
 import com.isartdigital.utils.ui.Screen;
 import com.isartdigital.utils.ui.UIPositionable;
@@ -28,6 +32,7 @@ class Hud extends Screen
 	private var btnRetry : DisplayObject;
 	private var btnUndo : DisplayObject;
 	private var btnRedo : DisplayObject;
+	private var btnPause : DisplayObject;
 	private static var mcTopCenter : MovieClip;
 
 	private var redoIsPossible : Bool = false;
@@ -57,10 +62,12 @@ class Hud extends Screen
 		btnRetry = content.getChildByName("btnRetry");
 		btnUndo = content.getChildByName("btnUndo");
 		btnRedo = content.getChildByName("btnRedo");
+		btnPause = content.getChildByName("btnPause");
 
 		btnRetry.addEventListener(MouseEvent.CLICK, retry);
 		btnRedo.addEventListener(MouseEvent.CLICK, redo);
 		btnUndo.addEventListener(MouseEvent.CLICK, undo);
+		btnPause.addEventListener(MouseEvent.CLICK, pause);
 	}
 
 	public function redo(pEvent : MouseEvent): Void
@@ -76,11 +83,10 @@ class Hud extends Screen
 		if (lLevel != null)
 		{
 			LevelManager.editCurrentLevel(lLevel);
-
+			
 			IsoView.getInstance().updateView(lLevel);
 			RadarView.getInstance().updateView(lLevel);
 		}
-
 	}
 
 	public function undo(pEvent : MouseEvent): Void
@@ -112,10 +118,21 @@ class Hud extends Screen
 		IsoView.getInstance().updateView(LevelManager.getCurrentLevel());
 		RadarView.getInstance().updateView(LevelManager.getCurrentLevel());
 	}
+	
+	private function pause(pEvent:MouseEvent) : Void
+	{
+		UIManager.addScreen(Pause.getInstance());
+		Hud.getInstance().visible = false;
+		SoundManager.getSound("click").start();
+	}
 
 	override public function destroy():Void
 	{
 		instance = null;
+		btnRetry.removeEventListener(MouseEvent.CLICK, retry);
+		btnRedo.removeEventListener(MouseEvent.CLICK, redo);
+		btnUndo.removeEventListener(MouseEvent.CLICK, undo);
+		btnPause.removeEventListener(MouseEvent.CLICK, pause);
 		super.destroy();
 	}
 }

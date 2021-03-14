@@ -5,6 +5,7 @@ import com.isartdigital.nabokos.game.view.GameView;
 import com.isartdigital.nabokos.game.view.IsoView;
 import com.isartdigital.nabokos.game.view.RadarView;
 import com.isartdigital.nabokos.game.model.PlayerActions;
+import com.isartdigital.nabokos.ui.Hud;
 import com.isartdigital.nabokos.ui.UIManager;
 import com.isartdigital.utils.debug.Debug;
 import com.isartdigital.utils.game.GameStage;
@@ -41,6 +42,7 @@ class GameManager
 		UIManager.closeScreens();
 		
 		UIManager.openHud();
+		Hud.getInstance().visible = true;
 		
 		var lRect :Rectangle = DeviceCapabilities.getScreenRect(GameStage.getInstance());
 		
