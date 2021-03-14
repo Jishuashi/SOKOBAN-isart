@@ -12,7 +12,7 @@ class ScoreManager
 	
 	public static function updateScore():Void
 	{
-		Hud.txtScore.text = "Score : " + get_score();
+		Hud.txtScore.text = "Coup : " + get_score();
 	}
 	
 	public static function get_score():Int
