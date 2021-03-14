@@ -1,6 +1,7 @@
 package com.isartdigital.nabokos.game.model;
 import com.isartdigital.nabokos.game.model.Blocks;
 import com.isartdigital.nabokos.game.model.PlayerActions;
+import com.isartdigital.nabokos.game.presenter.GameManager;
 import com.isartdigital.utils.loader.GameLoader;
 import haxe.Json;
 import openfl.geom.Point;
@@ -35,6 +36,9 @@ class LevelManager
 	
 	private static var mirrorList: Array<Blocks>;
 	private static var mirrorPosition: Array<Point>;
+	
+	private static var targetList : Array<Blocks>;
+	private static var targetPosition : Array<Point>;
 
 	private function new() {}
 
@@ -115,7 +119,7 @@ class LevelManager
 		MoveHistory.getInstance().resetTab();
 		MoveHistory.getInstance().newMove(copyLevel(currentLevel));
 		
-		initBoxAndMirrorArrays();
+		initBlocksArrays();
 		reflectBoxes(); //reflète les boîtes pour la première fois dans le niveau
 
 		return true;
@@ -191,6 +195,7 @@ class LevelManager
 				updateBoxArrays(lNextPosBox, lPlayerNextPos);
 				removeReflections();
 				reflectBoxes();
+				winCondition();
 
 				return true;
 			}
@@ -329,9 +334,9 @@ class LevelManager
 	}
 	
 	/**
-	 * initialise le tableau de box, de positions de box, de mirroirs et de position de mirroirs
+	 * initialise le tableau de box, de positions de box, de mirroirs, de position de mirroirs, de target et de position de target
 	 */
-	private static function initBoxAndMirrorArrays():Void
+	private static function initBlocksArrays():Void
 	{
 		boxList = new Array<Array<Blocks>>();
 		boxCurrentPosition = new Array<Array<Point>>();
@@ -340,9 +345,12 @@ class LevelManager
 		mirrorList = new Array<Blocks>();
 		mirrorPosition = new Array<Point>();
 		
+		targetList = new Array<Blocks>();
+		targetPosition = new Array<Point>();
+		
 		var lTile:Array<Blocks> = new Array<Blocks>();
 		
-		// parcours le currentLevel et sauvegarde le nombre de miroirs et de boîtes, ainsi que leurs positions sur la grille
+		// parcours le currentLevel et sauvegarde le nombre de target, miroirs et de boîtes, ainsi que leurs positions sur la grille
 		for (y in 0...currentLevel.length)
 		{
 			for (x in 0...currentLevel[y].length)
@@ -356,6 +364,9 @@ class LevelManager
 					boxList.push([Blocks.BOX]);
 					boxCurrentPosition.push([new Point(x, y)]);
 					boxPreviousPosition.push([new Point()]);
+				} else if (lTile.contains(Blocks.TARGET)){
+					targetList.push(Blocks.TARGET);
+					targetPosition.push(new Point(x, y));
 				}
 			}
 		}
@@ -393,5 +404,38 @@ class LevelManager
 	private static function calculateSymetricPoint(pMirrorPosition:Point, pBoxPosition:Point):Point
 	{
 		return new Point(pBoxPosition.x + (pMirrorPosition.x - pBoxPosition.x) * 2, pBoxPosition.y + (pMirrorPosition.y - pBoxPosition.y) * 2);
+	}
+	
+	/**
+	 * vérifie si il y a une boite sur toutes les targets
+	 */
+	private static function winCondition(): Void
+	{
+		var lTargetPosition:Point = new Point();
+		var lBoxPosition:Point = new Point();
+		var lSucces:Int = targetList.length;
+		var lCurrentSucces:Int = 0;
+		
+		for (t in 0...targetList.length){
+			lTargetPosition.x = targetPosition[t].x;
+			lTargetPosition.y = targetPosition[t].y;
+			
+			for (q in 0...boxList.length){
+				for (v in 0...boxList[q].length){
+					lBoxPosition.x = boxCurrentPosition[q][v].x;
+					lBoxPosition.y = boxCurrentPosition[q][v].y;
+					
+					if (lTargetPosition.x == lBoxPosition.x && lTargetPosition.y == lBoxPosition.y) lCurrentSucces++;
+				}
+			}
+		}
+		
+		if (lSucces == lCurrentSucces) {
+			LevelManager.levelNum++;
+			
+			LevelManager.selectLevel(LevelManager.levelNum);
+			
+			GameManager.start();
+		}
 	}
 }
