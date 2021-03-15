@@ -11,31 +11,37 @@ import openfl.display.Sprite;
  */
 class GameView extends Sprite
 {
-	
+	/**
+	 * taille des cases du tableau
+	 */
 	private var cellSize : CellDef;
+	
+	/**
+	 * Conteneur de chaque vue
+	 */
 	private var viewContainer: Sprite;
 
 	public function new()
 	{
 		super();
-
 	}
 
-	public function updateView(pLevel : Array<Array<Array<Blocks>>>)
-	{
-		// met à jour la vue en fonction du niveau qu'on lui donne en paramètre
-		
-		trace("Updated");
-		
+	/**
+	 * Met à jour la vue en fonction du niveau qu'on lui donne en paramètre
+	 * @param	pLevel
+	 */
+	public function updateView(pLevel : Array<Array<Array<Blocks>>>): Void {
 		resetView();
 	}
 	
-	public function resetView(): Void{
+	/**
+	 * supprime tous les enfants de la vue actuelle
+	 */
+	public function resetView(): Void {
 		viewContainer.removeChildren();
 	}
 	
-	public function destroy():Void {
+	public function destroy(): Void {
 		
 	}
-	
 }

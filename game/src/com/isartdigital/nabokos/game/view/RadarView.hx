@@ -32,7 +32,11 @@ class RadarView extends GameView
 		viewContainer.scaleX = 0.66;
 		viewContainer.scaleY = 0.66;
 	}
-
+	
+	/**
+	 * Met à jouer la vue Radar en fonction du niveau actuel
+	 * @param	pLevel niveau actuel
+	 */
 	override public function updateView(pLevel:Array<Array<Array<Blocks>>>)
 	{
 		super.updateView(pLevel);

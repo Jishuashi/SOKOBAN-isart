@@ -16,11 +16,14 @@ import haxe.ds.Map;
 
 
 /**
- * ...
+ * Affichage du jeu au format Isométrique
  * @author Anthony TIREL--TARTUFFE
  */
 class IsoView extends GameView {
 	
+	/**
+	 * Animation actuelle du player, dans quel sens il est tourné
+	 */
 	private var player: Animation;
 	
 	private static var instance: IsoView;
@@ -41,6 +44,10 @@ class IsoView extends GameView {
 		player = GameLoader.getAnimationFromAtlas("Player_IDLE_UP");
 	}
 	
+	/**
+	 * Met à jour la vue Isométrique en fonction du niveau actuel
+	 * @param	pLevel Niveua à afficher
+	 */
 	override public function updateView(pLevel:Array<Array<Array<Blocks>>>) {
 		super.updateView(pLevel);
 		
@@ -93,7 +100,7 @@ class IsoView extends GameView {
 					lAllObjects.set(lGridPos, lAsset);
 					
 					lListToSort.push(lGridPos);
-				
+					
 					k--;
 				}
 			}
@@ -111,6 +118,10 @@ class IsoView extends GameView {
 		viewContainer.y = GameStage.getInstance().getGameContainer().height * 0.2;
 	}
 	
+	/**
+	 * Met à jour l'asset du player en fonction de la direction qu'il prend
+	 * @param	pMove direction prise par le Player
+	 */
 	public function updatePlayerAsset(pMove: PlayerActions): Void{
 		switch (pMove) {
 			case PlayerActions.LEFT:

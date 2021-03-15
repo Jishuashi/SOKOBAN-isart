@@ -38,13 +38,19 @@ class MoveHistory {
 		resetTab();
 	}
 
-	
+	/**
+	 * Remise à défaut du moveTab et du curseur
+	 */
 	public function resetTab(): Void {
 		moveTab = new Array<Array<Array<Array<Blocks>>>>();
 		
 		cursor = -1;
 	}
 	
+	/**
+	 * Sélection le niveau précédent celui actuellement affiché
+	 * @return le précédent niveau, à afficher
+	 */
 	public function undo(): Array<Array<Array<Blocks>>> {
 		if (cursor > 0) {
 			cursor--;
@@ -55,7 +61,10 @@ class MoveHistory {
 		return null;
 	}
 	
-	
+	/**
+	 * Séléctionne le niveau suivant celui actuellement affiché
+	 * @return le niveau d'après, à afficher
+	 */
 	public function redo(): Array<Array<Array<Blocks>>> {
 		if (cursor < moveTab.length-1) {
 			cursor++;
@@ -66,24 +75,18 @@ class MoveHistory {
 		return null;
 	}
 	
-	
+	/**
+	 * Rajoute un nouveau mouvement au moveTab en supprimant les mouvements situés après le curseur
+	 * @param	pLevel nouveau niveau a stocker
+	 */
 	public function newMove(pLevel: Array<Array<Array<Blocks>>>): Void {
-		trace("cursor = " + cursor);
-		trace("moveTab.length = " + moveTab.length);
-		
 		while (cursor < moveTab.length - 1) {
 			moveTab.pop();
 		}
 		
-		trace("cursor = " + cursor);
-		trace("moveTab.length = " + moveTab.length);
-		
 		moveTab.push(pLevel);
 		
 		cursor++;
-		
-		trace("cursor = " + cursor);
-		trace("moveTab.length = " + moveTab.length);
 	}
 	
 	/**

@@ -57,7 +57,7 @@ class Hud extends Screen
 
 		txtScore = cast(mcTopCenter.getChildByName("txtScore"), TextField);
 
-		txtScore.text = "Coups : " + ScoreManager.get_score();
+		txtScore.text = "Coups : " + ScoreManager.score;
 
 		btnRetry = content.getChildByName("btnRetry");
 		btnUndo = content.getChildByName("btnUndo");
@@ -76,7 +76,7 @@ class Hud extends Screen
 
 		if (lLevel.length != 0)
 		{
-			ScoreManager.set_score(ScoreManager.get_score() + 1);
+			ScoreManager.score++;
 			ScoreManager.updateScore();
 		}
 
@@ -93,9 +93,9 @@ class Hud extends Screen
 	{
 		var lLevel: Array<Array<Array<Blocks>>> = MoveHistory.getInstance().undo();
 
-		if (ScoreManager.get_score() != 0)
+		if (ScoreManager.score != 0)
 		{
-			ScoreManager.set_score(ScoreManager.get_score() - 1);
+			ScoreManager.score--;
 			ScoreManager.updateScore();
 		}
 
@@ -112,7 +112,7 @@ class Hud extends Screen
 	{
 		LevelManager.selectLevel(LevelManager.levelNum);
 
-		ScoreManager.set_score(0);
+		ScoreManager.score = 0;
 		ScoreManager.updateScore();
 
 		IsoView.getInstance().updateView(LevelManager.getCurrentLevel());

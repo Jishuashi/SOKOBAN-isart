@@ -43,7 +43,7 @@ class WinScreen extends Screen
 		buttonQuit.addEventListener(MouseEvent.CLICK, onClickQuit);
 		
 		
-		txtScore.text = "Nombre de coups : " + ScoreManager.get_endScore();
+		txtScore.text = "Nombre de coups : " + ScoreManager.endScore;
 		
 		var lPositionnable:UIPositionable = {item:backgroundVictory, align:AlignType.FIT_SCREEN};
 		positionables.push(lPositionnable);
