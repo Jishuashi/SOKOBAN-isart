@@ -2,6 +2,8 @@ package com.isartdigital.nabokos.game.model;
 import com.isartdigital.nabokos.game.model.Blocks;
 import com.isartdigital.nabokos.game.model.PlayerActions;
 import com.isartdigital.nabokos.game.presenter.GameManager;
+import com.isartdigital.nabokos.ui.UIManager;
+import com.isartdigital.nabokos.ui.screen.WinScreen;
 import com.isartdigital.utils.loader.GameLoader;
 import haxe.Json;
 import openfl.geom.Point;
@@ -29,6 +31,8 @@ class LevelManager
 	private static var levels(default, null): Array<Array<Array<Array<Blocks>>>>;
 
 	public static var levelNum: Int = 1;
+
+	public static var bigWallOn : Bool = true;
 
 	private static var boxList: Array<Array<Blocks>>;
 	private static var boxCurrentPosition: Array<Array<Point>>;
@@ -134,9 +138,6 @@ class LevelManager
 	{
 		var lPlayerPos: Point = new Point();
 
-		ScoreManager.set_score(ScoreManager.get_score() + 1);
-		ScoreManager.updateScore();
-
 		for (y in 0...currentLevel.length)
 		{
 			for (x in 0...currentLevel[y].length)
@@ -173,6 +174,9 @@ class LevelManager
 			lTargetTile.unshift(Blocks.PLAYER);
 			currentLevel[Std.int(lPlayerPos.y)][Std.int(lPlayerPos.x)].shift();
 
+			ScoreManager.set_score(ScoreManager.get_score() + 1);
+			ScoreManager.updateScore();
+
 			return true;
 		}
 
@@ -180,6 +184,9 @@ class LevelManager
 		{
 			var lNextPosBox: Point = new Point(lPlayerNextPos.x, lPlayerNextPos.y);
 
+			ScoreManager.set_score(ScoreManager.get_score() + 1);
+			ScoreManager.updateScore();
+			
 			lNextPosBox.x += lPlayerNextPos.x - lPlayerPos.x;
 			lNextPosBox.y += lPlayerNextPos.y - lPlayerPos.y;
 
@@ -336,7 +343,7 @@ class LevelManager
 								lTargetTile.shift();
 						}
 					}
-					
+
 					for (m in 0...boxList[h].length)
 					{
 						if (m != k)
@@ -462,14 +469,13 @@ class LevelManager
 		if (lSucces == lCurrentSucces)
 		{
 			ScoreManager.set_endScore(ScoreManager.get_endScore() + ScoreManager.get_score());
-			ScoreManager.set_score(0);			
+			
+			UIManager.addScreen(WinScreen.getInstance());
+			UIManager.closeHud();
+			
+			
+			ScoreManager.set_score(0);
 			ScoreManager.updateScore();
-			
-			LevelManager.levelNum++;
-			
-			LevelManager.selectLevel(LevelManager.levelNum);
-
-			GameManager.start();
 		}
 	}
 }

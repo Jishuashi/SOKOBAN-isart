@@ -1,6 +1,7 @@
 package com.isartdigital.nabokos.game.view;
 import com.isartdigital.nabokos.game.model.Blocks;
 import animateAtlasPlayer.core.Animation;
+import com.isartdigital.nabokos.game.model.LevelManager;
 import com.isartdigital.nabokos.game.model.PlayerActions;
 import com.isartdigital.nabokos.game.view.GameView;
 import com.isartdigital.utils.game.GameStage;
@@ -59,8 +60,9 @@ class IsoView extends GameView {
 					
 					switch (pLevel[y][x][k]) {
 						case Blocks.WALL:
-							lAsset = GameLoader.getAnimationFromAtlas("IsoWallPlate");
-							
+							if(LevelManager.bigWallOn){lAsset = GameLoader.getAnimationFromAtlas("IsoWall");}
+							else{lAsset = GameLoader.getAnimationFromAtlas("IsoWallPlate");}							
+						
 						case Blocks.PLAYER :
 							lAsset = player;
 						

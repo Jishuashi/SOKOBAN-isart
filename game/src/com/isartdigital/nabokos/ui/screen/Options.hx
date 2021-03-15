@@ -1,5 +1,7 @@
 package com.isartdigital.nabokos.ui.screen;
 
+import com.isartdigital.nabokos.game.model.LevelManager;
+import com.isartdigital.nabokos.game.view.IsoView;
 import com.isartdigital.utils.sound.SoundManager;
 import com.isartdigital.utils.ui.AlignType;
 import com.isartdigital.utils.ui.Screen;
@@ -86,12 +88,16 @@ class Options extends Screen
 	private function onClickSmall(pEvent:MouseEvent) : Void
 	{
 		//implémenter les small wall
+		LevelManager.bigWallOn = false;
+		IsoView.getInstance().updateView(LevelManager.getCurrentLevel());
 		SoundManager.getSound("click").start();
 	}
 	
 	private function onClickBig(pEvent:MouseEvent) : Void
 	{
 		//implémenter les big wall
+		LevelManager.bigWallOn = true;
+		IsoView.getInstance().updateView(LevelManager.getCurrentLevel());
 		SoundManager.getSound("click").start();
 	}
 
