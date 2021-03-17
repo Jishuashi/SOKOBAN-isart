@@ -363,7 +363,6 @@ class LevelManager {
 	private static function updateBoxArrays(pNewBoxPosition:Point, pOldBoxPosition:Point):Void {
 		var lCurrentPosition: Point;
 		var lPreviousPosition: Point;
-		var lMovedBox: Point = new Point();
 		
 		for (i in 0...boxCurrentPosition.length) {
 			for (j in 0...boxCurrentPosition[i].length) {
