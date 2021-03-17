@@ -35,6 +35,8 @@ class LevelScreen extends Screen
 	
 	private var levelIndex : Int;
 	
+	public static var levelCompleteList : Array<Bool> = new Array<Bool>();
+	
 	private function new()
 	{
 		super();
@@ -110,7 +112,15 @@ class LevelScreen extends Screen
 		if (instance == null) instance = new LevelScreen();
 		return instance;
 	}
-
+	
+	public static function initLevelCompleteList():Void
+	{
+		for (i in 0... LevelManager.levels.length) 
+		{
+			levelCompleteList[i] = false;
+		}
+	}
+	
 	private function onClickBack(pEvent:MouseEvent) : Void
 	{
 		UIManager.addScreen(TitleCard.getInstance());

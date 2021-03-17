@@ -1,5 +1,6 @@
 package com.isartdigital.nabokos.ui.screen;
 
+import com.isartdigital.nabokos.game.model.ScoreManager;
 import com.isartdigital.nabokos.game.presenter.GameManager;
 import com.isartdigital.utils.sound.SoundManager;
 import com.isartdigital.utils.ui.AlignType;

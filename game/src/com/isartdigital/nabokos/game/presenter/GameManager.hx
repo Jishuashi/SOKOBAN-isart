@@ -1,6 +1,7 @@
 package com.isartdigital.nabokos.game.presenter;
 import com.isartdigital.nabokos.game.model.LevelManager;
 import com.isartdigital.nabokos.game.model.MoveHistory;
+import com.isartdigital.nabokos.game.model.ScoreManager;
 import com.isartdigital.nabokos.game.view.GameView;
 import com.isartdigital.nabokos.game.view.IsoView;
 import com.isartdigital.nabokos.game.view.RadarView;

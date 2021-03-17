@@ -26,6 +26,7 @@ class WinScreen extends Screen
 	private var victoryAnimation:MovieClip;
 	
 	private var txtScore : TextField;
+	private var txtHighscore : TextField;
 
 	private function new()
 	{
@@ -38,12 +39,14 @@ class WinScreen extends Screen
 		victoryAnimation 	= cast(content.getChildByName("victoryAnimation"), MovieClip);
 		
 		txtScore = cast(content.getChildByName("txtScore"), TextField);
+		txtHighscore = cast(content.getChildByName("txtHighscore"), TextField);
 		
 		buttonContinue.addEventListener(MouseEvent.CLICK, onClickContinue);
 		buttonQuit.addEventListener(MouseEvent.CLICK, onClickQuit);
 		
 		
-		txtScore.text = "Nombre de coups : " + ScoreManager.endScore;
+		txtScore.text = "Nombre de coups : " + ScoreManager.score;
+		txtHighscore.text = "Highscore : " + ScoreManager.endScore;
 		
 		var lPositionnable:UIPositionable = {item:backgroundVictory, align:AlignType.FIT_SCREEN};
 		positionables.push(lPositionnable);

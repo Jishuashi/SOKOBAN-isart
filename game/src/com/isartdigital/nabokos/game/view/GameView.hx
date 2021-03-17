@@ -9,7 +9,7 @@ import openfl.display.Sprite;
  * ...
  * @author Hugo CHARTIER
  */
-class GameView extends Sprite
+class GameView extends Sprite 
 {
 	/**
 	 * taille des cases du tableau

@@ -1,7 +1,9 @@
 	package com.isartdigital.nabokos;
 
 import com.isartdigital.nabokos.game.model.LevelManager;
+import com.isartdigital.nabokos.game.model.ScoreManager;
 import com.isartdigital.nabokos.ui.GraphicLoader;
+import com.isartdigital.nabokos.ui.screen.LevelScreen;
 import com.isartdigital.nabokos.ui.screen.LoginScreen;
 import com.isartdigital.nabokos.ui.screen.TitleCard;
 import com.isartdigital.nabokos.ui.screen.Options;
@@ -116,13 +118,15 @@ class Main extends Sprite
 		lGameLoader.removeEventListener(AssetsLoaderEvent.COMPLETE, onLoadComplete);		
 		
 		SoundManager.initSounds();
-		
 		//Ajout des colliders des stateObjects
 		StateManager.addColliders(Json.parse(GameLoader.getText("assets/colliders.json")));
 		
 		UIManager.addScreen(LoginScreen.getInstance());
 		
 		LevelManager.init();
+		ScoreManager.initHighscore();
+		
+		LevelScreen.initLevelCompleteList();
 	}
 
 	private static function importClasses() : Void {
