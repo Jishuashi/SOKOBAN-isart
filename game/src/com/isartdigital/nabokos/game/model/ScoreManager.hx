@@ -13,6 +13,10 @@ class ScoreManager {
 	public static var score : Int = 0;
 	
 	/**
+	 * Tableau des score par Niveau
+	 */
+	public static var levelScore : Array<Int> = new Array<Int>;
+	/**
 	 * Score total du joueur
 	 */
 	public static var endScore :Int = 0;
