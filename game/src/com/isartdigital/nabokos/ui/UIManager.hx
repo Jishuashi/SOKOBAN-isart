@@ -1,12 +1,18 @@
 package com.isartdigital.nabokos.ui;
 import com.isartdigital.utils.game.GameStage;
+import com.isartdigital.utils.ui.AlignType;
 import com.isartdigital.utils.ui.Screen;
+import com.isartdigital.utils.ui.UIComponent;
+import com.isartdigital.utils.ui.UIPositionable;
+import com.isartdigital.nabokos.ui.screen.LoginScreen;
+import openfl.display.DisplayObject;
+import openfl.events.MouseEvent;
 
 /**
  * ...
  * @author Chadi Husser
  */
-class UIManager 
+class UIManager
 {
 	/**
 	 * Ajoute un écran dans le conteneur de Screens en s'assurant qu'il n'y en a pas d'autres
@@ -35,4 +41,12 @@ class UIManager
 	public static function closeHud() : Void {
 		GameStage.getInstance().getHudSprite().removeChild(Hud.getInstance());
 	}
+	
+	//public static function addButton(pScreen:Screen, pArray:Array, pButton:String, pCallback:MouseEvent->Void, pAlignType:AlignType, pOffsetY:Int, pOffsetX:Int = 0) :Void
+	//{
+		//var lButton:DisplayObject = pScreen.getInstance().getChildByName(pButton);
+		//lButton.addEventListener(MouseEvent.CLICK, pCallback);
+		//var lPositionnable:UIPositionable = { item:lButton, align:pAlignType, offsetY:pOffsetY, offsetX:pOffsetX};
+		//pArray.push(lPositionnable);
+	//}
 }

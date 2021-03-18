@@ -69,7 +69,7 @@ class Options extends Screen
 		positionables.push(lPositionnable);
 		lPositionnable = { item:buttonSmallWall, align:AlignType.TOP, offsetY:1100};
 		positionables.push(lPositionnable);
-		lPositionnable = { item:buttonBigWall, align:AlignType.TOP, offsetY:1170};
+		lPositionnable = { item:buttonBigWall, align:AlignType.TOP, offsetY:1100};
 		positionables.push(lPositionnable);
 	}
 

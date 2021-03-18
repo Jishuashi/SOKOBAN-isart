@@ -47,7 +47,7 @@ class WinScreen extends Screen
 		
 		var lPositionnable:UIPositionable = {item:backgroundVictory, align:AlignType.FIT_SCREEN};
 		positionables.push(lPositionnable);
-		lPositionnable = { item:victoryTitle, align:AlignType.TOP, offsetY:100};
+		lPositionnable = { item:victoryTitle, align:AlignType.TOP, offsetY:200};
 		positionables.push(lPositionnable);
 		lPositionnable = { item:buttonContinue, align:AlignType.BOTTOM, offsetY:100};
 		positionables.push(lPositionnable);
@@ -68,7 +68,7 @@ class WinScreen extends Screen
 		LevelManager.selectLevel(LevelManager.levelNum);
 		
 		GameManager.start();
-
+		
 		SoundManager.getSound("click").start();
 	}
 

@@ -3,6 +3,7 @@ package com.isartdigital.nabokos.ui.screen;
 import com.isartdigital.utils.sound.SoundManager;
 import com.isartdigital.utils.ui.AlignType;
 import com.isartdigital.utils.ui.Screen;
+import com.isartdigital.utils.ui.UIComponent;
 import com.isartdigital.utils.ui.UIPositionable;
 import openfl.display.DisplayObject;
 import openfl.display.SimpleButton;
@@ -23,7 +24,6 @@ class LoginScreen extends Screen
 	private var backgroundLogin:DisplayObject;
 	private var buttonEnter:DisplayObject;
 	private var loginTitle:DisplayObject;
-	//private var pseudoButton:DisplayObject;
 	public var pseudo(get, null):String;
 
 	private function new()
@@ -33,7 +33,6 @@ class LoginScreen extends Screen
 		backgroundLogin		= content.getChildByName("backgroundLogin");
 		loginTitle			= content.getChildByName("loginTitle");
 		buttonEnter			= content.getChildByName("btnEnter");
-		//pseudoButton		= content.getChildByName("btnPseudo");
 		errorText 			= cast(content.getChildByName("errorTextField"), TextField);
 		mdpText 			= cast(content.getChildByName("mdpText"), TextField);
 		mdpText.text = "pseudo";
@@ -42,8 +41,10 @@ class LoginScreen extends Screen
 		mdpText.maxChars = 12;
 		mdpText.restrict = "A-Z a-z 0-9";
 		
+		//UIManager.addButton(LoginScreen, positionables, "btnEnter", onClickEnter, BOTTOM, 100);
+		
 		buttonEnter.addEventListener(MouseEvent.CLICK, onClickEnter);
-		//pseudoButton.addEventListener(MouseEvent.CLICK, onClickPseudo);
+		mdpText.addEventListener(MouseEvent.CLICK, onClickPseudo);
 		
 		var lPositionnable:UIPositionable = { item:backgroundLogin, align:AlignType.FIT_SCREEN};
 		positionables.push(lPositionnable);
@@ -73,16 +74,15 @@ class LoginScreen extends Screen
 		else errorText.text = "password too short";
 	}
 	
-	//private function onClickPseudo(pEvent:MouseEvent) : Void
-	//{
-		//mdpText.text = "";
-	//}
+	private function onClickPseudo(pEvent:MouseEvent) : Void
+	{
+		mdpText.text = "";
+	}
 
 	override public function destroy (): Void
 	{
 		instance = null;
 		buttonEnter.removeEventListener(MouseEvent.CLICK, onClickEnter);
-		//pseudoButton.removeEventListener(MouseEvent.CLICK, onClickPseudo);
 		super.destroy();
 	}
 }

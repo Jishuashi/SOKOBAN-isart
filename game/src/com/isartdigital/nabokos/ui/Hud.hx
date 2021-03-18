@@ -68,6 +68,15 @@ class Hud extends Screen
 		btnRedo.addEventListener(MouseEvent.CLICK, redo);
 		btnUndo.addEventListener(MouseEvent.CLICK, undo);
 		btnPause.addEventListener(MouseEvent.CLICK, pause);
+		
+		lPositionnable = { item:btnRetry, align:AlignType.TOP_RIGHT, offsetY:100, offsetX:250};
+		positionables.push(lPositionnable);
+		lPositionnable = { item:btnUndo, align:AlignType.BOTTOM_RIGHT, offsetY:100, offsetX:250};
+		positionables.push(lPositionnable);
+		lPositionnable = { item:btnRedo, align:AlignType.BOTTOM_RIGHT, offsetY:250, offsetX:250};
+		positionables.push(lPositionnable);
+		lPositionnable = { item:btnPause, align:AlignType.TOP_RIGHT, offsetY:100, offsetX:650};
+		positionables.push(lPositionnable);
 	}
 
 	public function redo(pEvent : MouseEvent): Void
