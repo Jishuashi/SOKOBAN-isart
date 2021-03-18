@@ -1,4 +1,5 @@
 package com.isartdigital.nabokos.game.model;
+import openfl.geom.Point;
 
 	
 /**
@@ -16,6 +17,11 @@ class MoveHistory {
 	 * Tableau répertoriant la configuration du niveau avant et après chaque mouvement du joueur
 	 */
 	private var moveTab: Array<Array<Array<Array<Blocks>>>>;
+	
+	/**
+	 * Tableau qui stocke les positions des boites
+	 */
+	private var boxPositionTab: Array<Array<Array<Point>>>;
 	
 	/**
 	 * Curseur représentant le format du niveau actuellement représenté
@@ -43,6 +49,7 @@ class MoveHistory {
 	 */
 	public function resetTab(): Void {
 		moveTab = new Array<Array<Array<Array<Blocks>>>>();
+		boxPositionTab = new Array<Array<Array<Point>>>();
 		
 		cursor = -1;
 	}
@@ -54,6 +61,7 @@ class MoveHistory {
 	public function undo(): Array<Array<Array<Blocks>>> {
 		if (cursor > 0) {
 			cursor--;
+			LevelManager.reInitBoxesForUndo(boxPositionTab[cursor]);
 			
 			return moveTab[cursor];
 		}
@@ -68,6 +76,7 @@ class MoveHistory {
 	public function redo(): Array<Array<Array<Blocks>>> {
 		if (cursor < moveTab.length-1) {
 			cursor++;
+			LevelManager.reInitBoxesForUndo(boxPositionTab[cursor]);
 			
 			return moveTab[cursor];
 		}
@@ -79,12 +88,16 @@ class MoveHistory {
 	 * Rajoute un nouveau mouvement au moveTab en supprimant les mouvements situés après le curseur
 	 * @param	pLevel nouveau niveau a stocker
 	 */
-	public function newMove(pLevel: Array<Array<Array<Blocks>>>): Void {
+	public function newMove(pLevel: Array<Array<Array<Blocks>>>, pBoxesPosition: Array<Array<Point>>): Void {
 		while (cursor < moveTab.length - 1) {
 			moveTab.pop();
+			boxPositionTab.pop();
 		}
 		
 		moveTab.push(pLevel);
+		boxPositionTab.push(pBoxesPosition);
+		
+		trace (boxPositionTab);
 		
 		cursor++;
 	}

@@ -99,7 +99,7 @@ class GameManager
 		
 		if (lPlayerAction != null) {
 			if (LevelManager.playerAction(lPlayerAction)) {
-				MoveHistory.getInstance().newMove(LevelManager.getCurrentLevel());
+				MoveHistory.getInstance().newMove(LevelManager.getCurrentLevel(), LevelManager.getBoxPosisition());
 				
 				IsoView.getInstance().updateView(LevelManager.getCurrentLevel());
 				RadarView.getInstance().updateView(LevelManager.getCurrentLevel());

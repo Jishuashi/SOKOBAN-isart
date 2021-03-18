@@ -35,7 +35,7 @@ class LevelManager
 	public static var bigWallOn : Bool = true;
 
 	private static var boxList: Array<Array<Blocks>>;
-	private static var boxCurrentPosition: Array<Array<Point>>;
+	public static var boxCurrentPosition: Array<Array<Point>>;
 	private static var boxPreviousPosition: Array<Array<Point>>;
 
 	private static var mirrorList: Array<Blocks>;
@@ -103,7 +103,7 @@ class LevelManager
 
 		for (i in 0...levels.length)
 		{
-			trace(levels[i] + "\n");
+			//trace(levels[i] + "\n");
 		}
 	}
 
@@ -119,13 +119,13 @@ class LevelManager
 		currentLevel = copyLevel(levels[pLevel]);
 
 		levelNum = pLevel;
-
-		MoveHistory.getInstance().resetTab();
-		MoveHistory.getInstance().newMove(copyLevel(currentLevel));
-
+		
 		initBlocksArrays();
 		reflectBoxes(); //reflète les boîtes pour la première fois dans le niveau
-
+		
+		MoveHistory.getInstance().resetTab();
+		MoveHistory.getInstance().newMove(copyLevel(currentLevel), copyArray2D(boxCurrentPosition));
+		
 		return true;
 	}
 
@@ -233,6 +233,11 @@ class LevelManager
 	{
 		return copyLevel(currentLevel);
 	}
+	
+	public static function getBoxPosisition(): Array<Array<Point>>
+	{
+		return copyArray2D(boxCurrentPosition);
+	}
 
 	/**
 	 * La fonction .copy() d'une array crée une seconde instance de tableau, mais avec les mêmes objets.
@@ -246,12 +251,10 @@ class LevelManager
 
 		for (y in 0...pLevel.length)
 		{
-
 			lReturnedLevel[y] = new Array<Array<Blocks>>();
 
 			for (x in 0...pLevel[y].length)
 			{
-
 				lReturnedLevel[y][x] = new Array<Blocks>();
 
 				for (z in 0...pLevel[y][x].length)
@@ -263,11 +266,35 @@ class LevelManager
 
 		return lReturnedLevel;
 	}
+	
+	/**
+	 * fonctionne de la même façon que pour copyLevel mais pour un tableau à 2 dimensions
+	 * @param	pArray tableau a recopier
+	 * @return	le tableau
+	 */
+	public static function copyArray2D(pArray: Array<Array<Point>>): Array<Array<Point>>
+	{
+		var lReturnedArray: Array<Array<Point>> = new Array<Array<Point>>();
+		var lPos:Point = new Point();
+		
+		for (y in 0...pArray.length){
+			lReturnedArray[y] = new Array<Point>();
+			
+			for (x in 0...pArray[y].length){
+				lPos.x = pArray[y][x].x;
+				lPos.y = pArray[y][x].y;
+				
+				lReturnedArray[y].push(new Point(lPos.x, lPos.y));
+			}
+		}
+		
+		return lReturnedArray;
+	}
 
 	/**
 	 * responsable de refléter les boites
 	 */
-	private static function reflectBoxes(): Void
+	public static function reflectBoxes(): Void
 	{
 		var lMirrorPosition: Point = new Point();
 		var lBoxPosition:Point = new Point();
@@ -358,7 +385,29 @@ class LevelManager
 			}
 		}
 	}
-
+	
+	public static function reInitBoxesForUndo(pCurrentBoxesPosition: Array<Array<Point>>):Void
+	{
+		boxList = new Array<Array<Blocks>>();
+		boxCurrentPosition = new Array<Array<Point>>();
+		boxPreviousPosition = new Array<Array<Point>>();
+		//trace (pCurrentBoxesPosition);
+		
+		for (i in 0...pCurrentBoxesPosition.length){
+			boxList.insert(i, new Array<Blocks>());
+			boxCurrentPosition.insert(i, new Array<Point>());
+			boxPreviousPosition.insert(i, new Array<Point>());
+			
+			for (j in 0...pCurrentBoxesPosition[i].length){
+				boxList[i].push(Blocks.BOX);
+				boxCurrentPosition[i].push(new Point(pCurrentBoxesPosition[i][j].x, pCurrentBoxesPosition[i][j].y));
+				boxPreviousPosition[i].push(new Point());
+			}
+		}
+		
+		//trace (boxList, boxCurrentPosition, boxPreviousPosition);
+	}
+	
 	/**
 	 * initialise le tableau de box, de positions de box, de mirroirs, de position de mirroirs, de target et de position de target
 	 */
@@ -434,7 +483,7 @@ class LevelManager
 
 	private static function calculateSymetricPoint(pMirrorPosition:Point, pBoxPosition:Point):Point
 	{
-		return new Point(pBoxPosition.x + (pMirrorPosition.x - pBoxPosition.x) * 2, pBoxPosition.y + (pMirrorPosition.y - pBoxPosition.y) * 2);
+		return new Point(pMirrorPosition.x + (pMirrorPosition.x - pBoxPosition.x), pMirrorPosition.y + (pMirrorPosition.y - pBoxPosition.y));
 	}
 
 	/**
@@ -467,8 +516,8 @@ class LevelManager
 		if (lSucces == lCurrentSucces)
 		{
 
-			trace(ScoreManager.score);
-			trace(ScoreManager.levelScore[levelNum]);
+			//trace(ScoreManager.score);
+			//trace(ScoreManager.levelScore[levelNum]);
 
 			if (ScoreManager.levelScore[levelNum] > ScoreManager.score && LevelScreen.levelCompleteList[levelNum])
 			{
