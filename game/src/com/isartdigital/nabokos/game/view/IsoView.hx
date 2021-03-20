@@ -114,8 +114,21 @@ class IsoView extends GameView {
 		
 		GameStage.getInstance().getGameContainer().addChild(viewContainer);
 		
-		viewContainer.x = GameStage.getInstance().getGameContainer().width / 2;
-		viewContainer.y = GameStage.getInstance().getGameContainer().height * 0.2;
+		viewContainer.x = GameStage.getInstance().safeZone.width / 2;
+		viewContainer.y = GameStage.getInstance().safeZone.height * 0.2;
+		
+		var lSafeArea: Float = GameStage.getInstance().safeZone.height * GameStage.getInstance().safeZone.width;
+		var lContainerArea: Float = viewContainer.width * viewContainer.height;
+		
+		trace(lSafeArea);
+		trace(lContainerArea);
+		
+		while (lContainerArea > lSafeArea) {
+			viewContainer.scaleX *= 0.9;
+			viewContainer.scaleY *= 0.9;
+			
+			lContainerArea = viewContainer.width * viewContainer.height;
+		}
 	}
 	
 	/**
