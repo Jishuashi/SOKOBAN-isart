@@ -1,7 +1,10 @@
 package com.isartdigital.utils.ui;
 
+import motion.actuators.SimpleActuator;
+import openfl.display.DisplayObject;
 import openfl.display.MovieClip;
 import openfl.events.Event;
+import openfl.events.MouseEvent;
 import openfl.utils.Assets;
 
 /**
@@ -36,5 +39,4 @@ class Screen extends UIComponent
 		stage.removeEventListener(Event.RESIZE, onResize);
 		super.destroy();
 	}
-	
 }

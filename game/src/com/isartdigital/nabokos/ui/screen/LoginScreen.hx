@@ -5,18 +5,18 @@ import com.isartdigital.utils.ui.AlignType;
 import com.isartdigital.utils.ui.Screen;
 import com.isartdigital.utils.ui.UIComponent;
 import com.isartdigital.utils.ui.UIPositionable;
+import motion.Actuate;
 import openfl.display.DisplayObject;
 import openfl.display.SimpleButton;
 import openfl.events.MouseEvent;
 import openfl.text.TextField;
 import openfl.text.TextFieldType;
 
-	
 /**
  * ...
  * @author Blanco
  */
-class LoginScreen extends Screen 
+class LoginScreen extends Screen
 {
 	private static var instance: LoginScreen;
 	private var errorText:TextField;
@@ -24,45 +24,68 @@ class LoginScreen extends Screen
 	private var backgroundLogin:DisplayObject;
 	private var buttonEnter:DisplayObject;
 	private var loginTitle:DisplayObject;
+	private var pseudoBox:DisplayObject;
 	public var pseudo(get, null):String;
 
 	private function new()
 	{
 		super();
 		
-		backgroundLogin		= content.getChildByName("backgroundLogin");
-		loginTitle			= content.getChildByName("loginTitle");
-		buttonEnter			= content.getChildByName("btnEnter");
-		errorText 			= cast(content.getChildByName("errorTextField"), TextField);
-		mdpText 			= cast(content.getChildByName("mdpText"), TextField);
+		buttonEnter		= content.getChildByName("btnEnter");
+		backgroundLogin	= content.getChildByName("backgroundLogin");
+		loginTitle		= content.getChildByName("loginTitle");
+		pseudoBox		= content.getChildByName("pseudoBox");
+		
+		errorText	= cast(content.getChildByName("errorTextField"), TextField);
+		mdpText 	= cast(content.getChildByName("mdpText"), TextField);
 		mdpText.text = "pseudo";
 		mdpText.type = TextFieldType.INPUT;
 		mdpText.selectable = true;
 		mdpText.maxChars = 12;
 		mdpText.restrict = "A-Z a-z 0-9";
 		
-		//UIManager.addButton(LoginScreen, positionables, "btnEnter", onClickEnter, BOTTOM, 100);
-		
-		buttonEnter.addEventListener(MouseEvent.CLICK, onClickEnter);
 		mdpText.addEventListener(MouseEvent.CLICK, onClickPseudo);
+		buttonEnter.addEventListener(MouseEvent.CLICK, onClickEnter);
 		
 		var lPositionnable:UIPositionable = { item:backgroundLogin, align:AlignType.FIT_SCREEN};
 		positionables.push(lPositionnable);
 		lPositionnable = { item:loginTitle, align:AlignType.TOP, offsetY:100};
 		positionables.push(lPositionnable);
+		lPositionnable = { item:buttonEnter, align:AlignType.BOTTOM, offsetY:500};
+		positionables.push(lPositionnable);
+		
+		Actuate.tween (loginTitle,	 0.5, {alpha:0}).reverse();
+		Actuate.tween (buttonEnter,	 0.5, {alpha:0}).reverse();
+		Actuate.tween (pseudoBox,	 0.5, {alpha:0}).reverse();
+		Actuate.tween (mdpText,		 0.5, {alpha:0}).reverse();
 	}
-	
+
 	public static function getInstance (): LoginScreen
 	{
 		if (instance == null) instance = new LoginScreen();
 		return instance;
 	}
-	
+
+	private function addButton(pButton:String, pCallback:MouseEvent->Void, pAlignType:AlignType, pOffsetY:Int=0, pOffsetX:Int = 0) :Void
+	{
+		var lButton:DisplayObject = content.getChildByName(pButton);
+		lButton.addEventListener(MouseEvent.CLICK, pCallback);
+		var lPositionnable:UIPositionable = { item:lButton, align:pAlignType, offsetY:pOffsetY, offsetX:pOffsetX};
+		positionables.push(lPositionnable);
+	}
+
+	private function addPositionnable(pPositionnable:String, pAlignType:AlignType, pOffsetY:Int = 0, pOffsetX:Int = 0) :Void
+	{
+		var pPositionnable:DisplayObject = content.getChildByName(pPositionnable);
+		var lPositionnable:UIPositionable = { item:pPositionnable, align:pAlignType, offsetY:pOffsetY, offsetX:pOffsetX};
+		positionables.push(lPositionnable);
+	}
+
 	private function get_pseudo():String
 	{
 		return mdpText.text;
 	}
-	
+
 	private function onClickEnter(pEvent:MouseEvent) : Void
 	{
 		if (mdpText.length >= 3)
@@ -73,7 +96,7 @@ class LoginScreen extends Screen
 		}
 		else errorText.text = "password too short";
 	}
-	
+
 	private function onClickPseudo(pEvent:MouseEvent) : Void
 	{
 		mdpText.text = "";
@@ -82,7 +105,8 @@ class LoginScreen extends Screen
 	override public function destroy (): Void
 	{
 		instance = null;
-		buttonEnter.removeEventListener(MouseEvent.CLICK, onClickEnter);
+		//buttonEnter.removeEventListener(MouseEvent.CLICK, onClickEnter);
+		mdpText.removeEventListener(MouseEvent.CLICK, onClickPseudo);
 		super.destroy();
 	}
 }

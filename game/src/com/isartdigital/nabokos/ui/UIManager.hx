@@ -41,12 +41,4 @@ class UIManager
 	public static function closeHud() : Void {
 		GameStage.getInstance().getHudSprite().removeChild(Hud.getInstance());
 	}
-	
-	//public static function addButton(pScreen:Screen, pArray:Array, pButton:String, pCallback:MouseEvent->Void, pAlignType:AlignType, pOffsetY:Int, pOffsetX:Int = 0) :Void
-	//{
-		//var lButton:DisplayObject = pScreen.getInstance().getChildByName(pButton);
-		//lButton.addEventListener(MouseEvent.CLICK, pCallback);
-		//var lPositionnable:UIPositionable = { item:lButton, align:pAlignType, offsetY:pOffsetY, offsetX:pOffsetX};
-		//pArray.push(lPositionnable);
-	//}
 }

@@ -5,16 +5,15 @@ import com.isartdigital.nabokos.game.model.LevelManager;
 import com.isartdigital.utils.sound.SoundManager;
 import com.isartdigital.utils.ui.AlignType;
 import com.isartdigital.utils.ui.Screen;
-import com.isartdigital.nabokos.ui.screen.TutorialHelpScreen;
 import com.isartdigital.utils.ui.UIPositionable;
 import openfl.display.DisplayObject;
 import openfl.events.MouseEvent;
-
+	
 /**
  * ...
  * @author Blanco
  */
-class LevelScreen extends Screen
+class LevelScreen extends Screen 
 {
 	private static var instance: LevelScreen;
 	private var backgroundLevel:DisplayObject;
@@ -33,9 +32,11 @@ class LevelScreen extends Screen
 	private var buttonLvl10:DisplayObject;
 	private var buttonLvl11:DisplayObject;
 	private var buttonLvl12:DisplayObject;
-
+	
 	private var levelIndex : Int;
-
+	
+	public static var levelCompleteList : Array<Bool> = new Array<Bool>();
+	
 	private function new()
 	{
 		super();
@@ -56,7 +57,7 @@ class LevelScreen extends Screen
 		buttonLvl10			= content.getChildByName("btnLvl10");
 		buttonLvl11			= content.getChildByName("btnLvl11");
 		buttonLvl12			= content.getChildByName("btnLvl12");
-
+		
 		buttonBack.addEventListener(MouseEvent.CLICK, onClickBack);
 		buttonTuto.addEventListener(MouseEvent.CLICK, onClickTuto);
 		buttonLvl1.addEventListener(MouseEvent.CLICK, onClick1);
@@ -71,7 +72,7 @@ class LevelScreen extends Screen
 		buttonLvl10.addEventListener(MouseEvent.CLICK, onClick10);
 		buttonLvl11.addEventListener(MouseEvent.CLICK, onClick11);
 		buttonLvl12.addEventListener(MouseEvent.CLICK, onClick12);
-
+		
 		var lPositionnable:UIPositionable = { item:backgroundLevel, align:AlignType.FIT_SCREEN};
 		positionables.push(lPositionnable);
 		lPositionnable = { item:buttonBack, align:AlignType.BOTTOM, offsetY:100};
@@ -111,129 +112,125 @@ class LevelScreen extends Screen
 		if (instance == null) instance = new LevelScreen();
 		return instance;
 	}
-
+	
+	public static function initLevelCompleteList():Void
+	{
+		for (i in 0... LevelManager.levels.length) 
+		{
+			levelCompleteList[i] = false;
+		}
+	}
+	
 	private function onClickBack(pEvent:MouseEvent) : Void
 	{
 		UIManager.addScreen(TitleCard.getInstance());
 		SoundManager.getSound("click").start();
 	}
-
+	
+	
 	private function onClickTuto(pEvent : MouseEvent) : Void
 	{
-		UIManager.addScreen(TutorialHelpScreen.getInstance());
-		SoundManager.getSound("click").start();
+		levelIndex = 0;
+		trace("tuto selected");
+		levelSelect(levelIndex);
 	}
 	
-	
-		//levelIndex = 0;
-		//trace("tuto selected");
-		//levelSelect(levelIndex);
-
 	private function onClick1(pEvent : MouseEvent) : Void
 	{
 		levelIndex = 1;
 		trace("1 selected");
 		levelSelect(levelIndex);
-		SoundManager.getSound("click").start();
 	}
-
+	
+	
 	private function onClick2(pEvent : MouseEvent) : Void
 	{
 		levelIndex = 2;
 		trace("2 selected");
 		levelSelect(levelIndex);
-		SoundManager.getSound("click").start();
 	}
-
+	
 	private function onClick3(pEvent : MouseEvent) : Void
 	{
 		levelIndex = 3;
 		trace("3 selected");
 		levelSelect(levelIndex);
-		SoundManager.getSound("click").start();
 	}
-
+	
 	private function onClick4(pEvent : MouseEvent) : Void
 	{
 		levelIndex = 4;
 		trace("4 selected");
 		levelSelect(levelIndex);
-		SoundManager.getSound("click").start();
 	}
-
+	
 	private function onClick5(pEvent : MouseEvent) : Void
 	{
 		levelIndex = 5;
 		trace("5 selected");
 		levelSelect(levelIndex);
-		SoundManager.getSound("click").start();
 	}
-
+	
 	private function onClick6(pEvent : MouseEvent) : Void
 	{
 		levelIndex = 6;
 		trace("6 selected");
 		levelSelect(levelIndex);
-		SoundManager.getSound("click").start();
 	}
-
+	
 	private function onClick7(pEvent : MouseEvent) : Void
 	{
 		levelIndex = 7;
 		trace("7 selected");
 		levelSelect(levelIndex);
-		SoundManager.getSound("click").start();
 	}
-
+	
 	private function onClick8(pEvent : MouseEvent) : Void
 	{
 		levelIndex = 8;
 		trace("8 selected");
 		levelSelect(levelIndex);
-		SoundManager.getSound("click").start();
 	}
-
+	
 	private function onClick9(pEvent : MouseEvent) : Void
 	{
 		levelIndex = 9;
 		trace("9 selected");
 		levelSelect(levelIndex);
-		SoundManager.getSound("click").start();
 	}
-
+	
 	private function onClick10(pEvent : MouseEvent) : Void
 	{
 		levelIndex = 10;
 		trace("10 selected");
 		levelSelect(levelIndex);
-		SoundManager.getSound("click").start();
 	}
-
+	
 	private function onClick11(pEvent : MouseEvent) : Void
 	{
 		levelIndex = 11;
 		trace("11 selected");
 		levelSelect(levelIndex);
-		SoundManager.getSound("click").start();
 	}
-
+	
 	private function onClick12(pEvent : MouseEvent) : Void
 	{
 		levelIndex = 12;
 		trace("12 selected");
 		levelSelect(levelIndex);
-		SoundManager.getSound("click").start();
 	}
-
+	
+	
 	private function levelSelect(pLevel : Int):Void
 	{
 		LevelManager.levelNum = pLevel;
-
+		
 		LevelManager.selectLevel(LevelManager.levelNum);
-
+		
 		GameManager.start();
 	}
-
+	
+	
 	override public function destroy (): Void
 	{
 		instance = null;
@@ -248,9 +245,6 @@ class LevelScreen extends Screen
 		buttonLvl7.removeEventListener(MouseEvent.CLICK, onClick7);
 		buttonLvl8.removeEventListener(MouseEvent.CLICK, onClick8);
 		buttonLvl9.removeEventListener(MouseEvent.CLICK, onClick9);
-		buttonLvl10.removeEventListener(MouseEvent.CLICK, onClick10);
-		buttonLvl11.removeEventListener(MouseEvent.CLICK, onClick11);
-		buttonLvl12.removeEventListener(MouseEvent.CLICK, onClick12);
 		super.destroy();
 	}
 }

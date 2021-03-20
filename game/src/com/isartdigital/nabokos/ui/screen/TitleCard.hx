@@ -1,10 +1,13 @@
 package com.isartdigital.nabokos.ui.screen;
 
+import com.isartdigital.nabokos.game.model.ScoreManager;
 import com.isartdigital.nabokos.game.presenter.GameManager;
+import com.isartdigital.utils.math.Color;
 import com.isartdigital.utils.sound.SoundManager;
 import com.isartdigital.utils.ui.AlignType;
 import com.isartdigital.utils.ui.UIPositionable;
 import com.isartdigital.utils.ui.Screen;
+import motion.Actuate;
 import openfl.Assets;
 import openfl.display.DisplayObject;
 import openfl.events.MouseEvent;
@@ -28,10 +31,6 @@ class TitleCard extends Screen
 	{
 		super();
 		
-		//modifiedPlayText	= cast(content.getChildByName("modifiedPlayText"), TextField);
-		//var Arco:TextFormat = new TextFormat(Assets.getFont("fonts/ARCO.ttf").fontName);
-		//modifiedPlayText.setTextFormat(Arco);
-		
 		backgroundTitle		= content.getChildByName("backgroundTitle");
 		buttonPlay 			= content.getChildByName("btnPlay");
 		buttonHelp			= content.getChildByName("btnHelp");
@@ -49,6 +48,11 @@ class TitleCard extends Screen
 		positionables.push(lPositionnable);
 		lPositionnable = { item:buttonHighscores, align:AlignType.BOTTOM_LEFT, offsetY:100, offsetX:500};
 		positionables.push(lPositionnable);
+		
+		Actuate.tween (backgroundTitle,	 0.5, {alpha:0}).reverse();
+		Actuate.tween (buttonPlay,		 0.5, {alpha:0}).reverse();
+		Actuate.tween (buttonHelp,		 0.5, {alpha:0}).reverse();
+		Actuate.tween (buttonHighscores, 0.5, {alpha:0}).reverse();
 	}
 
 	public static function getInstance() : TitleCard

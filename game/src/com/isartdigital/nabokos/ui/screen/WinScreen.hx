@@ -7,6 +7,8 @@ import com.isartdigital.utils.sound.SoundManager;
 import com.isartdigital.utils.ui.AlignType;
 import com.isartdigital.utils.ui.Screen;
 import com.isartdigital.utils.ui.UIPositionable;
+import motion.Actuate;
+import motion.easing.Elastic;
 import openfl.display.DisplayObject;
 import openfl.display.MovieClip;
 import openfl.events.MouseEvent;
@@ -26,6 +28,7 @@ class WinScreen extends Screen
 	private var victoryAnimation:MovieClip;
 	
 	private var txtScore : TextField;
+	private var txtHighscore : TextField;
 
 	private function new()
 	{
@@ -38,12 +41,14 @@ class WinScreen extends Screen
 		victoryAnimation 	= cast(content.getChildByName("victoryAnimation"), MovieClip);
 		
 		txtScore = cast(content.getChildByName("txtScore"), TextField);
+		txtHighscore = cast(content.getChildByName("txtHighscore"), TextField);
 		
 		buttonContinue.addEventListener(MouseEvent.CLICK, onClickContinue);
 		buttonQuit.addEventListener(MouseEvent.CLICK, onClickQuit);
 		
 		
-		txtScore.text = "Nombre de coups : " + ScoreManager.endScore;
+		txtScore.text = "Nombre de coups : " + ScoreManager.score;
+		txtHighscore.text = "Highscore : " + ScoreManager.endScore;
 		
 		var lPositionnable:UIPositionable = {item:backgroundVictory, align:AlignType.FIT_SCREEN};
 		positionables.push(lPositionnable);
@@ -53,7 +58,19 @@ class WinScreen extends Screen
 		positionables.push(lPositionnable);
 		lPositionnable = { item:buttonQuit, align:AlignType.BOTTOM, offsetY:100};
 		positionables.push(lPositionnable);
-		//victoryAnimation.gotoAndStop(victoryAnimation.totalFrames);
+		
+		buttonContinue .alpha = 0;
+		buttonQuit.alpha = 0;
+		victoryAnimation .alpha = 0;
+		txtScore.alpha = 0;
+		txtHighscore .alpha = 0;
+		
+		Actuate.tween (victoryTitle, 		1, {scaleX:3, scaleY:3}).ease(Elastic.easeIn).reverse();
+		Actuate.tween (buttonContinue, 		5, {alpha:1}).delay(1);
+		Actuate.tween (buttonQuit, 			5, {alpha:1}).delay(1);
+		Actuate.tween (victoryAnimation, 	5, {alpha:1}).delay(1);
+		Actuate.tween (txtScore, 			5, {alpha:1}).delay(1);
+		Actuate.tween (txtHighscore, 		5, {alpha:1}).delay(1);
 	}
 
 	public static function getInstance (): WinScreen

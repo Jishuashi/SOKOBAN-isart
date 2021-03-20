@@ -6,6 +6,8 @@ import com.isartdigital.utils.sound.SoundManager;
 import com.isartdigital.utils.ui.AlignType;
 import com.isartdigital.utils.ui.Screen;
 import com.isartdigital.utils.ui.UIPositionable;
+import motion.Actuate;
+import motion.easing.Elastic;
 import openfl.display.DisplayObject;
 import openfl.events.MouseEvent;
 
@@ -51,26 +53,19 @@ class Options extends Screen
 		
 		var lPositionnable:UIPositionable = { item:backgroundOptions, align:AlignType.FIT_SCREEN};
 		positionables.push(lPositionnable);
-		lPositionnable = { item:optionsTitle, align:AlignType.TOP};
+		lPositionnable = { item:optionsTitle,	 align:AlignType.TOP};
 		positionables.push(lPositionnable);
-		lPositionnable = { item:buttonBack, align:AlignType.BOTTOM, offsetY:100};
+		lPositionnable = { item:buttonBack,		 align:AlignType.BOTTOM, offsetY:100};
 		positionables.push(lPositionnable);
-		lPositionnable = { item:buttonKeyboard, align:AlignType.TOP, offsetY:350};
-		positionables.push(lPositionnable);
-		lPositionnable = { item:buttonMouse, align:AlignType.TOP, offsetY:350};
-		positionables.push(lPositionnable);
-		lPositionnable = { item:buttonFrench, align:AlignType.TOP, offsetY:580};
-		positionables.push(lPositionnable);
-		lPositionnable = { item:buttonEnglish, align:AlignType.TOP, offsetY:580};
-		positionables.push(lPositionnable);
-		lPositionnable = { item:buttonSoundOn, align:AlignType.TOP, offsetY:810};
-		positionables.push(lPositionnable);
-		lPositionnable = { item:buttonSoundOff, align:AlignType.TOP, offsetY:810};
-		positionables.push(lPositionnable);
-		lPositionnable = { item:buttonSmallWall, align:AlignType.TOP, offsetY:1100};
-		positionables.push(lPositionnable);
-		lPositionnable = { item:buttonBigWall, align:AlignType.TOP, offsetY:1100};
-		positionables.push(lPositionnable);
+		
+		Actuate.tween (buttonKeyboard,	1, {x:-215, y:-380}).ease(Elastic.easeOut);
+		Actuate.tween (buttonMouse,		1, {x:215, y:-380}).ease(Elastic.easeOut);
+		Actuate.tween (buttonFrench,	1, {x:-215, y:-160}).ease(Elastic.easeOut);
+		Actuate.tween (buttonEnglish,	1, {x:215, y:-160}).ease(Elastic.easeOut);
+		Actuate.tween (buttonSoundOn,	1, {x:-215, y:50}).ease(Elastic.easeOut);
+		Actuate.tween (buttonSoundOff,	1, {x:215, y:50}).ease(Elastic.easeOut);
+		Actuate.tween (buttonSmallWall,	1, {x:-215, y:360}).ease(Elastic.easeOut);
+		Actuate.tween (buttonBigWall,	1, {x:215, y:320}).ease(Elastic.easeOut);
 	}
 
 	public static function getInstance (): Options

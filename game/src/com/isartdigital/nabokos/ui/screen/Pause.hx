@@ -5,6 +5,8 @@ import com.isartdigital.utils.sound.SoundManager;
 import com.isartdigital.utils.ui.AlignType;
 import com.isartdigital.utils.ui.Screen;
 import com.isartdigital.utils.ui.UIPositionable;
+import motion.Actuate;
+import motion.easing.Elastic;
 import openfl.display.DisplayObject;
 import openfl.events.MouseEvent;
 
@@ -39,6 +41,10 @@ class Pause extends Screen
 		positionables.push(lPositionnable);
 		lPositionnable = { item:pauseTitle, align:AlignType.TOP, offsetY:100};
 		positionables.push(lPositionnable);
+		
+		Actuate.tween (buttonContinue, 1, {x:0, y: -140}).ease(Elastic.easeOut);
+		Actuate.tween (buttonOptions, 1, {x:0, y:115}).ease(Elastic.easeOut);
+		Actuate.tween (buttonQuit, 1, {x:0, y:380}).ease(Elastic.easeOut);
 	}
 
 	public static function getInstance (): Pause

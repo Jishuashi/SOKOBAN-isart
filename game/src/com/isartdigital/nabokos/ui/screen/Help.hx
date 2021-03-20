@@ -4,6 +4,7 @@ import com.isartdigital.utils.sound.SoundManager;
 import com.isartdigital.utils.ui.AlignType;
 import com.isartdigital.utils.ui.Screen;
 import com.isartdigital.utils.ui.UIPositionable;
+import motion.Actuate;
 import openfl.display.DisplayObject;
 import openfl.events.MouseEvent;
 
@@ -17,6 +18,11 @@ class Help extends Screen
 	private var backgroundHelp:DisplayObject;
 	private var helpTitle:DisplayObject;
 	private var buttonBack:DisplayObject;
+	private var help1:DisplayObject;
+	private var arrow1:DisplayObject;
+	private var help2:DisplayObject;
+	private var arrow2:DisplayObject;
+	private var help3:DisplayObject;
 
 	private function new()
 	{
@@ -25,6 +31,11 @@ class Help extends Screen
 		backgroundHelp		= content.getChildByName("backgroundHelp");
 		helpTitle			= content.getChildByName("helpTitle");
 		buttonBack			= content.getChildByName("btnBack");
+		help1				= content.getChildByName("help1");
+		arrow1				= content.getChildByName("arrow1");
+		help2				= content.getChildByName("help2");
+		arrow2				= content.getChildByName("arrow2");
+		help3				= content.getChildByName("help3");
 		
 		buttonBack.addEventListener(MouseEvent.CLICK, onClickBack);
 		
@@ -34,6 +45,20 @@ class Help extends Screen
 		positionables.push(lPositionnable);
 		lPositionnable = { item:buttonBack, align:AlignType.BOTTOM, offsetY:100};
 		positionables.push(lPositionnable);
+		
+		help1 .alpha = 0;
+		arrow1.alpha = 0;
+		help2 .alpha = 0;
+		arrow2.alpha = 0;
+		help3 .alpha = 0;
+		
+		Actuate.tween (helpTitle,		1, {alpha:0}).reverse();
+		Actuate.tween (buttonBack,		1, {alpha:0}).reverse();
+		Actuate.tween (help1,			1, {alpha:1});
+		Actuate.tween (arrow1,			1, {alpha:1}).delay(1);
+		Actuate.tween (help2,			1, {alpha:1}).delay(2);
+		Actuate.tween (arrow2,			1, {alpha:1}).delay(3);
+		Actuate.tween (help3,			1, {alpha:1}).delay(4);
 	}
 
 	public static function getInstance (): Help
