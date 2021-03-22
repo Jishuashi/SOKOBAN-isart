@@ -19,7 +19,7 @@ class GameView extends Sprite
 	/**
 	 * Conteneur de chaque vue
 	 */
-	private var viewContainer: Sprite;
+	public var viewContainer: Sprite;
 
 	public function new()
 	{

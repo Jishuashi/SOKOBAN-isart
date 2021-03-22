@@ -35,6 +35,7 @@ import org.zamedev.particles.renderers.DefaultParticleRenderer;
 class GameManager
 {
 	public static var controller:KeyboardController;
+	public static var mouseController: MouseController;
 	private static var particleSystem :ParticleSystem;
 
 	public static function start() : Void
@@ -48,6 +49,7 @@ class GameManager
 		var lRect :Rectangle = DeviceCapabilities.getScreenRect(GameStage.getInstance());
 		
 		controller = new KeyboardController(Main.getInstance().stage);
+		mouseController = new MouseController();
 		
 		IsoView.getInstance().updateView(LevelManager.getCurrentLevel());
 		RadarView.getInstance().updateView(LevelManager.getCurrentLevel());	
@@ -81,19 +83,15 @@ class GameManager
 		var lPlayerAction: PlayerActions = null;
 		
 		if (controller.isLeftDown()) {
-			IsoView.getInstance().updatePlayerAsset(PlayerActions.LEFT);
 			lPlayerAction = PlayerActions.LEFT;
 		}
 		else if (controller.isRightDown()) {
-			IsoView.getInstance().updatePlayerAsset(PlayerActions.RIGHT);
 			lPlayerAction = PlayerActions.RIGHT;
 		}
 		else if (controller.isDownDown()) {
-			IsoView.getInstance().updatePlayerAsset(PlayerActions.DOWN);
 			lPlayerAction = PlayerActions.DOWN;
 		}
 		else if (controller.isUpDown()) {
-			IsoView.getInstance().updatePlayerAsset(PlayerActions.UP);
 			lPlayerAction = PlayerActions.UP;
 		}
 		
@@ -101,6 +99,7 @@ class GameManager
 			if (LevelManager.playerAction(lPlayerAction)) {
 				MoveHistory.getInstance().newMove(LevelManager.getCurrentLevel(), LevelManager.getBoxPosisition());
 				
+				IsoView.getInstance().updatePlayerAsset(lPlayerAction);
 				IsoView.getInstance().updateView(LevelManager.getCurrentLevel());
 				RadarView.getInstance().updateView(LevelManager.getCurrentLevel());
 			}

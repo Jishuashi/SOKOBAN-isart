@@ -431,7 +431,7 @@ class LevelManager
 			for (x in 0...currentLevel[y].length)
 			{
 				lTile = currentLevel[y][x];
-
+				
 				if (lTile.contains(Blocks.MIRROR))
 				{
 					mirrorList.push(Blocks.MIRROR);
@@ -461,17 +461,17 @@ class LevelManager
 	{
 		var lCurrentPosition: Point;
 		var lPreviousPosition: Point;
-
+		
 		for (i in 0...boxCurrentPosition.length)
 		{
 			for (j in 0...boxCurrentPosition[i].length)
 			{
 				lCurrentPosition = boxCurrentPosition[i][j];
 				lPreviousPosition = boxPreviousPosition[i][j];
-
+				
 				lPreviousPosition.x = lCurrentPosition.x;
 				lPreviousPosition.y = lCurrentPosition.y;
-
+				
 				if (lCurrentPosition.equals(pOldBoxPosition))
 				{
 					lCurrentPosition.x = pNewBoxPosition.x;
@@ -495,49 +495,63 @@ class LevelManager
 		var lBoxPosition:Point = new Point();
 		var lSucces:Int = targetList.length;
 		var lCurrentSucces:Int = 0;
-
+		
 		for (t in 0...targetList.length)
 		{
 			lTargetPosition.x = targetPosition[t].x;
 			lTargetPosition.y = targetPosition[t].y;
-
+			
 			for (q in 0...boxList.length)
 			{
 				for (v in 0...boxList[q].length)
 				{
 					lBoxPosition.x = boxCurrentPosition[q][v].x;
 					lBoxPosition.y = boxCurrentPosition[q][v].y;
-
+					
 					if (lTargetPosition.x == lBoxPosition.x && lTargetPosition.y == lBoxPosition.y) lCurrentSucces++;
 				}
 			}
 		}
-
+		
 		if (lSucces == lCurrentSucces)
 		{
-
+			
 			//trace(ScoreManager.score);
 			//trace(ScoreManager.levelScore[levelNum]);
-
+			
 			if (ScoreManager.levelScore[levelNum] > ScoreManager.score && LevelScreen.levelCompleteList[levelNum])
 			{
-
+				
 				ScoreManager.levelScore[levelNum] = ScoreManager.score;
 				ScoreManager.updateHighScore();
-
-			}
+				
+			}	
 			else if (!LevelScreen.levelCompleteList[levelNum])
 			{
 				ScoreManager.levelScore[levelNum] = ScoreManager.score;
 				ScoreManager.updateHighScore();
 				LevelScreen.levelCompleteList[levelNum] = true;
 			}
-
+			
 			UIManager.addScreen(WinScreen.getInstance());
 			UIManager.closeHud();
-
+			
 			ScoreManager.score = 0;
 			ScoreManager.updateScore();
 		}
+	}
+	
+	public static function getPlayerPosition(): Point {
+		for (y in 0...currentLevel.length) {
+			
+			for (x in 0...currentLevel[y].length) {
+				
+				if (currentLevel[y][x].contains(Blocks.PLAYER)) {
+					return new Point(x, y);
+				}
+			}
+		}
+		
+		return null;
 	}
 }
