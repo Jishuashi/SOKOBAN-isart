@@ -83,7 +83,6 @@ class SoundManager
 	public static function clickSound(): Void
 	{
 		var lClickNumber:Int = Math.ceil(Math.random() * 3);
-		trace("-----------------------"+lClickNumber);
 		getSound("click" + lClickNumber).start();
 	}
 

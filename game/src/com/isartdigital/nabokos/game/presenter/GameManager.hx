@@ -43,6 +43,13 @@ class GameManager
 		
 		UIManager.closeScreens();
 		
+		Main.getInstance().ambiance1.fadeOut(0.005);
+		Timer.delay(function(){
+			Main.getInstance().ambiance1.stop();
+		}, 500);
+		Main.getInstance().game1.start();
+		Main.getInstance().game1.fadeIn(0.005);
+		
 		UIManager.openHud();
 		Hud.getInstance().visible = true;
 		
@@ -59,7 +66,6 @@ class GameManager
 
 	public static function resumeGame() : Void
 	{
-		SoundManager.getSound("world1").start();
 	}
 
 	private static function onClick(pEvent:MouseEvent) : Void
