@@ -8,6 +8,7 @@ import com.isartdigital.utils.ui.AlignType;
 import com.isartdigital.utils.ui.UIPositionable;
 import com.isartdigital.utils.ui.Screen;
 import motion.Actuate;
+import motion.easing.Elastic;
 import openfl.Assets;
 import openfl.display.DisplayObject;
 import openfl.events.MouseEvent;
@@ -48,11 +49,6 @@ class TitleCard extends Screen
 		positionables.push(lPositionnable);
 		lPositionnable = { item:buttonHighscores, align:AlignType.BOTTOM_LEFT, offsetY:100, offsetX:500};
 		positionables.push(lPositionnable);
-		
-		Actuate.tween (backgroundTitle,	 0.5, {alpha:0}).reverse();
-		Actuate.tween (buttonPlay,		 0.5, {alpha:0}).reverse();
-		Actuate.tween (buttonHelp,		 0.5, {alpha:0}).reverse();
-		Actuate.tween (buttonHighscores, 0.5, {alpha:0}).reverse();
 	}
 
 	public static function getInstance() : TitleCard
@@ -64,19 +60,19 @@ class TitleCard extends Screen
 	private function onClickPlay(pEvent:MouseEvent) : Void
 	{
 		UIManager.addScreen(LevelScreen.getInstance());
-		SoundManager.getSound("click").start();
+		SoundManager.clickSound();
 	}
 
 	private function onClickHelp(pEvent:MouseEvent) : Void
 	{
 		UIManager.addScreen(Help.getInstance());
-		SoundManager.getSound("click").start();
+		SoundManager.clickSound();
 	}
 
 	private function onClickHighscores(pEvent:MouseEvent) : Void
 	{
 		UIManager.addScreen(Highscores.getInstance());
-		SoundManager.getSound("click").start();
+		SoundManager.clickSound();
 	}
 
 	override public function destroy():Void

@@ -50,6 +50,12 @@ class Options extends Screen
 		buttonBack.addEventListener(MouseEvent.CLICK, onClickBack);
 		buttonSmallWall.addEventListener(MouseEvent.CLICK, onClickSmall);
 		buttonBigWall.addEventListener(MouseEvent.CLICK, onClickBig);
+		buttonKeyboard.addEventListener(MouseEvent.CLICK, onClickKeyboard);
+		buttonMouse.addEventListener(MouseEvent.CLICK, onClickMouse);
+		buttonFrench.addEventListener(MouseEvent.CLICK, onClickFrench);
+		buttonEnglish.addEventListener(MouseEvent.CLICK, onClickEnglish);
+		buttonSoundOn.addEventListener(MouseEvent.CLICK, onClickOn);
+		buttonSoundOff.addEventListener(MouseEvent.CLICK, onClickOff);
 		
 		var lPositionnable:UIPositionable = { item:backgroundOptions, align:AlignType.FIT_SCREEN};
 		positionables.push(lPositionnable);
@@ -77,23 +83,50 @@ class Options extends Screen
 	private function onClickBack(pEvent:MouseEvent) : Void
 	{
 		UIManager.addScreen(Pause.getInstance());
-		SoundManager.getSound("click").start();
+		SoundManager.clickSound();
+	}
+	
+	private function onClickKeyboard(pEvent:MouseEvent) : Void
+	{
+		SoundManager.clickSound();
+	}
+	
+	private function onClickMouse(pEvent:MouseEvent) : Void
+	{
+		SoundManager.clickSound();
+	}
+	
+	private function onClickFrench(pEvent:MouseEvent) : Void
+	{
+		SoundManager.clickSound();
+	}
+	
+	private function onClickEnglish(pEvent:MouseEvent) : Void
+	{
+		SoundManager.clickSound();
+	}
+	
+	private function onClickOn(pEvent:MouseEvent) : Void
+	{
+		SoundManager.mainVolume = 0.5;
+		Main.getInstance().ambiance1.loop();
+	}
+	
+	private function onClickOff(pEvent:MouseEvent) : Void
+	{
+		SoundManager.mainVolume = 0;
 	}
 	
 	private function onClickSmall(pEvent:MouseEvent) : Void
 	{
-		//implémenter les small wall
 		LevelManager.bigWallOn = false;
 		IsoView.getInstance().updateView(LevelManager.getCurrentLevel());
-		SoundManager.getSound("click").start();
 	}
 	
 	private function onClickBig(pEvent:MouseEvent) : Void
 	{
-		//implémenter les big wall
 		LevelManager.bigWallOn = true;
 		IsoView.getInstance().updateView(LevelManager.getCurrentLevel());
-		SoundManager.getSound("click").start();
 	}
 
 	override public function destroy (): Void

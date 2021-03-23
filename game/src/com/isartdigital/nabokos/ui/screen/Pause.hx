@@ -5,6 +5,7 @@ import com.isartdigital.utils.sound.SoundManager;
 import com.isartdigital.utils.ui.AlignType;
 import com.isartdigital.utils.ui.Screen;
 import com.isartdigital.utils.ui.UIPositionable;
+import haxe.Timer;
 import motion.Actuate;
 import motion.easing.Elastic;
 import openfl.display.DisplayObject;
@@ -45,6 +46,13 @@ class Pause extends Screen
 		Actuate.tween (buttonContinue, 1, {x:0, y: -140}).ease(Elastic.easeOut);
 		Actuate.tween (buttonOptions, 1, {x:0, y:115}).ease(Elastic.easeOut);
 		Actuate.tween (buttonQuit, 1, {x:0, y:380}).ease(Elastic.easeOut);
+		
+		Main.getInstance().game1.fadeOut(0.005);
+		Timer.delay(function(){
+			Main.getInstance().game1.stop();
+		}, 500);
+		Main.getInstance().ambiance1.start();
+		Main.getInstance().ambiance1.fadeIn(0.005);
 	}
 
 	public static function getInstance (): Pause
@@ -56,6 +64,13 @@ class Pause extends Screen
 	private function onClickContinue(pEvent:MouseEvent) : Void
 	{
 		UIManager.closeScreens();
+		Main.getInstance().ambiance1.fadeOut(0.005);
+		Timer.delay(function(){
+			Main.getInstance().ambiance1.stop();
+		}, 500);
+		Main.getInstance().game1.start();
+		Main.getInstance().game1.fadeIn(0.005);
+		
 		Hud.getInstance().visible = true;
 		SoundManager.getSound("click").start();
 	}

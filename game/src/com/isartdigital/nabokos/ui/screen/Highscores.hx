@@ -4,6 +4,8 @@ import com.isartdigital.utils.sound.SoundManager;
 import com.isartdigital.utils.ui.AlignType;
 import com.isartdigital.utils.ui.Screen;
 import com.isartdigital.utils.ui.UIPositionable;
+import motion.Actuate;
+import motion.easing.Elastic;
 import openfl.display.DisplayObject;
 import openfl.events.MouseEvent;
 
@@ -46,7 +48,7 @@ class Highscores extends Screen
 	private function onClickBack(pEvent:MouseEvent) : Void
 	{
 		UIManager.addScreen(TitleCard.getInstance());
-		SoundManager.getSound("click").start();
+		SoundManager.clickSound();
 	}
 
 	override public function destroy (): Void

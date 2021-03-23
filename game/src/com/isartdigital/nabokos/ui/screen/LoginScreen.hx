@@ -1,5 +1,6 @@
 package com.isartdigital.nabokos.ui.screen;
 
+import com.isartdigital.nabokos.game.model.LevelManager;
 import com.isartdigital.utils.sound.SoundManager;
 import com.isartdigital.utils.ui.AlignType;
 import com.isartdigital.utils.ui.Screen;
@@ -8,9 +9,11 @@ import com.isartdigital.utils.ui.UIPositionable;
 import motion.Actuate;
 import openfl.display.DisplayObject;
 import openfl.display.SimpleButton;
+import openfl.events.KeyboardEvent;
 import openfl.events.MouseEvent;
 import openfl.text.TextField;
 import openfl.text.TextFieldType;
+import openfl.ui.Keyboard;
 
 /**
  * ...
@@ -44,8 +47,11 @@ class LoginScreen extends Screen
 		mdpText.maxChars = 12;
 		mdpText.restrict = "A-Z a-z 0-9";
 		
+		LevelManager.bigWallOn = false;
+		
 		mdpText.addEventListener(MouseEvent.CLICK, onClickPseudo);
 		buttonEnter.addEventListener(MouseEvent.CLICK, onClickEnter);
+		addEventListener(KeyboardEvent.KEY_DOWN, onClickEnterKeyboard);
 		
 		var lPositionnable:UIPositionable = { item:backgroundLogin, align:AlignType.FIT_SCREEN};
 		positionables.push(lPositionnable);
@@ -92,9 +98,23 @@ class LoginScreen extends Screen
 		{
 			trace (pseudo);
 			UIManager.addScreen(TitleCard.getInstance());
-			SoundManager.getSound("click").start();
+			SoundManager.clickSound();
 		}
 		else errorText.text = "password too short";
+	}
+	
+	private function onClickEnterKeyboard(pEvent:KeyboardEvent) : Void
+	{
+		if (pEvent.keyCode == Keyboard.ENTER)
+		{
+			if (mdpText.length >= 3)
+			{
+				trace (pseudo);
+				UIManager.addScreen(TitleCard.getInstance());
+				SoundManager.clickSound();
+			}
+			else errorText.text = "password too short";
+		}
 	}
 
 	private function onClickPseudo(pEvent:MouseEvent) : Void

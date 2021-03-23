@@ -1,10 +1,13 @@
 {
 	"files" : {
 		"fxs" :{
-			"click"	: {"asset":"click", "volume":1}
+			"click1"	: {"asset":"click1", "volume":1},
+			"click2"	: {"asset":"click2", "volume":1},
+			"click3"	: {"asset":"click3", "volume":1}
 		},
 		"musics" :{
-			"world1" : {"asset":"DerpNugget", "volume":1}
+			"ambiance1" : {"asset":"ambiance1", "volume":1},
+			"game1" : {"asset":"game1", "volume":1}
 		}
 	},
 	"volumes" : {

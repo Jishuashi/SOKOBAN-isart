@@ -108,7 +108,7 @@ class SoundFX extends EventDispatcher
 		startTime = pStartTime;
 		loops 	  = pLoops;
 		isPlaying = true;
-		channel   = sound.play (pStartTime, pLoops);
+		channel   = sound.play (pStartTime, pLoops, new SoundTransform(volume));
 		
 		if (channel == null)
 			throw "you are trying to play too many time the same sound in a short time";

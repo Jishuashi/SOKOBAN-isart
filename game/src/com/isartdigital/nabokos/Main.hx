@@ -16,6 +16,7 @@ import com.isartdigital.utils.game.GameStage;
 import com.isartdigital.utils.game.GameStageScale;
 import com.isartdigital.utils.game.StateManager;
 import com.isartdigital.utils.loader.GameLoader;
+import com.isartdigital.utils.sound.SoundFX;
 import com.isartdigital.utils.sound.SoundManager;
 import com.isartdigital.utils.system.DeviceCapabilities;
 import haxe.Json;
@@ -33,6 +34,8 @@ class Main extends Sprite
 	
 	private static var instance:Main;
 	public var ARCO:TextFormat;
+	public var ambiance1:SoundFX;
+	public var game1:SoundFX;
 	
 	public static function getInstance():Main {
 		return instance;
@@ -118,6 +121,12 @@ class Main extends Sprite
 		lGameLoader.removeEventListener(AssetsLoaderEvent.COMPLETE, onLoadComplete);		
 		
 		SoundManager.initSounds();
+		ambiance1 =	SoundManager.getSound("ambiance1");
+		ambiance1.start();
+		ambiance1.volume = 0.5;
+		game1 =	SoundManager.getSound("game1");
+		game1.volume = 0.5;
+		
 		//Ajout des colliders des stateObjects
 		StateManager.addColliders(Json.parse(GameLoader.getText("assets/colliders.json")));
 		

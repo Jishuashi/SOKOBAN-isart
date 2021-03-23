@@ -124,7 +124,7 @@ class LevelScreen extends Screen
 	private function onClickBack(pEvent:MouseEvent) : Void
 	{
 		UIManager.addScreen(TitleCard.getInstance());
-		SoundManager.getSound("click").start();
+		SoundManager.clickSound();
 	}
 	
 	

@@ -7,6 +7,7 @@ import com.isartdigital.utils.sound.SoundManager;
 import com.isartdigital.utils.ui.AlignType;
 import com.isartdigital.utils.ui.Screen;
 import com.isartdigital.utils.ui.UIPositionable;
+import haxe.Timer;
 import motion.Actuate;
 import motion.easing.Elastic;
 import openfl.display.DisplayObject;
@@ -54,7 +55,7 @@ class WinScreen extends Screen
 		positionables.push(lPositionnable);
 		lPositionnable = { item:victoryTitle, align:AlignType.TOP, offsetY:200};
 		positionables.push(lPositionnable);
-		lPositionnable = { item:buttonContinue, align:AlignType.BOTTOM, offsetY:100};
+		lPositionnable = { item:buttonContinue, align:AlignType.BOTTOM, offsetY:300};
 		positionables.push(lPositionnable);
 		lPositionnable = { item:buttonQuit, align:AlignType.BOTTOM, offsetY:100};
 		positionables.push(lPositionnable);
@@ -66,11 +67,11 @@ class WinScreen extends Screen
 		txtHighscore .alpha = 0;
 		
 		Actuate.tween (victoryTitle, 		1, {scaleX:3, scaleY:3}).ease(Elastic.easeIn).reverse();
-		Actuate.tween (buttonContinue, 		5, {alpha:1}).delay(1);
-		Actuate.tween (buttonQuit, 			5, {alpha:1}).delay(1);
-		Actuate.tween (victoryAnimation, 	5, {alpha:1}).delay(1);
-		Actuate.tween (txtScore, 			5, {alpha:1}).delay(1);
-		Actuate.tween (txtHighscore, 		5, {alpha:1}).delay(1);
+		Actuate.tween (buttonContinue, 		2, {alpha:1}).delay(1);
+		Actuate.tween (buttonQuit, 			2, {alpha:1}).delay(1);
+		Actuate.tween (victoryAnimation, 	2, {alpha:1}).delay(1);
+		Actuate.tween (txtScore, 			2, {alpha:1}).delay(1);
+		Actuate.tween (txtHighscore, 		2, {alpha:1}).delay(1);
 	}
 
 	public static function getInstance (): WinScreen
@@ -86,13 +87,20 @@ class WinScreen extends Screen
 		
 		GameManager.start();
 		
-		SoundManager.getSound("click").start();
+		SoundManager.clickSound();
 	}
 
 	private function onClickQuit(pEvent:MouseEvent) : Void
 	{
+		Main.getInstance().game1.fadeOut(0.005);
+		Timer.delay(function(){
+			Main.getInstance().game1.stop();
+		}, 500);
+		Main.getInstance().ambiance1.start();
+		Main.getInstance().ambiance1.fadeIn(0.005);
+		
 		UIManager.addScreen(TitleCard.getInstance());
-		SoundManager.getSound("click").start();
+		SoundManager.clickSound();
 	}
 
 	override public function destroy (): Void
