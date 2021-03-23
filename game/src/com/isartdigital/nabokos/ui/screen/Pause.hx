@@ -1,6 +1,9 @@
 package com.isartdigital.nabokos.ui.screen;
 
 import com.isartdigital.nabokos.game.presenter.GameManager;
+import com.isartdigital.nabokos.game.presenter.MouseController;
+import com.isartdigital.nabokos.game.view.IsoView;
+import com.isartdigital.nabokos.game.view.RadarView;
 import com.isartdigital.utils.sound.SoundManager;
 import com.isartdigital.utils.ui.AlignType;
 import com.isartdigital.utils.ui.Screen;
@@ -83,6 +86,10 @@ class Pause extends Screen
 	
 	private function onClickQuit(pEvent:MouseEvent) : Void
 	{
+		IsoView.getInstance().resetView();
+		RadarView.getInstance().resetView();
+		GameManager.mouseController.destroy();
+		
 		UIManager.addScreen(TitleCard.getInstance());
 		UIManager.closeHud();
 		SoundManager.getSound("click").start();

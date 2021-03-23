@@ -3,6 +3,8 @@ package com.isartdigital.nabokos.ui.screen;
 import com.isartdigital.nabokos.game.model.LevelManager;
 import com.isartdigital.nabokos.game.model.ScoreManager;
 import com.isartdigital.nabokos.game.presenter.GameManager;
+import com.isartdigital.nabokos.game.view.IsoView;
+import com.isartdigital.nabokos.game.view.RadarView;
 import com.isartdigital.utils.sound.SoundManager;
 import com.isartdigital.utils.ui.AlignType;
 import com.isartdigital.utils.ui.Screen;
@@ -82,6 +84,11 @@ class WinScreen extends Screen
 
 	private function onClickContinue(pEvent:MouseEvent) : Void
 	{
+		IsoView.getInstance().resetView();
+		RadarView.getInstance().resetView();
+		GameManager.mouseController.destroy();
+
+		
 		LevelManager.levelNum += 1;		
 		LevelManager.selectLevel(LevelManager.levelNum);
 		
@@ -92,6 +99,11 @@ class WinScreen extends Screen
 
 	private function onClickQuit(pEvent:MouseEvent) : Void
 	{
+		IsoView.getInstance().resetView();
+		RadarView.getInstance().resetView();
+		GameManager.mouseController.destroy();
+
+		
 		Main.getInstance().game1.fadeOut(0.005);
 		Timer.delay(function(){
 			Main.getInstance().game1.stop();

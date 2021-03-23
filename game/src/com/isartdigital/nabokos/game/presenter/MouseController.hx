@@ -62,4 +62,8 @@ class MouseController {
 		IsoView.getInstance().updateView(LevelManager.getCurrentLevel());
 		RadarView.getInstance().updateView(LevelManager.getCurrentLevel());
 	}
+	
+	public function destroy(): Void {
+		IsoView.getInstance().viewContainer.removeEventListener(MouseEvent.CLICK, onClick);
+	}
 }
