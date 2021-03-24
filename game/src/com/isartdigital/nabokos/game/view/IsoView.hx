@@ -68,13 +68,13 @@ class IsoView extends GameView {
 					switch (pLevel[y][x][k]) {
 						case Blocks.WALL:
 							if(LevelManager.bigWallOn){lAsset = GameLoader.getAnimationFromAtlas("IsoWall");}
-							else{lAsset = GameLoader.getAnimationFromAtlas("IsoWallPlate");}							
+							else{lAsset = GameLoader.getAnimationFromAtlas("IsoWall1");}							
 						
 						case Blocks.PLAYER :
 							lAsset = player;
 						
 						case Blocks.GROUND :
-							lAsset = GameLoader.getAnimationFromAtlas("IsoFloor");
+							lAsset = GameLoader.getAnimationFromAtlas("IsoFloor1");
 						
 						case Blocks.TARGET :
 							lAsset = GameLoader.getAnimationFromAtlas("IsoGoal");
@@ -86,7 +86,7 @@ class IsoView extends GameView {
 							lAsset = GameLoader.getAnimationFromAtlas("IsoMirror");
 							
 						default:
-							lAsset = GameLoader.getAnimationFromAtlas("IsoFloor");
+							lAsset = GameLoader.getAnimationFromAtlas("IsoFloor1");
 							
 					}	
 					

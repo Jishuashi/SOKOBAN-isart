@@ -187,7 +187,7 @@
 },
 {
 "SI": {
-"SN": "radarFloor2",
+"SN": "RadarFloor2",
 "IN": "",
 "ST": "MC",
 "TRP": {
@@ -586,7 +586,7 @@
 }
 },
 {
-"SN": "radarFloor2",
+"SN": "RadarFloor2",
 "TL": {
 "L": [
 {

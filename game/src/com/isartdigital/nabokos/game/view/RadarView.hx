@@ -53,13 +53,13 @@ class RadarView extends GameView
 					
 					switch (pLevel[y][x][k]) {
 						case Blocks.WALL:
-							lAssets = GameLoader.getAnimationFromAtlas("RadarWall");
+							lAssets = GameLoader.getAnimationFromAtlas("RadarWall1");
 							
 						case Blocks.PLAYER :
 							lAssets = GameLoader.getAnimationFromAtlas("RadarPlayer");
 						
 						case Blocks.GROUND :
-							lAssets = GameLoader.getAnimationFromAtlas("RadarFloor");
+							lAssets = GameLoader.getAnimationFromAtlas("RadarFloor1");
 						
 						case Blocks.TARGET :
 							lAssets = GameLoader.getAnimationFromAtlas("RadarGoal");
@@ -71,7 +71,7 @@ class RadarView extends GameView
 							lAssets = GameLoader.getAnimationFromAtlas("RadarMirror");
 							
 						default:
-							lAssets = GameLoader.getAnimationFromAtlas("RadarFloor");
+							lAssets = GameLoader.getAnimationFromAtlas("RadarFloor1");
 					}
 					
 					lAssets.x += x * cellSize.gridX;
