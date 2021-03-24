@@ -43,6 +43,8 @@ class LevelManager
 
 	private static var targetList : Array<Blocks>;
 	private static var targetPosition : Array<Point>;
+	
+	public static var initLevelCheck: Int = 0;
 
 	private function new() {}
 
@@ -101,10 +103,10 @@ class LevelManager
 			}
 		}
 
-		for (i in 0...levels.length)
-		{
-			//trace(levels[i] + "\n");
-		}
+		//for (i in 0...levels.length)
+		//{
+			////trace(levels[i] + "\n");
+		//}
 	}
 
 	/**
@@ -136,6 +138,9 @@ class LevelManager
 	 */
 	public static function playerAction(pMove: PlayerActions): Bool
 	{
+		initLevelCheck++;
+		trace(initLevelCheck);
+		
 		var lPlayerPos: Point = new Point();
 
 		for (y in 0...currentLevel.length)

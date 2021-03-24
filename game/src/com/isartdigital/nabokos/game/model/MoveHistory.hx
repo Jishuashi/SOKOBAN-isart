@@ -52,6 +52,7 @@ class MoveHistory {
 		boxPositionTab = new Array<Array<Array<Point>>>();
 		
 		cursor = -1;
+		LevelManager.initLevelCheck = 0;
 	}
 	
 	/**

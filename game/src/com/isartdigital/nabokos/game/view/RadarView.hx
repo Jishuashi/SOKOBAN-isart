@@ -1,6 +1,7 @@
 package com.isartdigital.nabokos.game.view;
 import animateAtlasPlayer.core.Animation;
 import com.isartdigital.nabokos.game.model.Blocks;
+import com.isartdigital.nabokos.game.model.LevelManager;
 import com.isartdigital.nabokos.game.view.GameView;
 import com.isartdigital.utils.game.GameStage;
 import com.isartdigital.utils.game.grids.CellDef;
@@ -31,6 +32,8 @@ class RadarView extends GameView
 		viewContainer = new Sprite();
 		viewContainer.scaleX = 0.66;
 		viewContainer.scaleY = 0.66;
+		
+		trace ("new level");
 	}
 	
 	/**
@@ -43,6 +46,13 @@ class RadarView extends GameView
 		
 		var lAssets : Animation;
 		
+		var lInitCheck: Int = LevelManager.initLevelCheck;
+		var lCounter: Int = 0;
+		
+		if (lInitCheck == 0){
+			randomTileList = new Array<String>();
+		}
+		
 		for (y in 0 ... pLevel.length)
 		{
 			for (x in 0 ... pLevel[y].length)
@@ -53,13 +63,15 @@ class RadarView extends GameView
 					
 					switch (pLevel[y][x][k]) {
 						case Blocks.WALL:
-							lAssets = GameLoader.getAnimationFromAtlas("RadarWall1");
-							
+							lAssets = GameLoader.getAnimationFromAtlas(selectTile("RadarWall", 3, lCounter, lInitCheck, randomTileList));
+							lCounter++;
+						
 						case Blocks.PLAYER :
 							lAssets = GameLoader.getAnimationFromAtlas("RadarPlayer");
 						
 						case Blocks.GROUND :
-							lAssets = GameLoader.getAnimationFromAtlas("RadarFloor1");
+							lAssets = GameLoader.getAnimationFromAtlas(selectTile("RadarFloor", 3, lCounter, lInitCheck, randomTileList));
+							lCounter++;
 						
 						case Blocks.TARGET :
 							lAssets = GameLoader.getAnimationFromAtlas("RadarGoal");
@@ -71,7 +83,8 @@ class RadarView extends GameView
 							lAssets = GameLoader.getAnimationFromAtlas("RadarMirror");
 							
 						default:
-							lAssets = GameLoader.getAnimationFromAtlas("RadarFloor1");
+							lAssets = GameLoader.getAnimationFromAtlas(selectTile("RadarFloor", 3, lCounter, lInitCheck, randomTileList));
+							lCounter++;
 					}
 					
 					lAssets.x += x * cellSize.gridX;

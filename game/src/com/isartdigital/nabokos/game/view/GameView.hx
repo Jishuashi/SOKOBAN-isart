@@ -20,6 +20,11 @@ class GameView extends Sprite
 	 * Conteneur de chaque vue
 	 */
 	public var viewContainer: Sprite;
+	
+	/**
+	 * tableau qui stocke les tiles générées aléatoirement au lancement d'un niveau
+	 */
+	private var randomTileList: Array<String>;
 
 	public function new()
 	{
@@ -39,6 +44,23 @@ class GameView extends Sprite
 	 */
 	public function resetView(): Void {
 		viewContainer.removeChildren();
+	}
+	
+	private function generateRandomTile(pBaseTileName:String, pNbOfTiles:Int) : String{
+		return pBaseTileName + Math.ceil(Math.random() * pNbOfTiles);
+	}
+	
+	private function selectTile(pInitialTileName:String, pNbrOfTiles:Int, pIndex:Int, pCheck: Int, pList:Array<String>):String{
+		var lTile: String;
+		
+		if (pCheck == 0){
+			lTile = generateRandomTile(pInitialTileName, pNbrOfTiles);
+			pList.push(lTile);
+		} else {
+			lTile = pList[pIndex];
+		}
+		
+		return lTile;
 	}
 	
 	public function destroy(): Void {

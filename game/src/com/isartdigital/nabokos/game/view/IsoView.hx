@@ -57,6 +57,13 @@ class IsoView extends GameView {
 		var lGridPos: CellDef;
 		var lViewPos: Point;
 		
+		var lInitCheck: Int = LevelManager.initLevelCheck;
+		var lCounter: Int = 0;
+		
+		if (lInitCheck == 0){
+			randomTileList = new Array<String>();
+		}
+		
 		for (y in 0...pLevel.length) {
 			
 			for (x in 0...pLevel[y].length) {
@@ -67,14 +74,15 @@ class IsoView extends GameView {
 					
 					switch (pLevel[y][x][k]) {
 						case Blocks.WALL:
-							if(LevelManager.bigWallOn){lAsset = GameLoader.getAnimationFromAtlas("IsoWall");}
-							else{lAsset = GameLoader.getAnimationFromAtlas("IsoWall1");}							
+							lAsset = GameLoader.getAnimationFromAtlas(selectTile("IsoWall", 3, lCounter, lInitCheck, randomTileList));
+							lCounter++;
 						
 						case Blocks.PLAYER :
 							lAsset = player;
 						
 						case Blocks.GROUND :
-							lAsset = GameLoader.getAnimationFromAtlas("IsoFloor1");
+							lAsset = GameLoader.getAnimationFromAtlas(selectTile("IsoFloor", 3, lCounter, lInitCheck, randomTileList));
+							lCounter++;
 						
 						case Blocks.TARGET :
 							lAsset = GameLoader.getAnimationFromAtlas("IsoGoal");
@@ -86,8 +94,8 @@ class IsoView extends GameView {
 							lAsset = GameLoader.getAnimationFromAtlas("IsoMirror");
 							
 						default:
-							lAsset = GameLoader.getAnimationFromAtlas("IsoFloor1");
-							
+							lAsset = GameLoader.getAnimationFromAtlas(selectTile("IsoFloor", 3, lCounter, lInitCheck, randomTileList));
+							lCounter++;
 					}	
 					
 					lGridPos = {gridX : x, gridY: y};
