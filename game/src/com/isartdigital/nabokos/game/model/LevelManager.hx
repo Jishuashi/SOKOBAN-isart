@@ -529,13 +529,14 @@ class LevelManager
 				
 				ScoreManager.levelScore[levelNum] = ScoreManager.score;
 				ScoreManager.updateHighScore();
-				
+				SaveStorage.getInstance().updateStorage();
 			}	
 			else if (!LevelScreen.levelCompleteList[levelNum])
 			{
 				ScoreManager.levelScore[levelNum] = ScoreManager.score;
 				ScoreManager.updateHighScore();
 				LevelScreen.levelCompleteList[levelNum] = true;
+				SaveStorage.getInstance().updateStorage();
 			}
 			
 			UIManager.addScreen(WinScreen.getInstance());

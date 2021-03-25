@@ -1,6 +1,7 @@
 package com.isartdigital.nabokos.ui.screen;
 
 import com.isartdigital.nabokos.game.model.LevelManager;
+import com.isartdigital.nabokos.game.model.SaveStorage;
 import com.isartdigital.utils.sound.SoundManager;
 import com.isartdigital.utils.ui.AlignType;
 import com.isartdigital.utils.ui.Screen;
@@ -29,6 +30,8 @@ class LoginScreen extends Screen
 	private var loginTitle:DisplayObject;
 	private var pseudoBox:DisplayObject;
 	public var pseudo(get, null):String;
+	
+	public var pseudoList: Array<String> = new Array<String>();
 
 	private function new()
 	{
@@ -87,7 +90,7 @@ class LoginScreen extends Screen
 		positionables.push(lPositionnable);
 	}
 
-	private function get_pseudo():String
+	public function get_pseudo():String
 	{
 		return mdpText.text;
 	}
@@ -99,6 +102,7 @@ class LoginScreen extends Screen
 			trace (pseudo);
 			UIManager.addScreen(TitleCard.getInstance());
 			SoundManager.clickSound();
+			SaveStorage.getInstance().initStorage(pseudo);
 		}
 		else errorText.text = "password too short";
 	}
@@ -112,6 +116,7 @@ class LoginScreen extends Screen
 				trace (pseudo);
 				UIManager.addScreen(TitleCard.getInstance());
 				SoundManager.clickSound();
+				SaveStorage.getInstance().initStorage(pseudo);
 			}
 			else errorText.text = "password too short";
 		}

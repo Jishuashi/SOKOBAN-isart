@@ -121,6 +121,28 @@ class LevelScreen extends Screen
 		}
 	}
 	
+		public static function allLevelComplete():Bool
+	{
+		var lReturn : Bool = false;
+		var lCountLevelComplete : Int = 0;
+		
+		for (i in 0... LevelManager.levels.length) 
+		{
+			if (levelCompleteList[i])
+			{
+				lCountLevelComplete += 1;
+			}
+		}
+		
+		if (lCountLevelComplete == LevelManager.levels.length)
+		{
+			lReturn = true;
+		}
+		
+		return lReturn;
+	}
+
+	
 	private function onClickBack(pEvent:MouseEvent) : Void
 	{
 		UIManager.addScreen(TitleCard.getInstance());
