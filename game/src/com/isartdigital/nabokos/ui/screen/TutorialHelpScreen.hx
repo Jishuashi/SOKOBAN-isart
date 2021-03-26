@@ -37,7 +37,7 @@ class TutorialHelpScreen extends Screen
 		LevelManager.selectLevel(LevelManager.levelNum);
 		
 		GameManager.start();
-		SoundManager.getSound("click").start();
+		SoundManager.clickSound();
 	}
 	
 	override public function destroy (): Void {

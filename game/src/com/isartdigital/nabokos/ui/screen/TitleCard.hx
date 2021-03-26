@@ -26,7 +26,7 @@ class TitleCard extends Screen
 	private var buttonPlay:DisplayObject;
 	private var buttonHelp:DisplayObject;
 	private var buttonHighscores:DisplayObject;
-	//private var modifiedPlayText:TextField;
+	private var btnCredits:DisplayObject;
 
 	private function new()
 	{
@@ -36,10 +36,12 @@ class TitleCard extends Screen
 		buttonPlay 			= content.getChildByName("btnPlay");
 		buttonHelp			= content.getChildByName("btnHelp");
 		buttonHighscores 	= content.getChildByName("btnHighscores");
+		btnCredits 			= content.getChildByName("btnCredits");
 		
 		buttonPlay.addEventListener(MouseEvent.CLICK, onClickPlay);
 		buttonHelp.addEventListener(MouseEvent.CLICK, onClickHelp);
 		buttonHighscores.addEventListener(MouseEvent.CLICK, onClickHighscores);
+		btnCredits.addEventListener(MouseEvent.CLICK, onClickCredits);
 		
 		var lPositionnable:UIPositionable = { item:backgroundTitle, align:AlignType.FIT_SCREEN};
 		positionables.push(lPositionnable);
@@ -48,6 +50,8 @@ class TitleCard extends Screen
 		lPositionnable = { item:buttonHelp, align:AlignType.BOTTOM_RIGHT, offsetY:100, offsetX:500};
 		positionables.push(lPositionnable);
 		lPositionnable = { item:buttonHighscores, align:AlignType.BOTTOM_LEFT, offsetY:100, offsetX:500};
+		positionables.push(lPositionnable);
+		lPositionnable = { item:btnCredits, align:AlignType.TOP_RIGHT, offsetY:100, offsetX:250};
 		positionables.push(lPositionnable);
 	}
 
@@ -74,6 +78,12 @@ class TitleCard extends Screen
 		UIManager.addScreen(Highscores.getInstance());
 		SoundManager.clickSound();
 	}
+	
+	private function onClickCredits(pEvent:MouseEvent) : Void
+	{
+		UIManager.addScreen(Credits.getInstance());
+		SoundManager.clickSound();
+	}
 
 	override public function destroy():Void
 	{
@@ -81,6 +91,7 @@ class TitleCard extends Screen
 		buttonPlay.removeEventListener(MouseEvent.CLICK, onClickPlay);
 		buttonHelp.removeEventListener(MouseEvent.CLICK, onClickHelp);
 		buttonHighscores.removeEventListener(MouseEvent.CLICK, onClickHighscores);
+		btnCredits.removeEventListener(MouseEvent.CLICK, onClickCredits);
 		super.destroy();
 	}
 }

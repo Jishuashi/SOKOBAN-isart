@@ -37,21 +37,13 @@ class Options extends Screen
 		
 		backgroundOptions		= content.getChildByName("backgroundOptions");
 		optionsTitle			= content.getChildByName("optionsTitle");
-		buttonKeyboard			= content.getChildByName("buttonKeyboard");
-		buttonMouse				= content.getChildByName("buttonMouse");
 		buttonFrench			= content.getChildByName("buttonFrench");
 		buttonEnglish			= content.getChildByName("buttonEnglish");
 		buttonSoundOn			= content.getChildByName("buttonSoundOn");
 		buttonSoundOff			= content.getChildByName("buttonSoundOff");
-		buttonSmallWall			= content.getChildByName("buttonSmallWall");
-		buttonBigWall			= content.getChildByName("buttonBigWall");
 		buttonBack				= content.getChildByName("btnBack");
 		
 		buttonBack.addEventListener(MouseEvent.CLICK, onClickBack);
-		buttonSmallWall.addEventListener(MouseEvent.CLICK, onClickSmall);
-		buttonBigWall.addEventListener(MouseEvent.CLICK, onClickBig);
-		buttonKeyboard.addEventListener(MouseEvent.CLICK, onClickKeyboard);
-		buttonMouse.addEventListener(MouseEvent.CLICK, onClickMouse);
 		buttonFrench.addEventListener(MouseEvent.CLICK, onClickFrench);
 		buttonEnglish.addEventListener(MouseEvent.CLICK, onClickEnglish);
 		buttonSoundOn.addEventListener(MouseEvent.CLICK, onClickOn);
@@ -64,14 +56,10 @@ class Options extends Screen
 		lPositionnable = { item:buttonBack,		 align:AlignType.BOTTOM, offsetY:100};
 		positionables.push(lPositionnable);
 		
-		Actuate.tween (buttonKeyboard,	1, {x:-215, y:-380}).ease(Elastic.easeOut);
-		Actuate.tween (buttonMouse,		1, {x:215, y:-380}).ease(Elastic.easeOut);
 		Actuate.tween (buttonFrench,	1, {x:-215, y:-160}).ease(Elastic.easeOut);
 		Actuate.tween (buttonEnglish,	1, {x:215, y:-160}).ease(Elastic.easeOut);
 		Actuate.tween (buttonSoundOn,	1, {x:-215, y:50}).ease(Elastic.easeOut);
 		Actuate.tween (buttonSoundOff,	1, {x:215, y:50}).ease(Elastic.easeOut);
-		Actuate.tween (buttonSmallWall,	1, {x:-215, y:360}).ease(Elastic.easeOut);
-		Actuate.tween (buttonBigWall,	1, {x:215, y:320}).ease(Elastic.easeOut);
 	}
 
 	public static function getInstance (): Options
@@ -83,16 +71,6 @@ class Options extends Screen
 	private function onClickBack(pEvent:MouseEvent) : Void
 	{
 		UIManager.addScreen(Pause.getInstance());
-		SoundManager.clickSound();
-	}
-	
-	private function onClickKeyboard(pEvent:MouseEvent) : Void
-	{
-		SoundManager.clickSound();
-	}
-	
-	private function onClickMouse(pEvent:MouseEvent) : Void
-	{
 		SoundManager.clickSound();
 	}
 	
@@ -117,24 +95,14 @@ class Options extends Screen
 		SoundManager.mainVolume = 0;
 	}
 	
-	private function onClickSmall(pEvent:MouseEvent) : Void
-	{
-		LevelManager.bigWallOn = false;
-		IsoView.getInstance().updateView(LevelManager.getCurrentLevel());
-	}
-	
-	private function onClickBig(pEvent:MouseEvent) : Void
-	{
-		LevelManager.bigWallOn = true;
-		IsoView.getInstance().updateView(LevelManager.getCurrentLevel());
-	}
-
 	override public function destroy (): Void
 	{
 		instance = null;
 		buttonBack.removeEventListener(MouseEvent.CLICK, onClickBack);
-		buttonSmallWall.removeEventListener(MouseEvent.CLICK, onClickSmall);
-		buttonBigWall.removeEventListener(MouseEvent.CLICK, onClickBig);
+		buttonFrench.removeEventListener(MouseEvent.CLICK, onClickFrench);
+		buttonEnglish.removeEventListener(MouseEvent.CLICK, onClickEnglish);
+		buttonSoundOn.removeEventListener(MouseEvent.CLICK, onClickOn);
+		buttonSoundOff.removeEventListener(MouseEvent.CLICK, onClickOff);
 		super.destroy();
 	}
 }

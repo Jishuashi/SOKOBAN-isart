@@ -125,8 +125,9 @@ class LoginScreen extends Screen
 	override public function destroy (): Void
 	{
 		instance = null;
-		//buttonEnter.removeEventListener(MouseEvent.CLICK, onClickEnter);
 		mdpText.removeEventListener(MouseEvent.CLICK, onClickPseudo);
+		buttonEnter.removeEventListener(MouseEvent.CLICK, onClickEnter);
+		removeEventListener(KeyboardEvent.KEY_DOWN, onClickEnterKeyboard);
 		super.destroy();
 	}
 }
