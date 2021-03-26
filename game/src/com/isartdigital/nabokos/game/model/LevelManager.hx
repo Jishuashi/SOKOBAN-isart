@@ -84,6 +84,7 @@ class LevelManager
 						case "M": currentRow.push([Blocks.MIRROR]);
 						case "+": currentRow.push([Blocks.PLAYER, Blocks.TARGET]);
 						case "*": currentRow.push([Blocks.BOX, Blocks.TARGET]);
+						case "V": currentRow.push([Blocks.EMPTY]);
 					}
 				}
 
@@ -329,7 +330,7 @@ class LevelManager
 						{
 							lTargetTile = currentLevel[Std.int(lTargetTilePosition.y)][Std.int(lTargetTilePosition.x)];
 
-							if (!lTargetTile.contains(Blocks.WALL) && !lTargetTile.contains(Blocks.MIRROR) && !lTargetTile.contains(Blocks.BOX) && !lTargetTile.contains(Blocks.PLAYER))
+							if (!lTargetTile.contains(Blocks.WALL) && !lTargetTile.contains(Blocks.MIRROR) && !lTargetTile.contains(Blocks.BOX) && !lTargetTile.contains(Blocks.PLAYER) && !lTargetTile.contains(Blocks.EMPTY))
 							{
 								lTargetTile.unshift(Blocks.BOX); // on pourra mettre une méthode ici pour faire apparaitre le bloc (feedback)
 								boxList[q].push(Blocks.BOX);

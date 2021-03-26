@@ -10,4 +10,5 @@ enum Blocks {
 	MIRROR;
 	BOX;
 	TARGET;
+	EMPTY;
 }

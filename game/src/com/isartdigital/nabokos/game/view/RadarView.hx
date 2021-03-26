@@ -81,7 +81,11 @@ class RadarView extends GameView
 							
 						case Blocks.MIRROR :
 							lAssets = GameLoader.getAnimationFromAtlas("RadarMirror");
-							
+						
+						case Blocks.EMPTY :
+							lAssets = GameLoader.getAnimationFromAtlas("RadarEmpty");
+							lAssets.visible = false;
+						
 						default:
 							lAssets = GameLoader.getAnimationFromAtlas(selectTile("RadarFloor", 3, lCounter, lInitCheck, randomTileList));
 							lCounter++;

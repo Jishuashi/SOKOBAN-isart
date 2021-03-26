@@ -72,6 +72,7 @@
 				else if (getChildAt(i) is Player) content.levelDesign[ldID].map[lPos.y][lPos.x]+=10;
 				else if (getChildAt(i) is Box) content.levelDesign[ldID].map[lPos.y][lPos.x]+=20;
 				else if (getChildAt(i) is Mirror) content.levelDesign[ldID].map[lPos.y][lPos.x]+=30;
+				else if (getChildAt(i) is Empty) content.levelDesign[ldID].map[lPos.y][lPos.x]+=50;
 				
 			}
 			
@@ -121,6 +122,7 @@
 					else if (pMap[i][j]==12) pMap[i][j]="+";
 					else if (pMap[i][j]==22) pMap[i][j]="*";
 					else if (pMap[i][j]==30) pMap[i][j]="M";
+					else if (pMap[i][j]==50) pMap[i][j]="V";
 				}
 				pMap[i]=pMap[i].join("");
 			}

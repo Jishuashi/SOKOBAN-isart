@@ -52,11 +52,12 @@
 {"SPRITE" : {"name": "0057","x":1280,"y":3505,"w":256,"h":129,"rotated": false}},
 {"SPRITE" : {"name": "0058","x":1280,"y":2894,"w":256,"h":162,"rotated": false}},
 {"SPRITE" : {"name": "0059","x":1280,"y":3216,"w":256,"h":160,"rotated": false}},
-{"SPRITE" : {"name": "0060","x":1280,"y":2628,"w":256,"h":266,"rotated": false}}
+{"SPRITE" : {"name": "0060","x":1280,"y":2628,"w":256,"h":266,"rotated": false}},
+{"SPRITE" : {"name": "0061","x":1280,"y":3505,"w":256,"h":129,"rotated": false}}
 ]},
 "meta": {
 "app": "Adobe Animate",
-"version": "21.0.2.37893",
+"version": "21.0.0.35450",
 "image": "spritemap1.png",
 "format": "RGBA8888",
 "size": {"w":1536,"h":4096},

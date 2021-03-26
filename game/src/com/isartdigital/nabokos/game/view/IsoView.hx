@@ -92,7 +92,11 @@ class IsoView extends GameView {
 						
 						case Blocks.MIRROR :
 							lAsset = GameLoader.getAnimationFromAtlas("IsoMirror");
-							
+						
+						case Blocks.EMPTY :
+							lAsset = GameLoader.getAnimationFromAtlas("IsoEmpty");
+							lAsset.visible = false;
+						
 						default:
 							lAsset = GameLoader.getAnimationFromAtlas(selectTile("IsoFloor", 3, lCounter, lInitCheck, randomTileList));
 							lCounter++;
