@@ -7,6 +7,7 @@ import com.isartdigital.nabokos.ui.screen.LevelScreen;
 import com.isartdigital.nabokos.ui.screen.LoginScreen;
 import com.isartdigital.nabokos.ui.screen.TitleCard;
 import com.isartdigital.nabokos.ui.screen.Options;
+import com.isartdigital.nabokos.ui.screen.Credits;
 import com.isartdigital.nabokos.ui.Hud;
 import com.isartdigital.nabokos.ui.UIManager;
 import com.isartdigital.utils.Config;

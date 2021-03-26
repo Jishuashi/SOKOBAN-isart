@@ -47,25 +47,26 @@ class SaveStorage extends SharedObject
 		pseudo = pName;
 		var lName: String = prefix + pseudo;
 		var lPath : String = prefix + "/nabokos/saves";
-		var lKey : String = lPath + ":" + lName;
 
-		storageObject = [LevelScreen.levelCompleteList, ScoreManager.levelScore];
+		storageObject = {complete : LevelScreen.levelCompleteList, score : ScoreManager.levelScore};
 		saveStorage = SharedObject.getLocal(lName, lPath);
 
-		if (lKey!= null)
+		if (Reflect.hasField(saveStorage.data, lName))
 		{
-			trace("j'existe");
-			storageObject = saveStorage.data.SELlol;
+			storageObject = Reflect.field(saveStorage.data, lName);
 			
-			trace(storageObject);
-			trace(saveStorage.data.SELlol, "storagedata");
+			trace(storageObject.score);
+			
+			ScoreManager.levelScore = storageObject.score;
+			LevelScreen.levelCompleteList = storageObject.complete;
+			
+			ScoreManager.updateHighScore();
 		}
 		else
 		{
 			saveStorage.setProperty(lName, storageObject);
-			trace("Je suis new");
+			saveStorage.setDirty(lName);
 		}
-		
 		
 		saveStorage.flush(0);
 	}
@@ -76,11 +77,13 @@ class SaveStorage extends SharedObject
 	public function updateStorage()
 	{
 		var lName: String = prefix + pseudo;
+		var lPath : String = prefix + "/nabokos/saves";
 
-		storageObject = [LevelScreen.levelCompleteList, ScoreManager.levelScore];
+		storageObject = { complete : LevelScreen.levelCompleteList, score : ScoreManager.levelScore};
 
 		saveStorage.setProperty(lName, storageObject);
-		trace(saveStorage.data.SELJIshuashi, "update");
+		saveStorage.setDirty(lName);
+		
 		saveStorage.flush(0);
 	}
 

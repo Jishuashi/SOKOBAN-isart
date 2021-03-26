@@ -6,6 +6,7 @@ import com.isartdigital.utils.sound.SoundManager;
 import com.isartdigital.utils.ui.AlignType;
 import com.isartdigital.utils.ui.Screen;
 import com.isartdigital.utils.ui.UIPositionable;
+import motion.Actuate;
 import openfl.display.DisplayObject;
 import openfl.events.MouseEvent;
 	
@@ -105,6 +106,36 @@ class LevelScreen extends Screen
 		positionables.push(lPositionnable);
 		lPositionnable = { item:buttonLvl12, align:AlignType.TOP, offsetY:1150};
 		positionables.push(lPositionnable);
+		
+		buttonBack .alpha = 0;
+		levelTitle .alpha = 0;
+		buttonLvl1 .alpha = 0;
+		buttonLvl2 .alpha = 0;
+		buttonLvl3 .alpha = 0;
+		buttonLvl4 .alpha = 0;
+		buttonLvl5 .alpha = 0;
+		buttonLvl6 .alpha = 0;
+		buttonLvl7 .alpha = 0;
+		buttonLvl8 .alpha = 0;
+		buttonLvl9 .alpha = 0;
+		buttonLvl10 .alpha = 0;
+		buttonLvl11 .alpha = 0;
+		buttonLvl12 .alpha = 0;
+		
+		Actuate.tween (buttonBack,	1, {alpha:1});
+		Actuate.tween (levelTitle,	1, {alpha:1});
+		Actuate.tween (buttonLvl1,	1, {alpha:1});
+		Actuate.tween (buttonLvl2,	1, {alpha:1});
+		Actuate.tween (buttonLvl3,	1, {alpha:1});
+		Actuate.tween (buttonLvl4,	1, {alpha:1});
+		Actuate.tween (buttonLvl5,	1, {alpha:1});
+		Actuate.tween (buttonLvl6,	1, {alpha:1});
+		Actuate.tween (buttonLvl7,	1, {alpha:1});
+		Actuate.tween (buttonLvl8,	1, {alpha:1});
+		Actuate.tween (buttonLvl9,	1, {alpha:1});
+		Actuate.tween (buttonLvl10,	1, {alpha:1});
+		Actuate.tween (buttonLvl11,	1, {alpha:1});
+		Actuate.tween (buttonLvl12,	1, {alpha:1});
 	}
 
 	public static function getInstance (): LevelScreen
@@ -152,9 +183,8 @@ class LevelScreen extends Screen
 	
 	private function onClickTuto(pEvent : MouseEvent) : Void
 	{
-		levelIndex = 0;
-		trace("tuto selected");
-		levelSelect(levelIndex);
+		UIManager.addScreen(TutorialHelpScreen.getInstance());
+		SoundManager.clickSound();
 	}
 	
 	private function onClick1(pEvent : MouseEvent) : Void
@@ -267,6 +297,9 @@ class LevelScreen extends Screen
 		buttonLvl7.removeEventListener(MouseEvent.CLICK, onClick7);
 		buttonLvl8.removeEventListener(MouseEvent.CLICK, onClick8);
 		buttonLvl9.removeEventListener(MouseEvent.CLICK, onClick9);
+		buttonLvl10.removeEventListener(MouseEvent.CLICK, onClick10);
+		buttonLvl11.removeEventListener(MouseEvent.CLICK, onClick11);
+		buttonLvl12.removeEventListener(MouseEvent.CLICK, onClick12);
 		super.destroy();
 	}
 }
