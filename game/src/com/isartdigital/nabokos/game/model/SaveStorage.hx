@@ -60,6 +60,9 @@ class SaveStorage extends SharedObject
 			ScoreManager.levelScore = storageObject.score;
 			LevelScreen.levelCompleteList = storageObject.complete;
 			
+			
+			LevelScreen.getInstance().unlockLevelSave();
+			
 			ScoreManager.updateHighScore();
 		}
 		else

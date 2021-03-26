@@ -43,7 +43,7 @@ class LevelManager
 
 	private static var targetList : Array<Blocks>;
 	private static var targetPosition : Array<Point>;
-	
+
 	public static var initLevelCheck: Int = 0;
 
 	private function new() {}
@@ -105,7 +105,7 @@ class LevelManager
 
 		//for (i in 0...levels.length)
 		//{
-			////trace(levels[i] + "\n");
+		////trace(levels[i] + "\n");
 		//}
 	}
 
@@ -121,13 +121,13 @@ class LevelManager
 		currentLevel = copyLevel(levels[pLevel]);
 
 		levelNum = pLevel;
-		
+
 		initBlocksArrays();
 		reflectBoxes(); //reflète les boîtes pour la première fois dans le niveau
-		
+
 		MoveHistory.getInstance().resetTab();
 		MoveHistory.getInstance().newMove(copyLevel(currentLevel), copyArray2D(boxCurrentPosition));
-		
+
 		return true;
 	}
 
@@ -140,7 +140,7 @@ class LevelManager
 	{
 		initLevelCheck++;
 		trace(initLevelCheck);
-		
+
 		var lPlayerPos: Point = new Point();
 
 		for (y in 0...currentLevel.length)
@@ -238,7 +238,7 @@ class LevelManager
 	{
 		return copyLevel(currentLevel);
 	}
-	
+
 	public static function getBoxPosisition(): Array<Array<Point>>
 	{
 		return copyArray2D(boxCurrentPosition);
@@ -271,7 +271,7 @@ class LevelManager
 
 		return lReturnedLevel;
 	}
-	
+
 	/**
 	 * fonctionne de la même façon que pour copyLevel mais pour un tableau à 2 dimensions
 	 * @param	pArray tableau a recopier
@@ -281,18 +281,20 @@ class LevelManager
 	{
 		var lReturnedArray: Array<Array<Point>> = new Array<Array<Point>>();
 		var lPos:Point = new Point();
-		
-		for (y in 0...pArray.length){
+
+		for (y in 0...pArray.length)
+		{
 			lReturnedArray[y] = new Array<Point>();
-			
-			for (x in 0...pArray[y].length){
+
+			for (x in 0...pArray[y].length)
+			{
 				lPos.x = pArray[y][x].x;
 				lPos.y = pArray[y][x].y;
-				
+
 				lReturnedArray[y].push(new Point(lPos.x, lPos.y));
 			}
 		}
-		
+
 		return lReturnedArray;
 	}
 
@@ -390,29 +392,31 @@ class LevelManager
 			}
 		}
 	}
-	
+
 	public static function reInitBoxesForUndo(pCurrentBoxesPosition: Array<Array<Point>>):Void
 	{
 		boxList = new Array<Array<Blocks>>();
 		boxCurrentPosition = new Array<Array<Point>>();
 		boxPreviousPosition = new Array<Array<Point>>();
 		//trace (pCurrentBoxesPosition);
-		
-		for (i in 0...pCurrentBoxesPosition.length){
+
+		for (i in 0...pCurrentBoxesPosition.length)
+		{
 			boxList.insert(i, new Array<Blocks>());
 			boxCurrentPosition.insert(i, new Array<Point>());
 			boxPreviousPosition.insert(i, new Array<Point>());
-			
-			for (j in 0...pCurrentBoxesPosition[i].length){
+
+			for (j in 0...pCurrentBoxesPosition[i].length)
+			{
 				boxList[i].push(Blocks.BOX);
 				boxCurrentPosition[i].push(new Point(pCurrentBoxesPosition[i][j].x, pCurrentBoxesPosition[i][j].y));
 				boxPreviousPosition[i].push(new Point());
 			}
 		}
-		
+
 		//trace (boxList, boxCurrentPosition, boxPreviousPosition);
 	}
-	
+
 	/**
 	 * initialise le tableau de box, de positions de box, de mirroirs, de position de mirroirs, de target et de position de target
 	 */
@@ -436,7 +440,7 @@ class LevelManager
 			for (x in 0...currentLevel[y].length)
 			{
 				lTile = currentLevel[y][x];
-				
+
 				if (lTile.contains(Blocks.MIRROR))
 				{
 					mirrorList.push(Blocks.MIRROR);
@@ -466,17 +470,17 @@ class LevelManager
 	{
 		var lCurrentPosition: Point;
 		var lPreviousPosition: Point;
-		
+
 		for (i in 0...boxCurrentPosition.length)
 		{
 			for (j in 0...boxCurrentPosition[i].length)
 			{
 				lCurrentPosition = boxCurrentPosition[i][j];
 				lPreviousPosition = boxPreviousPosition[i][j];
-				
+
 				lPreviousPosition.x = lCurrentPosition.x;
 				lPreviousPosition.y = lCurrentPosition.y;
-				
+
 				if (lCurrentPosition.equals(pOldBoxPosition))
 				{
 					lCurrentPosition.x = pNewBoxPosition.x;
@@ -500,37 +504,37 @@ class LevelManager
 		var lBoxPosition:Point = new Point();
 		var lSucces:Int = targetList.length;
 		var lCurrentSucces:Int = 0;
-		
+
 		for (t in 0...targetList.length)
 		{
 			lTargetPosition.x = targetPosition[t].x;
 			lTargetPosition.y = targetPosition[t].y;
-			
+
 			for (q in 0...boxList.length)
 			{
 				for (v in 0...boxList[q].length)
 				{
 					lBoxPosition.x = boxCurrentPosition[q][v].x;
 					lBoxPosition.y = boxCurrentPosition[q][v].y;
-					
+
 					if (lTargetPosition.x == lBoxPosition.x && lTargetPosition.y == lBoxPosition.y) lCurrentSucces++;
 				}
 			}
 		}
-		
+
 		if (lSucces == lCurrentSucces)
 		{
-			
+
 			//trace(ScoreManager.score);
 			//trace(ScoreManager.levelScore[levelNum]);
-			
+
 			if (ScoreManager.levelScore[levelNum] > ScoreManager.score && LevelScreen.levelCompleteList[levelNum])
 			{
-				
+
 				ScoreManager.levelScore[levelNum] = ScoreManager.score;
 				ScoreManager.updateHighScore();
 				SaveStorage.getInstance().updateStorage();
-			}	
+			}
 			else if (!LevelScreen.levelCompleteList[levelNum])
 			{
 				ScoreManager.levelScore[levelNum] = ScoreManager.score;
@@ -538,26 +542,32 @@ class LevelManager
 				LevelScreen.levelCompleteList[levelNum] = true;
 				SaveStorage.getInstance().updateStorage();
 			}
-			
+
 			UIManager.addScreen(WinScreen.getInstance());
 			UIManager.closeHud();
-			
+
+			LevelScreen.getInstance().unlockLevel();
+
 			ScoreManager.score = 0;
 			ScoreManager.updateScore();
 		}
 	}
-	
-	public static function getPlayerPosition(): Point {
-		for (y in 0...currentLevel.length) {
-			
-			for (x in 0...currentLevel[y].length) {
-				
-				if (currentLevel[y][x].contains(Blocks.PLAYER)) {
+
+	public static function getPlayerPosition(): Point
+	{
+		for (y in 0...currentLevel.length)
+		{
+
+			for (x in 0...currentLevel[y].length)
+			{
+
+				if (currentLevel[y][x].contains(Blocks.PLAYER))
+				{
 					return new Point(x, y);
 				}
 			}
 		}
-		
+
 		return null;
 	}
 }

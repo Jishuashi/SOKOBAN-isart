@@ -6,6 +6,7 @@ import com.isartdigital.nabokos.game.view.GameView;
 import com.isartdigital.nabokos.game.view.IsoView;
 import com.isartdigital.nabokos.game.view.RadarView;
 import com.isartdigital.nabokos.game.model.PlayerActions;
+import com.isartdigital.nabokos.ui.screen.LevelScreen;
 import com.isartdigital.nabokos.ui.Hud;
 import com.isartdigital.nabokos.ui.UIManager;
 import com.isartdigital.utils.debug.Debug;
@@ -110,7 +111,6 @@ class GameManager
 				RadarView.getInstance().updateView(LevelManager.getCurrentLevel());
 			}
 		}
-		
 		controller.doAction();
 	}
 }

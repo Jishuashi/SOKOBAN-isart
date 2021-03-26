@@ -9,12 +9,12 @@ import com.isartdigital.utils.ui.UIPositionable;
 import motion.Actuate;
 import openfl.display.DisplayObject;
 import openfl.events.MouseEvent;
-	
+
 /**
  * ...
  * @author Blanco
  */
-class LevelScreen extends Screen 
+class LevelScreen extends Screen
 {
 	private static var instance: LevelScreen;
 	private var backgroundLevel:DisplayObject;
@@ -33,15 +33,16 @@ class LevelScreen extends Screen
 	private var buttonLvl10:DisplayObject;
 	private var buttonLvl11:DisplayObject;
 	private var buttonLvl12:DisplayObject;
-	
+
 	private var levelIndex : Int;
-	
+	private static var lock : Array<Bool> = new Array<Bool>();
+
 	public static var levelCompleteList : Array<Bool> = new Array<Bool>();
-	
+
 	private function new()
 	{
 		super();
-		
+
 		backgroundLevel		= content.getChildByName("backgroundLevel");
 		buttonBack			= content.getChildByName("btnBack");
 		levelTitle			= content.getChildByName("levelTitle");
@@ -58,7 +59,7 @@ class LevelScreen extends Screen
 		buttonLvl10			= content.getChildByName("btnLvl10");
 		buttonLvl11			= content.getChildByName("btnLvl11");
 		buttonLvl12			= content.getChildByName("btnLvl12");
-		
+
 		buttonBack.addEventListener(MouseEvent.CLICK, onClickBack);
 		buttonTuto.addEventListener(MouseEvent.CLICK, onClickTuto);
 		buttonLvl1.addEventListener(MouseEvent.CLICK, onClick1);
@@ -73,7 +74,7 @@ class LevelScreen extends Screen
 		buttonLvl10.addEventListener(MouseEvent.CLICK, onClick10);
 		buttonLvl11.addEventListener(MouseEvent.CLICK, onClick11);
 		buttonLvl12.addEventListener(MouseEvent.CLICK, onClick12);
-		
+
 		var lPositionnable:UIPositionable = { item:backgroundLevel, align:AlignType.FIT_SCREEN};
 		positionables.push(lPositionnable);
 		lPositionnable = { item:buttonBack, align:AlignType.BOTTOM, offsetY:100};
@@ -106,7 +107,7 @@ class LevelScreen extends Screen
 		positionables.push(lPositionnable);
 		lPositionnable = { item:buttonLvl12, align:AlignType.TOP, offsetY:1150};
 		positionables.push(lPositionnable);
-		
+
 		buttonBack .alpha = 0;
 		levelTitle .alpha = 0;
 		buttonLvl1 .alpha = 0;
@@ -121,7 +122,7 @@ class LevelScreen extends Screen
 		buttonLvl10 .alpha = 0;
 		buttonLvl11 .alpha = 0;
 		buttonLvl12 .alpha = 0;
-		
+
 		Actuate.tween (buttonBack,	1, {alpha:1});
 		Actuate.tween (levelTitle,	1, {alpha:1});
 		Actuate.tween (buttonLvl1,	1, {alpha:1});
@@ -143,146 +144,208 @@ class LevelScreen extends Screen
 		if (instance == null) instance = new LevelScreen();
 		return instance;
 	}
-	
-	public static function initLevelCompleteList():Void
+
+	public static function initCompleteListAndLock():Void
 	{
-		for (i in 0... LevelManager.levels.length) 
+		for (i in 0... LevelManager.levels.length)
 		{
 			levelCompleteList[i] = false;
 		}
+
+		for (j in 0... LevelManager.levels.length)
+		{
+			lock [j] = true;
+
+		}
+
+		trace(lock);
+	}
+
+	public function unlockLevel():Void
+	{
+		if (levelCompleteList[LevelManager.levelNum] && LevelManager.levelNum < 13)
+		{
+			lock [LevelManager.levelNum + 1] = false;
+		}
+
 	}
 	
-		public static function allLevelComplete():Bool
+	public function unlockLevelSave()
+	{
+		for (i in 0... LevelManager.levels.length) 
+		{
+			if (levelCompleteList[i])
+			{
+				if (i < 13)
+				{
+					lock[i + 1] = false;
+				}
+			}
+		}
+	}
+	
+	public static function allLevelComplete():Bool
 	{
 		var lReturn : Bool = false;
 		var lCountLevelComplete : Int = 0;
-		
-		for (i in 0... LevelManager.levels.length) 
+
+		for (i in 0... LevelManager.levels.length)
 		{
 			if (levelCompleteList[i])
 			{
 				lCountLevelComplete += 1;
 			}
 		}
-		
+
 		if (lCountLevelComplete == LevelManager.levels.length)
 		{
 			lReturn = true;
 		}
-		
+
 		return lReturn;
 	}
 
-	
 	private function onClickBack(pEvent:MouseEvent) : Void
 	{
 		UIManager.addScreen(TitleCard.getInstance());
 		SoundManager.clickSound();
 	}
-	
-	
+
 	private function onClickTuto(pEvent : MouseEvent) : Void
 	{
 		UIManager.addScreen(TutorialHelpScreen.getInstance());
 		SoundManager.clickSound();
 	}
-	
+
 	private function onClick1(pEvent : MouseEvent) : Void
 	{
 		levelIndex = 1;
-		trace("1 selected");
-		levelSelect(levelIndex);
+		if (!lock [levelIndex])
+			{
+				trace("1 selected");
+				levelSelect(levelIndex);
+			}
 	}
-	
-	
+
 	private function onClick2(pEvent : MouseEvent) : Void
 	{
 		levelIndex = 2;
-		trace("2 selected");
-		levelSelect(levelIndex);
+		if (!lock [levelIndex])
+			{
+				trace("1 selected");
+				levelSelect(levelIndex);
+			}
 	}
-	
+
 	private function onClick3(pEvent : MouseEvent) : Void
 	{
 		levelIndex = 3;
-		trace("3 selected");
-		levelSelect(levelIndex);
+		if (!lock [levelIndex])
+			{
+				trace("1 selected");
+				levelSelect(levelIndex);
+			}
 	}
-	
+
 	private function onClick4(pEvent : MouseEvent) : Void
 	{
 		levelIndex = 4;
-		trace("4 selected");
-		levelSelect(levelIndex);
+		if (!lock [levelIndex])
+			{
+				trace("1 selected");
+				levelSelect(levelIndex);
+			}
 	}
-	
+
 	private function onClick5(pEvent : MouseEvent) : Void
 	{
 		levelIndex = 5;
-		trace("5 selected");
-		levelSelect(levelIndex);
+		if (!lock [levelIndex])
+			{
+				trace("1 selected");
+				levelSelect(levelIndex);
+			}
 	}
-	
+
 	private function onClick6(pEvent : MouseEvent) : Void
 	{
 		levelIndex = 6;
-		trace("6 selected");
-		levelSelect(levelIndex);
+		if (!lock [levelIndex])
+			{
+				trace("1 selected");
+				levelSelect(levelIndex);
+			}
 	}
-	
+
 	private function onClick7(pEvent : MouseEvent) : Void
 	{
 		levelIndex = 7;
-		trace("7 selected");
-		levelSelect(levelIndex);
+		if (!lock [levelIndex])
+			{
+				trace("1 selected");
+				levelSelect(levelIndex);
+			}
 	}
-	
+
 	private function onClick8(pEvent : MouseEvent) : Void
 	{
 		levelIndex = 8;
-		trace("8 selected");
-		levelSelect(levelIndex);
+		if (!lock [levelIndex])
+			{
+				trace("1 selected");
+				levelSelect(levelIndex);
+			}
 	}
-	
+
 	private function onClick9(pEvent : MouseEvent) : Void
 	{
 		levelIndex = 9;
-		trace("9 selected");
-		levelSelect(levelIndex);
+		if (!lock [levelIndex])
+			{
+				trace("1 selected");
+				levelSelect(levelIndex);
+			}
 	}
-	
+
 	private function onClick10(pEvent : MouseEvent) : Void
 	{
 		levelIndex = 10;
-		trace("10 selected");
-		levelSelect(levelIndex);
+		if (!lock [levelIndex])
+			{
+				trace("1 selected");
+				levelSelect(levelIndex);
+			}
 	}
-	
+
 	private function onClick11(pEvent : MouseEvent) : Void
 	{
 		levelIndex = 11;
-		trace("11 selected");
-		levelSelect(levelIndex);
+		if (!lock [levelIndex])
+			{
+				trace("1 selected");
+				levelSelect(levelIndex);
+			}
 	}
-	
+
 	private function onClick12(pEvent : MouseEvent) : Void
 	{
 		levelIndex = 12;
-		trace("12 selected");
-		levelSelect(levelIndex);
+		if (!lock [levelIndex])
+			{
+				trace("1 selected");
+				levelSelect(levelIndex);
+			}
 	}
-	
-	
+
 	private function levelSelect(pLevel : Int):Void
 	{
 		LevelManager.levelNum = pLevel;
-		
+
 		LevelManager.selectLevel(LevelManager.levelNum);
-		
+
 		GameManager.start();
 	}
-	
-	
+
 	override public function destroy (): Void
 	{
 		instance = null;

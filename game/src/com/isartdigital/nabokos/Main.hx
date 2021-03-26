@@ -136,7 +136,7 @@ class Main extends Sprite
 		LevelManager.init();
 		ScoreManager.initHighscore();
 		
-		LevelScreen.initLevelCompleteList();
+		LevelScreen.initCompleteListAndLock();
 	}
 
 	private static function importClasses() : Void {
