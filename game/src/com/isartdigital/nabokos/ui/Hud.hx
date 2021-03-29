@@ -33,6 +33,7 @@ class Hud extends Screen
 	private var btnUndo : DisplayObject;
 	private var btnRedo : DisplayObject;
 	private var btnPause : DisplayObject;
+	//private var backgroundHud : DisplayObject;
 	private var levelNumber : TextField;
 	private static var mcTopCenter : MovieClip;
 
@@ -64,6 +65,7 @@ class Hud extends Screen
 		btnUndo = content.getChildByName("btnUndo");
 		btnRedo = content.getChildByName("btnRedo");
 		btnPause = content.getChildByName("btnPause");
+		//btnPause = content.getChildByName("backgroundHud");
 		levelNumber = cast(content.getChildByName("levelNumber"), TextField);
 
 		btnRetry.addEventListener(MouseEvent.CLICK, retry);
@@ -79,6 +81,8 @@ class Hud extends Screen
 		positionables.push(lPositionnable);
 		lPositionnable = { item:btnPause, align:AlignType.TOP_RIGHT, offsetY:100, offsetX:650};
 		positionables.push(lPositionnable);
+		//lPositionnable = { item:backgroundHud, align:AlignType.FIT_SCREEN};
+		//positionables.push(lPositionnable);
 		
 		//levelNumber.text = LevelManager.levelNum;
 	}
