@@ -56,11 +56,11 @@ class GameManager
 		
 		var lRect :Rectangle = DeviceCapabilities.getScreenRect(GameStage.getInstance());
 		
+		IsoView.getInstance().init(LevelManager.getCurrentLevel());
+		RadarView.getInstance().updateView(LevelManager.getCurrentLevel());	
+		
 		controller = new KeyboardController(Main.getInstance().stage);
 		mouseController = new MouseController();
-		
-		IsoView.getInstance().updateView(LevelManager.getCurrentLevel());
-		RadarView.getInstance().updateView(LevelManager.getCurrentLevel());	
 		
 		Lib.current.stage.addEventListener(Event.ENTER_FRAME, gameLoop);
 	}

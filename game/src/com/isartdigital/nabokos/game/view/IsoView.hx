@@ -20,143 +20,171 @@ import haxe.ds.Map;
  * @author Anthony TIREL--TARTUFFE
  */
 class IsoView extends GameView {
+
+	private var viewTab: Array<Array<Sprite>>;
 	
-	/**
-	 * Animation actuelle du player, dans quel sens il est tourné
-	 */
-	private var player: Animation;
+	private var playerAnim: String;
+	
+	private var oldLevel: Array<Array<Array<Blocks>>>;
 	
 	private static var instance: IsoView;
 	public static function getInstance(): IsoView {
 		if (instance == null) instance = new IsoView();
 		return instance;
 	}
-	
-	public function new() {
+
+	private function new() {
 		super();
-		
-		cellSize = { gridX: 256, gridY : 128 };
-		
-		IsoManager.init(cellSize.gridX, cellSize.gridY);
-		
 		viewContainer = new Sprite();
 		
-		player = GameLoader.getAnimationFromAtlas("Player_IDLE_UP");
+		cellSize = {gridX: 256, gridY: 128};
 	}
 	
-	/**
-	 * Met à jour la vue Isométrique en fonction du niveau actuel
-	 * @param	pLevel Niveua à afficher
-	 */
-	override public function updateView(pLevel:Array<Array<Array<Blocks>>>) {
-		super.updateView(pLevel);
+	public function init(pLevel: Array<Array<Array<Blocks>>>): Void {
+		viewTab = new Array<Array<Sprite>>();
+		var lAllObjects: Array<CellDef> = new Array<CellDef>();
 		
-		var lAsset: Animation;
-		var lAllObjects: Map<CellDef, Animation> = new Map<CellDef, Animation>();
-		var lListToSort: Array<CellDef> = new Array<CellDef>();
-		var lGridPos: CellDef;
-		var lViewPos: Point;
-		
-		var lInitCheck: Int = LevelManager.initLevelCheck;
-		var lCounter: Int = 0;
-		
-		if (lInitCheck == 0){
-			randomTileList = new Array<String>();
-		}
 		
 		for (y in 0...pLevel.length) {
+			viewTab[y] = new Array<Sprite>();
 			
 			for (x in 0...pLevel[y].length) {
+				viewTab[y][x] = new Sprite();
 				
-				var k: Int = pLevel[y][x].length-1;
+				var z: Int = pLevel[y][x].length - 1;
 				
-				while (k >= 0) {
+				while (z >= 0) {
 					
-					switch (pLevel[y][x][k]) {
+					switch (pLevel[y][x][z]) {
+						case Blocks.BOX:
+							viewTab[y][x].addChild(GameLoader.getAnimationFromAtlas("IsoBox"));
+						
+						case Blocks.GROUND:
+							viewTab[y][x].addChild(GameLoader.getAnimationFromAtlas("IsoFloor" + Math.ceil(Math.random()*3)));
+						
+						case Blocks.MIRROR:
+							viewTab[y][x].addChild(GameLoader.getAnimationFromAtlas("IsoMirror"));
+						
+						case Blocks.PLAYER:
+							viewTab[y][x].addChild(GameLoader.getAnimationFromAtlas("Player_IDLE_UP"));
+						
+						case Blocks.TARGET:
+							viewTab[y][x].addChild(GameLoader.getAnimationFromAtlas("IsoGoal"));
+						
 						case Blocks.WALL:
-							lAsset = GameLoader.getAnimationFromAtlas(selectTile("IsoWall", 3, lCounter, lInitCheck, randomTileList));
-							lCounter++;
+							viewTab[y][x].addChild(GameLoader.getAnimationFromAtlas("IsoWall" + Math.ceil(Math.random() * 3)));
+							
 						
-						case Blocks.PLAYER :
-							lAsset = player;
-						
-						case Blocks.GROUND :
-							lAsset = GameLoader.getAnimationFromAtlas(selectTile("IsoFloor", 3, lCounter, lInitCheck, randomTileList));
-							lCounter++;
-						
-						case Blocks.TARGET :
-							lAsset = GameLoader.getAnimationFromAtlas("IsoGoal");
-						
-						case Blocks.BOX :
-							lAsset = GameLoader.getAnimationFromAtlas("IsoBox");
-						
-						case Blocks.MIRROR :
-							lAsset = GameLoader.getAnimationFromAtlas("IsoMirror");
-						
-						case Blocks.EMPTY :
-							lAsset = GameLoader.getAnimationFromAtlas("IsoEmpty");
-							lAsset.visible = false;
-						
-						default:
-							lAsset = GameLoader.getAnimationFromAtlas(selectTile("IsoFloor", 3, lCounter, lInitCheck, randomTileList));
-							lCounter++;
-					}	
+						case Blocks.EMPTY:
+							viewTab[y][x].addChild(GameLoader.getAnimationFromAtlas("IsoEmpty"));
+							viewTab[y][x].getChildAt(viewTab[y][x].numChildren - 1).visible = false;
+					}
 					
-					lGridPos = {gridX : x, gridY: y};
-					
-					lViewPos = IsoManager.modelToIsoView(new Point(lGridPos.gridX, lGridPos.gridY));
-					
-					lAsset.x = lViewPos.x;
-					lAsset.y = lViewPos.y;
-					
-					lAllObjects.set(lGridPos, lAsset);
-					
-					lListToSort.push(lGridPos);
-					
-					k--;
+					z--;
 				}
+				
+				lAllObjects.push({gridX: x, gridY: y});
 			}
 		}
 		
-		IsoManager.zSort(lListToSort);
+		IsoManager.init(cellSize.gridX, cellSize.gridY);
+		IsoManager.zSort(lAllObjects);
 		
-		for (i in 0...lListToSort.length) {
-			viewContainer.addChild(lAllObjects.get(lListToSort[i]));
+		var lViewPos: Point;
+		for (cell in lAllObjects) {
+			lViewPos = IsoManager.modelToIsoView(new Point(cell.gridX, cell.gridY));
+			
+			viewContainer.addChild(viewTab[cell.gridY][cell.gridX]);
+			viewTab[cell.gridY][cell.gridX].x = lViewPos.x;
+			viewTab[cell.gridY][cell.gridX].y = lViewPos.y;
 		}
 		
 		GameStage.getInstance().getGameContainer().addChild(viewContainer);
 		
 		viewContainer.x = GameStage.getInstance().safeZone.width / 2;
-		viewContainer.y = GameStage.getInstance().safeZone.height * 0.2;
+        viewContainer.y = GameStage.getInstance().safeZone.height * 0.2;
+        
+        var lSafeArea: Float = GameStage.getInstance().safeZone.height * GameStage.getInstance().safeZone.width;
+        var lContainerArea: Float = viewContainer.width * viewContainer.height;
+        
+        while (lContainerArea > lSafeArea) {
+            viewContainer.scaleX *= 0.9;
+            viewContainer.scaleY *= 0.9;
+            
+            lContainerArea = viewContainer.width * viewContainer.height;
+        }
 		
-		var lSafeArea: Float = GameStage.getInstance().safeZone.height * GameStage.getInstance().safeZone.width;
-		var lContainerArea: Float = viewContainer.width * viewContainer.height;
-		
-		while (lContainerArea > lSafeArea) {
-			viewContainer.scaleX *= 0.9;
-			viewContainer.scaleY *= 0.9;
-			
-			lContainerArea = viewContainer.width * viewContainer.height;
-		}
+		oldLevel = pLevel;
 	}
 	
-	/**
-	 * Met à jour l'asset du player en fonction de la direction qu'il prend
-	 * @param	pMove direction prise par le Player
-	 */
-	public function updatePlayerAsset(pMove: PlayerActions): Void{
+	public override function updateView(pLevel: Array<Array<Array<Blocks>>>): Void {
+		var lCellsChanged: Array<Point> = new Array<Point>();
+		
+		for (y in 0...pLevel.length) {
+			
+			for (x in 0...pLevel[y].length) {
+				
+				for (z in 0...pLevel[y][x].length) {
+					
+					if (pLevel[y][x][z] != oldLevel[y][x][z]) {
+						lCellsChanged.push(new Point(x, y));
+						break;
+					}
+				}
+			}
+		}
+		
+		for (cell in lCellsChanged) {
+			viewTab[Std.int(cell.y)][Std.int(cell.x)].removeChildren();
+			
+			var z: Int = pLevel[Std.int(cell.y)][Std.int(cell.x)].length - 1;
+			
+			while (z >= 0) {
+				
+				switch (pLevel[Std.int(cell.y)][Std.int(cell.x)][z]) {
+					case Blocks.BOX:
+						viewTab[Std.int(cell.y)][Std.int(cell.x)].addChild(GameLoader.getAnimationFromAtlas("IsoBox"));
+					
+					case Blocks.GROUND:
+						viewTab[Std.int(cell.y)][Std.int(cell.x)].addChild(GameLoader.getAnimationFromAtlas("IsoFloor" + Math.ceil(Math.random()*3)));
+					
+					case Blocks.MIRROR:
+						viewTab[Std.int(cell.y)][Std.int(cell.x)].addChild(GameLoader.getAnimationFromAtlas("IsoMirror"));
+					
+					case Blocks.PLAYER:
+						viewTab[Std.int(cell.y)][Std.int(cell.x)].addChild(GameLoader.getAnimationFromAtlas("Player_IDLE_" + playerAnim));
+					
+					case Blocks.TARGET:
+						viewTab[Std.int(cell.y)][Std.int(cell.x)].addChild(GameLoader.getAnimationFromAtlas("IsoGoal"));
+					
+					case Blocks.WALL:
+						viewTab[Std.int(cell.y)][Std.int(cell.x)].addChild(GameLoader.getAnimationFromAtlas("IsoWall" + Math.ceil(Math.random() * 3)));
+					
+					case Blocks.EMPTY:
+						viewTab[Std.int(cell.y)][Std.int(cell.x)].addChild(GameLoader.getAnimationFromAtlas("IsoEmpty"));
+						viewTab[Std.int(cell.y)][Std.int(cell.x)].getChildAt(viewTab[Std.int(cell.y)][Std.int(cell.x)].numChildren - 1).visible = false;
+				}
+				
+				z--;
+			}
+		}
+		
+		oldLevel = pLevel;
+	}
+	
+	public function updatePlayerAsset(pMove: PlayerActions): Void {
 		switch (pMove) {
 			case PlayerActions.LEFT:
-				player = GameLoader.getAnimationFromAtlas("Player_IDLE_LEFT");
-				
+				playerAnim = "LEFT";
+			
 			case PlayerActions.RIGHT:
-				player = GameLoader.getAnimationFromAtlas("Player_IDLE_RIGHT");
-				
+				playerAnim = "RIGHT";
+			
 			case PlayerActions.UP:
-				player = GameLoader.getAnimationFromAtlas("Player_IDLE_UP");
-				
+				playerAnim = "UP";
+			
 			case PlayerActions.DOWN:
-				player = GameLoader.getAnimationFromAtlas("Player_IDLE_DOWN");
+				playerAnim = "DOWN";
 		}
 	}
 	

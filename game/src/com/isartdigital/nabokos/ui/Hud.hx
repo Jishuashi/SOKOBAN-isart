@@ -128,7 +128,7 @@ class Hud extends Screen
 		ScoreManager.score = 0;
 		ScoreManager.updateScore();
 
-		IsoView.getInstance().updateView(LevelManager.getCurrentLevel());
+		IsoView.getInstance().init(LevelManager.getCurrentLevel());
 		RadarView.getInstance().updateView(LevelManager.getCurrentLevel());
 	}
 	
