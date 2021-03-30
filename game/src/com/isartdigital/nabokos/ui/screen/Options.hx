@@ -1,5 +1,4 @@
 package com.isartdigital.nabokos.ui.screen;
-
 import com.isartdigital.nabokos.game.model.LevelManager;
 import com.isartdigital.nabokos.game.view.IsoView;
 import com.isartdigital.utils.sound.SoundManager;
@@ -9,8 +8,11 @@ import com.isartdigital.utils.ui.UIPositionable;
 import motion.Actuate;
 import motion.easing.Elastic;
 import openfl.display.DisplayObject;
+import openfl.display.DisplayObjectContainer;
+import openfl.display.MovieClip;
+import openfl.display.SimpleButton;
 import openfl.events.MouseEvent;
-
+import openfl.text.TextField;
 	
 /**
  * ...
@@ -30,6 +32,8 @@ class Options extends Screen
 	private var buttonSmallWall:DisplayObject;
 	private var buttonBigWall:DisplayObject;
 	private var buttonBack:DisplayObject;
+	
+	private var textBack:TextField;
 
 	private function new()
 	{
@@ -42,6 +46,8 @@ class Options extends Screen
 		buttonSoundOn			= content.getChildByName("buttonSoundOn");
 		buttonSoundOff			= content.getChildByName("buttonSoundOff");
 		buttonBack				= content.getChildByName("btnBack");
+		
+		textBack = Traduction.getText(buttonBack);
 		
 		buttonBack.addEventListener(MouseEvent.CLICK, onClickBack);
 		buttonFrench.addEventListener(MouseEvent.CLICK, onClickFrench);
@@ -77,11 +83,13 @@ class Options extends Screen
 	private function onClickFrench(pEvent:MouseEvent) : Void
 	{
 		SoundManager.clickSound();
+		Traduction.translateToFrench();
 	}
 	
 	private function onClickEnglish(pEvent:MouseEvent) : Void
 	{
 		SoundManager.clickSound();
+		Traduction.translateToEnglish();
 	}
 	
 	private function onClickOn(pEvent:MouseEvent) : Void
@@ -93,6 +101,15 @@ class Options extends Screen
 	private function onClickOff(pEvent:MouseEvent) : Void
 	{
 		SoundManager.mainVolume = 0;
+	}
+	
+	public function translateButtonsOption(pEnglish:Bool):Void
+	{
+		if (pEnglish){
+			textBack.text = Traduction.getField("BACK").en;
+		} else{
+			textBack.text = Traduction.getField("BACK").fr;
+		}
 	}
 	
 	override public function destroy (): Void

@@ -80,7 +80,7 @@ class SaveStorage extends SharedObject
 			saveStorage.setDirty(lName);
 		}
 		
-		//saveStorage.clear();
+		trace (storageObject);
 
 		saveStorage.flush(0);
 	}
@@ -110,6 +110,7 @@ class SaveStorage extends SharedObject
 		}
 
 		//trace(saveAllStorage.data.SELSELNotAllowed);
+		trace (storageHighScoreObject);
 		saveAllStorage.flush(0);
 	}
 

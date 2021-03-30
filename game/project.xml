@@ -14,6 +14,7 @@
 	
 	<assets embed="false" path="assets"/>
 	<assets embed="true" path="assets/config.json"/>
+	<assets embed="true" path="assets/localization.json"/>
 	<assets embed="true" path="assets/sounds/sounds.json"/>
 	
 	<assets rename="" embed="false" path="assets/images/atlas"/>

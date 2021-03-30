@@ -4,6 +4,7 @@ import com.isartdigital.nabokos.game.model.LevelManager;
 import com.isartdigital.nabokos.game.model.SaveStorage;
 import com.isartdigital.nabokos.game.model.ScoreManager;
 import com.isartdigital.nabokos.ui.GraphicLoader;
+import com.isartdigital.nabokos.ui.Traduction;
 import com.isartdigital.nabokos.ui.screen.LevelScreen;
 import com.isartdigital.nabokos.ui.screen.LoginScreen;
 import com.isartdigital.nabokos.ui.screen.TitleCard;
@@ -53,6 +54,7 @@ class Main extends Sprite
 		
 		//SETUP de la config
 		Config.init(Json.parse(Assets.getText("assets/config.json")));
+		Traduction.init(Assets.getText("assets/localization.json"));
 
 		//SETUP du gamestage
 		GameStage.getInstance().scaleMode = GameStageScale.SHOW_ALL;

@@ -28,6 +28,8 @@ class TitleCard extends Screen
 	private var buttonHelp:DisplayObject;
 	private var buttonHighscores:DisplayObject;
 	private var btnCredits:DisplayObject;
+	
+	private var txt: TextField;
 
 	private function new()
 	{
@@ -85,6 +87,17 @@ class TitleCard extends Screen
 	{
 		UIManager.addScreen(Credits.getInstance());
 		SoundManager.clickSound();
+	}
+	
+	public function translateButtonsTitleCard(pEnglish:Bool):Void
+	{
+		if (pEnglish){
+			//buttonPlay.text = Traduction.getField("PLAY").en;
+			trace ("english");
+		} else{
+			//buttonBack.text = Traduction.getField("PLAY").fr;
+			trace ("french");
+		}
 	}
 
 	override public function destroy():Void
