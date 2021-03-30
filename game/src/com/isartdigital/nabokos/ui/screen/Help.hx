@@ -5,6 +5,7 @@ import com.isartdigital.utils.ui.AlignType;
 import com.isartdigital.utils.ui.Screen;
 import com.isartdigital.utils.ui.UIPositionable;
 import motion.Actuate;
+import motion.easing.Cubic;
 import motion.easing.Elastic;
 import openfl.display.DisplayObject;
 import openfl.events.MouseEvent;
@@ -53,13 +54,13 @@ class Help extends Screen
 		arrow2.alpha = 0;
 		help3 .alpha = 0;
 		
-		Actuate.tween (buttonBack, 		0.5, {x:0, y:600}).ease(Elastic.easeOut);
-		Actuate.tween (helpTitle,		0.5, {alpha:0}).reverse();
+		Actuate.tween (buttonBack,	 	0.5, {x:0, y:850}, false).reverse().ease(Cubic.easeIn);
+		Actuate.tween (helpTitle,	 	0.5, {x:0, y:-950}, false).reverse().ease(Cubic.easeIn);
 		Actuate.tween (help1,			1, {alpha:1});
-		Actuate.tween (arrow1,			1, {alpha:1}).delay(1);
-		Actuate.tween (help2,			1, {alpha:1}).delay(2);
-		Actuate.tween (arrow2,			1, {alpha:1}).delay(3);
-		Actuate.tween (help3,			1, {alpha:1}).delay(4);
+		Actuate.tween (arrow1,			1, {alpha:1}).delay(0.5);
+		Actuate.tween (help2,			1, {alpha:1}).delay(1);
+		Actuate.tween (arrow2,			1, {alpha:1}).delay(1.5);
+		Actuate.tween (help3,			1, {alpha:1}).delay(2);
 	}
 
 	public static function getInstance (): Help

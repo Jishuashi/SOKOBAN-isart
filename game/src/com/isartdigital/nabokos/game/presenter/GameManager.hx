@@ -17,10 +17,13 @@ import com.isartdigital.utils.sound.SoundManager;
 import com.isartdigital.utils.system.DeviceCapabilities;
 import com.isartdigital.utils.system.Monitor;
 import com.isartdigital.utils.system.MonitorField;
+import com.isartdigital.utils.ui.AlignType;
+import com.isartdigital.utils.ui.UIPositionable;
 import haxe.Json;
 import haxe.Template;
 import haxe.Timer;
 import openfl.Lib;
+import openfl.display.DisplayObject;
 import openfl.events.Event;
 import openfl.events.MouseEvent;
 import openfl.geom.Point;
@@ -38,6 +41,7 @@ class GameManager
 	public static var controller:KeyboardController;
 	public static var mouseController: MouseController;
 	private static var particleSystem :ParticleSystem;
+	private static var controls:DisplayObject;
 
 	public static function start() : Void
 	{
@@ -53,6 +57,19 @@ class GameManager
 		
 		UIManager.openHud();
 		Hud.getInstance().visible = true;
+		Hud.getInstance().levelNumber.text = "level " + LevelManager.levelNum;
+		//if (LevelManager.levelNum == 0)
+		//{
+			//controls = content.getChildByName("controls");
+			//controls.alpha = 1;
+			//var lPositionnable:UIPositionable = { item:controls, align:AlignType.BOTTOM_LEFT, offsetY:100, offsetX:100};
+			//positionables.push(lPositionnable);
+		//}
+		//else
+		//{
+			//controls = content.getChildByName("controls");
+			//controls.alpha = 0;
+		//}
 		
 		var lRect :Rectangle = DeviceCapabilities.getScreenRect(GameStage.getInstance());
 		

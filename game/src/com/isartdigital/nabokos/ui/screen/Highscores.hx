@@ -7,6 +7,7 @@ import com.isartdigital.utils.ui.AlignType;
 import com.isartdigital.utils.ui.Screen;
 import com.isartdigital.utils.ui.UIPositionable;
 import motion.Actuate;
+import motion.easing.Cubic;
 import motion.easing.Elastic;
 import com.isartdigital.nabokos.ui.screen.LevelScreen;
 import com.isartdigital.nabokos.ui.screen.LoginScreen;
@@ -24,6 +25,17 @@ class Highscores extends Screen
 	private var backgroundHighscores:DisplayObject;
 	private var highscoresTitle:DisplayObject;
 	private var buttonBack:DisplayObject;
+	private var score1:DisplayObject;
+	private var score2:DisplayObject;
+	private var score3:DisplayObject;
+	private var score4:DisplayObject;
+	private var score5:DisplayObject;
+	private var score6:DisplayObject;
+	private var score7:DisplayObject;
+	private var score8:DisplayObject;
+	private var score9:DisplayObject;
+	private var score10:DisplayObject;
+	private var score11:DisplayObject;
 
 	private static var textScoreList : Array<TextField> = new Array<TextField>();
 	public static var textPseudoScoreList : Array<String> = new Array<String>();
@@ -38,6 +50,17 @@ class Highscores extends Screen
 		backgroundHighscores	= content.getChildByName("backgroundHighscores");
 		highscoresTitle			= content.getChildByName("highscoresTitle");
 		buttonBack				= content.getChildByName("btnBack");
+		score1					= content.getChildByName("score1");
+		score2					= content.getChildByName("score2");
+		score3					= content.getChildByName("score3");
+		score4					= content.getChildByName("score4");
+		score5					= content.getChildByName("score5");
+		score6					= content.getChildByName("score6");
+		score7					= content.getChildByName("score7");
+		score8					= content.getChildByName("score8");
+		score9					= content.getChildByName("score9");
+		score10					= content.getChildByName("score10");
+		score11					= content.getChildByName("score11");
 
 		buttonBack.addEventListener(MouseEvent.CLICK, onClickBack);
 
@@ -48,11 +71,19 @@ class Highscores extends Screen
 		lPositionnable = { item:buttonBack, align:AlignType.BOTTOM, offsetY:100};
 		positionables.push(lPositionnable);
 
-		highscoresTitle .alpha = 0;
-		buttonBack.alpha = 0;
-
-		Actuate.tween (highscoresTitle,	1, {alpha:1});
-		Actuate.tween (buttonBack,		1, {alpha:1});
+		Actuate.tween (highscoresTitle,	0.5, {x:-1215, y:-1100}, false).reverse().ease(Cubic.easeIn);
+		Actuate.tween (buttonBack,	 	0.5, {x:0, y:850}, false).reverse().ease(Cubic.easeIn);
+		Actuate.tween (score11, 0.1, {x: 2300}, false).reverse();
+		Actuate.tween (score10, 0.2, {x: 2300}, false).reverse();
+		Actuate.tween (score9, 	0.3, {x: 2300}, false).reverse();
+		Actuate.tween (score8, 	0.4, {x: 2300}, false).reverse();
+		Actuate.tween (score7, 	0.5, {x: 2300}, false).reverse();
+		Actuate.tween (score6, 	0.6, {x: 2300}, false).reverse();
+		Actuate.tween (score5, 	0.7, {x: -2300}, false).reverse();
+		Actuate.tween (score4, 	0.8, {x: -2300}, false).reverse();
+		Actuate.tween (score3, 	0.9, {x: -2300}, false).reverse();
+		Actuate.tween (score2, 	1,   {x: -2300}, false).reverse();
+		Actuate.tween (score1, 	1.1, {x: -2300}, false).reverse();
 	}
 
 	public function initTextScore():Void

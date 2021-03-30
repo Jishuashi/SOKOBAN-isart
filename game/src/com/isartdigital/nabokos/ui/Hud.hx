@@ -34,7 +34,7 @@ class Hud extends Screen
 	private var btnRedo : DisplayObject;
 	private var btnPause : DisplayObject;
 	//private var backgroundHud : DisplayObject;
-	private var levelNumber : TextField;
+	public var levelNumber : TextField;
 	private static var mcTopCenter : MovieClip;
 
 	private var redoIsPossible : Bool = false;
@@ -83,8 +83,6 @@ class Hud extends Screen
 		positionables.push(lPositionnable);
 		//lPositionnable = { item:backgroundHud, align:AlignType.FIT_SCREEN};
 		//positionables.push(lPositionnable);
-		
-		//levelNumber.text = LevelManager.levelNum;
 	}
 
 	public function redo(pEvent : MouseEvent): Void

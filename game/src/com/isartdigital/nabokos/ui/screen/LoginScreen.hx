@@ -8,6 +8,7 @@ import com.isartdigital.utils.ui.Screen;
 import com.isartdigital.utils.ui.UIComponent;
 import com.isartdigital.utils.ui.UIPositionable;
 import motion.Actuate;
+import motion.easing.Elastic;
 import openfl.display.DisplayObject;
 import openfl.display.SimpleButton;
 import openfl.events.KeyboardEvent;
@@ -64,9 +65,9 @@ class LoginScreen extends Screen
 		positionables.push(lPositionnable);
 		
 		Actuate.tween (loginTitle,	 0.5, {alpha:0}).reverse();
-		Actuate.tween (buttonEnter,	 0.5, {alpha:0}).reverse();
-		Actuate.tween (pseudoBox,	 0.5, {alpha:0}).reverse();
-		Actuate.tween (mdpText,		 0.5, {alpha:0}).reverse();
+		Actuate.tween (buttonEnter,	 1, {x:2000}, false).reverse().ease(Elastic.easeIn);
+		Actuate.tween (pseudoBox,	 1, {x: -2000}, false).reverse().ease(Elastic.easeIn);
+		Actuate.tween (mdpText,		 1, {x: -2000}, false).reverse().ease(Elastic.easeIn);
 	}
 
 	public static function getInstance (): LoginScreen

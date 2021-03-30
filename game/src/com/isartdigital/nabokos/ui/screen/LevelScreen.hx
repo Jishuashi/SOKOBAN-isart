@@ -6,6 +6,7 @@ import com.isartdigital.utils.sound.SoundManager;
 import com.isartdigital.utils.ui.AlignType;
 import com.isartdigital.utils.ui.Screen;
 import com.isartdigital.utils.ui.UIPositionable;
+import com.isartdigital.nabokos.ui.screen.TutorialHelpScreen;
 import motion.Actuate;
 import openfl.display.DisplayObject;
 import openfl.events.MouseEvent;
