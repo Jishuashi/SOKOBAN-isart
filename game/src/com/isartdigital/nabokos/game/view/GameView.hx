@@ -36,6 +36,7 @@ class GameView extends Sprite
 	 * @param	pLevel
 	 */
 	public function updateView(pLevel : Array<Array<Array<Blocks>>>): Void {
+		GameStage.getInstance().stage.focus = GameStage.getInstance().stage;
 		resetView();
 	}
 	
