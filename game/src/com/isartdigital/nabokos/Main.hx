@@ -1,6 +1,7 @@
 	package com.isartdigital.nabokos;
 
 import com.isartdigital.nabokos.game.model.LevelManager;
+import com.isartdigital.nabokos.game.model.SaveStorage;
 import com.isartdigital.nabokos.game.model.ScoreManager;
 import com.isartdigital.nabokos.ui.GraphicLoader;
 import com.isartdigital.nabokos.ui.screen.LevelScreen;
@@ -134,9 +135,10 @@ class Main extends Sprite
 		UIManager.addScreen(LoginScreen.getInstance());
 		
 		LevelManager.init();
-		ScoreManager.initHighscore();
+		//ScoreManager.initHighscore();
 		
-		LevelScreen.initCompleteListAndLock();
+		//LevelScreen.initCompleteListAndLock();
+		SaveStorage.getInstance().initHighScoreStorage();
 	}
 
 	private static function importClasses() : Void {

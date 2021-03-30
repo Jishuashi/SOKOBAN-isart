@@ -14,6 +14,7 @@ import openfl.display.DisplayObject;
 import openfl.events.MouseEvent;
 import openfl.text.TextField;
 import openfl.text.TextFormat;
+import com.isartdigital.nabokos.ui.screen.Highscores;
 
 /**
  * ...
@@ -75,6 +76,7 @@ class TitleCard extends Screen
 
 	private function onClickHighscores(pEvent:MouseEvent) : Void
 	{
+		//Highscores.getInstance().initTextScore();
 		UIManager.addScreen(Highscores.getInstance());
 		SoundManager.clickSound();
 	}

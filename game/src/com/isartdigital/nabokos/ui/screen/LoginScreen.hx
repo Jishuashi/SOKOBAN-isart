@@ -99,7 +99,6 @@ class LoginScreen extends Screen
 	{
 		if (mdpText.length >= 3)
 		{
-			trace (pseudo);
 			UIManager.addScreen(TitleCard.getInstance());
 			SoundManager.clickSound();
 			SaveStorage.getInstance().initStorage(pseudo);
@@ -113,7 +112,6 @@ class LoginScreen extends Screen
 		{
 			if (mdpText.length >= 3)
 			{
-				trace (pseudo);
 				UIManager.addScreen(TitleCard.getInstance());
 				SoundManager.clickSound();
 				SaveStorage.getInstance().initStorage(pseudo);

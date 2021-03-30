@@ -4,6 +4,7 @@ import com.isartdigital.nabokos.game.model.PlayerActions;
 import com.isartdigital.nabokos.game.presenter.GameManager;
 import com.isartdigital.nabokos.ui.UIManager;
 import com.isartdigital.nabokos.ui.screen.LevelScreen;
+import com.isartdigital.nabokos.ui.screen.Highscores;
 import com.isartdigital.nabokos.ui.screen.WinScreen;
 import com.isartdigital.utils.loader.GameLoader;
 import haxe.Json;
@@ -546,11 +547,18 @@ class LevelManager
 
 			UIManager.addScreen(WinScreen.getInstance());
 			UIManager.closeHud();
-
+			
 			LevelScreen.getInstance().unlockLevel();
-
+			LevelScreen.levelCompleteCheck = LevelScreen.allLevelComplete();
+			trace(LevelScreen.levelCompleteCheck, "end level");
+			
+			Highscores.getInstance().updateHigscoreList();
+			SaveStorage.getInstance().updateHighScoreStorage();
+			
 			ScoreManager.score = 0;
 			ScoreManager.updateScore();
+			
+			trace (ScoreManager.levelScore);
 		}
 	}
 

@@ -1,5 +1,6 @@
 package com.isartdigital.nabokos.game.model;
 import com.isartdigital.nabokos.ui.screen.LevelScreen;
+import com.isartdigital.nabokos.ui.screen.Highscores;
 import com.isartdigital.nabokos.ui.screen.LoginScreen;
 import openfl.net.SharedObject;
 
@@ -16,10 +17,12 @@ class SaveStorage extends SharedObject
 	private static var instance: SaveStorage;
 
 	public var saveStorage : SharedObject;
+	public var saveAllStorage : SharedObject;
 	private var prefix : String = "SEL";
 
 	private var storageObject : Dynamic;
-	private var pseudo : String;
+	private var storageHighScoreObject : Dynamic;
+	public var pseudo : String;
 
 	/**
 	 * Retourne l'instance unique de la classe, et la crée si elle n'existait pas au préalable
@@ -48,30 +51,66 @@ class SaveStorage extends SharedObject
 		var lName: String = prefix + pseudo;
 		var lPath : String = prefix + "/nabokos/saves";
 
-		storageObject = {complete : LevelScreen.levelCompleteList, score : ScoreManager.levelScore};
+		storageObject = {complete : LevelScreen.levelCompleteList, score : ScoreManager.levelScore, levelComplete: false};
+
 		saveStorage = SharedObject.getLocal(lName, lPath);
 
 		if (Reflect.hasField(saveStorage.data, lName))
 		{
 			storageObject = Reflect.field(saveStorage.data, lName);
-			
-			trace(storageObject.score);
-			
+
+			//trace(storageObject.score);
+
 			ScoreManager.levelScore = storageObject.score;
 			LevelScreen.levelCompleteList = storageObject.complete;
-			
-			
+			LevelScreen.levelCompleteCheck = storageObject.levelComplete;
+
+			//trace (storageObject.levelComplete, "save");
+
+			LevelScreen.allLevelComplete();
 			LevelScreen.getInstance().unlockLevelSave();
-			
+
 			ScoreManager.updateHighScore();
 		}
 		else
 		{
+			ScoreManager.initHighscore();
+			LevelScreen.initCompleteListAndLock();
 			saveStorage.setProperty(lName, storageObject);
 			saveStorage.setDirty(lName);
 		}
 		
+		//saveStorage.clear();
+
 		saveStorage.flush(0);
+	}
+
+	public function initHighScoreStorage():Void
+	{
+		var lPath : String = prefix + "/nabokos/saves";
+		var lHighScoreName: String = prefix + "SELNotAllowed";
+
+		storageHighScoreObject = {highscores : Highscores.highscorelist, text : Highscores.textPseudoScoreList};
+		saveAllStorage = SharedObject.getLocal(lHighScoreName, lPath);
+
+		if (Reflect.hasField(saveAllStorage.data, lHighScoreName))
+		{
+			storageHighScoreObject = Reflect.field(saveAllStorage.data, lHighScoreName);
+
+			Highscores.highscorelist = storageHighScoreObject.highscores;
+			Highscores.textPseudoScoreList = storageHighScoreObject.text;
+			
+			Highscores.getInstance().updateHigscoreList();
+		}
+		else
+		{
+			Highscores.getInstance().initTextScore();
+			saveAllStorage.setProperty(lHighScoreName, storageHighScoreObject);
+			saveAllStorage.setDirty(lHighScoreName);
+		}
+
+		//trace(saveAllStorage.data.SELSELNotAllowed);
+		saveAllStorage.flush(0);
 	}
 
 	/**
@@ -82,12 +121,28 @@ class SaveStorage extends SharedObject
 		var lName: String = prefix + pseudo;
 		var lPath : String = prefix + "/nabokos/saves";
 
-		storageObject = { complete : LevelScreen.levelCompleteList, score : ScoreManager.levelScore};
+		storageObject = {complete : LevelScreen.levelCompleteList, score : ScoreManager.levelScore, levelComplete : LevelScreen.allLevelComplete()};
 
 		saveStorage.setProperty(lName, storageObject);
 		saveStorage.setDirty(lName);
-		
+
 		saveStorage.flush(0);
+	}
+
+	public function updateHighScoreStorage():Void
+	{
+		var lHighScoreName: String = prefix + "SELNotAllowed";
+		var lPath : String = prefix + "/nabokos/saves";
+
+		storageHighScoreObject = {highscores : Highscores.highscorelist, text : Highscores.textPseudoScoreList};
+		
+		//trace(storageHighScoreObject , "CC");
+		
+		saveStorage.setProperty(lHighScoreName, storageHighScoreObject);
+		saveStorage.setDirty(lHighScoreName);
+
+		//trace(saveAllStorage.data, "bizou");
+
 	}
 
 	/**

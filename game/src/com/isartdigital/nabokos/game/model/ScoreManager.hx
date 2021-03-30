@@ -33,10 +33,12 @@ class ScoreManager {
 	 */
 	public static function initHighscore():Void
 	{
-		for (i in 0... LevelManager.levels.length) 
+		for (i in 0... LevelManager.levels.length - 1) 
 		{
 			levelScore[i] = 0;
 		}
+		
+		//trace(levelScore , "Score");
 	}
 	
 	/**
@@ -46,10 +48,9 @@ class ScoreManager {
 	{
 		var lHigscore : Int = 0;
 		
-		for (i in 0... LevelManager.levels.length) 
+		for (i in 0... levelScore.length) 
 		{
 			lHigscore = lHigscore + levelScore[i];
-			trace(levelScore);
 		}
 		
 		endScore = lHigscore;

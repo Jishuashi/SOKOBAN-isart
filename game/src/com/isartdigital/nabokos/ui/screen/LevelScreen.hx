@@ -38,6 +38,7 @@ class LevelScreen extends Screen
 	private static var lock : Array<Bool> = new Array<Bool>();
 
 	public static var levelCompleteList : Array<Bool> = new Array<Bool>();
+	public static var levelCompleteCheck : Bool;
 
 	private function new()
 	{
@@ -158,12 +159,12 @@ class LevelScreen extends Screen
 
 		}
 
-		trace(lock);
+		//trace(lock);
 	}
 
 	public function unlockLevel():Void
 	{
-		if (levelCompleteList[LevelManager.levelNum] && LevelManager.levelNum < 13)
+		if (levelCompleteList[LevelManager.levelNum] && LevelManager.levelNum < 1)
 		{
 			lock [LevelManager.levelNum + 1] = false;
 		}
@@ -222,7 +223,7 @@ class LevelScreen extends Screen
 		levelIndex = 1;
 		if (!lock [levelIndex])
 			{
-				trace("1 selected");
+				//trace("1 selected");
 				levelSelect(levelIndex);
 			}
 	}
@@ -232,7 +233,7 @@ class LevelScreen extends Screen
 		levelIndex = 2;
 		if (!lock [levelIndex])
 			{
-				trace("1 selected");
+				//trace("1 selected");
 				levelSelect(levelIndex);
 			}
 	}
@@ -242,7 +243,7 @@ class LevelScreen extends Screen
 		levelIndex = 3;
 		if (!lock [levelIndex])
 			{
-				trace("1 selected");
+				//trace("1 selected");
 				levelSelect(levelIndex);
 			}
 	}
@@ -252,7 +253,7 @@ class LevelScreen extends Screen
 		levelIndex = 4;
 		if (!lock [levelIndex])
 			{
-				trace("1 selected");
+				//trace("1 selected");
 				levelSelect(levelIndex);
 			}
 	}
@@ -262,7 +263,7 @@ class LevelScreen extends Screen
 		levelIndex = 5;
 		if (!lock [levelIndex])
 			{
-				trace("1 selected");
+				//trace("1 selected");
 				levelSelect(levelIndex);
 			}
 	}
@@ -272,7 +273,7 @@ class LevelScreen extends Screen
 		levelIndex = 6;
 		if (!lock [levelIndex])
 			{
-				trace("1 selected");
+				//trace("1 selected");
 				levelSelect(levelIndex);
 			}
 	}
@@ -282,7 +283,7 @@ class LevelScreen extends Screen
 		levelIndex = 7;
 		if (!lock [levelIndex])
 			{
-				trace("1 selected");
+				//trace("1 selected");
 				levelSelect(levelIndex);
 			}
 	}
@@ -292,7 +293,7 @@ class LevelScreen extends Screen
 		levelIndex = 8;
 		if (!lock [levelIndex])
 			{
-				trace("1 selected");
+				//trace("1 selected");
 				levelSelect(levelIndex);
 			}
 	}
@@ -302,7 +303,7 @@ class LevelScreen extends Screen
 		levelIndex = 9;
 		if (!lock [levelIndex])
 			{
-				trace("1 selected");
+				//trace("1 selected");
 				levelSelect(levelIndex);
 			}
 	}
@@ -312,7 +313,7 @@ class LevelScreen extends Screen
 		levelIndex = 10;
 		if (!lock [levelIndex])
 			{
-				trace("1 selected");
+				//trace("1 selected");
 				levelSelect(levelIndex);
 			}
 	}
@@ -322,7 +323,7 @@ class LevelScreen extends Screen
 		levelIndex = 11;
 		if (!lock [levelIndex])
 			{
-				trace("1 selected");
+				//trace("1 selected");
 				levelSelect(levelIndex);
 			}
 	}
@@ -332,7 +333,7 @@ class LevelScreen extends Screen
 		levelIndex = 12;
 		if (!lock [levelIndex])
 			{
-				trace("1 selected");
+				//trace("1 selected");
 				levelSelect(levelIndex);
 			}
 	}
