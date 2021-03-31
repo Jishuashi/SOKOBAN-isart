@@ -189,7 +189,7 @@ class GameLoader extends Sprite
 	}
 
 	private function addAssetData(pId:String, pType:AssetType) : Void {
-		trace("add " + pType + " : " + pId);
+		//trace("add " + pType + " : " + pId);
 		files.push( { id: pId, type: pType});
 	}
 	
@@ -265,7 +265,7 @@ class GameLoader extends Sprite
 	}
 	
 	private function currentError(pData:Dynamic) : Void {
-		trace(pData);
+		//trace(pData);
 		throw pData;
 	}
 

@@ -6,6 +6,7 @@ import com.isartdigital.nabokos.game.model.ScoreManager;
 import com.isartdigital.nabokos.ui.GraphicLoader;
 import com.isartdigital.nabokos.ui.Traduction;
 import com.isartdigital.nabokos.ui.screen.LevelScreen;
+import com.isartdigital.nabokos.ui.screen.Highscores;
 import com.isartdigital.nabokos.ui.screen.LoginScreen;
 import com.isartdigital.nabokos.ui.screen.TitleCard;
 import com.isartdigital.nabokos.ui.screen.Options;
@@ -49,6 +50,8 @@ class Main extends Sprite
 		instance = this;
 		
 		super ();
+		//SaveStorage.getInstance().initHighScoreStorage();
+		
 		stage.scaleMode = StageScaleMode.NO_SCALE;
 		stage.align = StageAlign.TOP_LEFT;
 		
@@ -69,6 +72,7 @@ class Main extends Sprite
 		//SETUP du debug
 		Debug.init();
 		
+		//SaveStorage.getInstance().initHighScoreStorage();
 		UIManager.addScreen(GraphicLoader.getInstance());
 		
 		//CHARGEMENT
@@ -109,6 +113,8 @@ class Main extends Sprite
 		lGameLoader.addText("assets/levels/leveldesign.json");
 		
 		lGameLoader.load();
+		
+		//SaveStorage.getInstance().initHighScoreStorage();
 	}
 
 	private function onLoadProgress (pEvent:AssetsLoaderEvent): Void
@@ -119,6 +125,7 @@ class Main extends Sprite
 	private function onLoadComplete (pEvent:AssetsLoaderEvent): Void
 	{
 		trace("LOAD COMPLETE");
+		SaveStorage.getInstance().initHighScoreStorage();
 		
 		var lGameLoader : GameLoader = cast(pEvent.target, GameLoader);
 		lGameLoader.removeEventListener(AssetsLoaderEvent.PROGRESS, onLoadProgress);
@@ -133,14 +140,15 @@ class Main extends Sprite
 		
 		//Ajout des colliders des stateObjects
 		StateManager.addColliders(Json.parse(GameLoader.getText("assets/colliders.json")));
-		
+		//SaveStorage.getInstance().initHighScoreStorage();
 		UIManager.addScreen(LoginScreen.getInstance());
+		
+		
 		
 		LevelManager.init();
 		//ScoreManager.initHighscore();
 		
 		//LevelScreen.initCompleteListAndLock();
-		SaveStorage.getInstance().initHighScoreStorage();
 	}
 
 	private static function importClasses() : Void {

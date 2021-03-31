@@ -21,7 +21,7 @@ class SaveStorage extends SharedObject
 	private var prefix : String = "SEL";
 
 	private var storageObject : Dynamic;
-	private var storageHighScoreObject : Dynamic;
+	public var storageHighScoreObject : Dynamic;
 	public var pseudo : String;
 
 	/**
@@ -59,13 +59,9 @@ class SaveStorage extends SharedObject
 		{
 			storageObject = Reflect.field(saveStorage.data, lName);
 
-			//trace(storageObject.score);
-
 			ScoreManager.levelScore = storageObject.score;
 			LevelScreen.levelCompleteList = storageObject.complete;
 			LevelScreen.levelCompleteCheck = storageObject.levelComplete;
-
-			//trace (storageObject.levelComplete, "save");
 
 			LevelScreen.allLevelComplete();
 			LevelScreen.getInstance().unlockLevelSave();
@@ -79,7 +75,7 @@ class SaveStorage extends SharedObject
 			saveStorage.setProperty(lName, storageObject);
 			saveStorage.setDirty(lName);
 		}
-		
+
 		trace (storageObject);
 
 		saveStorage.flush(0);
@@ -90,28 +86,35 @@ class SaveStorage extends SharedObject
 		var lPath : String = prefix + "/nabokos/saves";
 		var lHighScoreName: String = prefix + "SELNotAllowed";
 
-		storageHighScoreObject = {highscores : Highscores.highscorelist, text : Highscores.textPseudoScoreList};
 		saveAllStorage = SharedObject.getLocal(lHighScoreName, lPath);
 
 		if (Reflect.hasField(saveAllStorage.data, lHighScoreName))
 		{
 			storageHighScoreObject = Reflect.field(saveAllStorage.data, lHighScoreName);
 
+			//Highscores.getInstance().highscorelist = storageHighScoreObject.highscores;
+			//Highscores.getInstance().textPseudoScoreList = storageHighScoreObject.text;
+			
 			Highscores.highscorelist = storageHighScoreObject.highscores;
 			Highscores.textPseudoScoreList = storageHighScoreObject.text;
-			
-			Highscores.getInstance().updateHigscoreList();
+			Highscores.textPseudoList = storageHighScoreObject.pseudo;
+
+			Highscores.getInstance().updateHighscores();
 		}
 		else
 		{
-			Highscores.getInstance().initTextScore();
+			//Highscores.getInstance().initTextScore();
+
+			//storageHighScoreObject = {highscores : Highscores.getInstance().highscorelist, text : Highscores.getInstance().textPseudoScoreList};
+			storageHighScoreObject = {highscores : Highscores.highscorelist, text : Highscores.textPseudoScoreList , pseudo : Highscores.textPseudoList};
+
 			saveAllStorage.setProperty(lHighScoreName, storageHighScoreObject);
 			saveAllStorage.setDirty(lHighScoreName);
 		}
 
-		//trace(saveAllStorage.data.SELSELNotAllowed);
-		trace (storageHighScoreObject);
+		trace(saveAllStorage.data);
 		saveAllStorage.flush(0);
+		Highscores.getInstance().initTextScore();
 	}
 
 	/**
@@ -132,18 +135,16 @@ class SaveStorage extends SharedObject
 
 	public function updateHighScoreStorage():Void
 	{
-		var lHighScoreName: String = prefix + "SELNotAllowed";
 		var lPath : String = prefix + "/nabokos/saves";
+		var lHighScoreName: String = prefix + "SELNotAllowed";
 
-		storageHighScoreObject = {highscores : Highscores.highscorelist, text : Highscores.textPseudoScoreList};
-		
-		//trace(storageHighScoreObject , "CC");
-		
-		saveStorage.setProperty(lHighScoreName, storageHighScoreObject);
-		saveStorage.setDirty(lHighScoreName);
+		//storageHighScoreObject = {highscores : Highscores.getInstance().highscorelist, text : Highscores.getInstance().textPseudoScoreList};
+		storageHighScoreObject = {highscores : Highscores.highscorelist, text : Highscores.textPseudoScoreList , pseudo : Highscores.textPseudoList};
 
-		//trace(saveAllStorage.data, "bizou");
+		saveAllStorage.setProperty(lHighScoreName, storageHighScoreObject);
+		saveAllStorage.setDirty(lHighScoreName);
 
+		saveAllStorage.flush(0);
 	}
 
 	/**

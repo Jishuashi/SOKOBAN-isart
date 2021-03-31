@@ -94,7 +94,7 @@ class GameManager
 
 	private static function onChange(pValue:Bool) : Void
 	{
-		trace(pValue);
+		//trace(pValue);
 	}
 
 	public static function pauseGame() : Void

@@ -141,7 +141,7 @@ class LevelManager
 	public static function playerAction(pMove: PlayerActions): Bool
 	{
 		initLevelCheck++;
-		trace(initLevelCheck);
+		//trace(initLevelCheck);
 
 		var lPlayerPos: Point = new Point();
 
@@ -552,13 +552,13 @@ class LevelManager
 			LevelScreen.levelCompleteCheck = LevelScreen.allLevelComplete();
 			trace(LevelScreen.levelCompleteCheck, "end level");
 			
-			Highscores.getInstance().updateHigscoreList();
+			Highscores.getInstance().updateHighscores();
 			SaveStorage.getInstance().updateHighScoreStorage();
 			
 			ScoreManager.score = 0;
 			ScoreManager.updateScore();
 			
-			trace (ScoreManager.levelScore);
+			//trace (ScoreManager.levelScore);
 		}
 	}
 

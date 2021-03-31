@@ -91,7 +91,6 @@ class TitleCard extends Screen
 		Actuate.tween (buttonHighscores,	1.5, {x:-1700}, false).reverse().ease(Cubic.easeIn);
 		Actuate.tween (btnCredits,			2, {y: -1300}, false).reverse().ease(Cubic.easeIn);
 		
-		trace (Traduction.english);
 		translateButtonsTitleCard(Traduction.english);
 	}
 
@@ -116,8 +115,10 @@ class TitleCard extends Screen
 	private function onClickHighscores(pEvent:MouseEvent) : Void
 	{
 		//Highscores.getInstance().initTextScore();
+		
 		UIManager.addScreen(Highscores.getInstance());
 		SoundManager.clickSound();
+		
 	}
 	
 	private function onClickCredits(pEvent:MouseEvent) : Void
