@@ -10,6 +10,7 @@ import com.isartdigital.nabokos.ui.screen.TutorialHelpScreen;
 import motion.Actuate;
 import openfl.display.DisplayObject;
 import openfl.events.MouseEvent;
+import openfl.text.TextField;
 
 /**
  * ...
@@ -34,9 +35,19 @@ class LevelScreen extends Screen
 	private var buttonLvl10:DisplayObject;
 	private var buttonLvl11:DisplayObject;
 	private var buttonLvl12:DisplayObject;
+	
+	private var txtTutoUp:TextField;
+	private var txtTutoDown:TextField;
+	
+	private var txtBackUp: TextField;
+	private var txtBackDown: TextField;
+
+	private var textUpArray: Array<TextField>;
+	private var textDownArray: Array<TextField>;
 
 	private var levelIndex : Int;
 	private static var lock : Array<Bool> = new Array<Bool>();
+	static inline var LEVEL_NB:Float = 12;
 
 	public static var levelCompleteList : Array<Bool> = new Array<Bool>();
 	public static var levelCompleteCheck : Bool;
@@ -61,7 +72,44 @@ class LevelScreen extends Screen
 		buttonLvl10			= content.getChildByName("btnLvl10");
 		buttonLvl11			= content.getChildByName("btnLvl11");
 		buttonLvl12			= content.getChildByName("btnLvl12");
-
+		
+		textUpArray = new Array<TextField>();
+		textDownArray = new Array<TextField>();
+		
+		txtTutoUp = Traduction.getTextUp(buttonTuto);
+		txtTutoDown = Traduction.getTextOver(buttonTuto);
+		trace (txtTutoDown.text, txtTutoUp.text, "tuto text");
+		
+		txtBackUp = Traduction.getTextUp(buttonBack);
+		txtBackDown = Traduction.getTextOver(buttonBack);
+		trace (txtBackDown.text,txtBackUp.text , "text Back");
+		
+		textUpArray.push(Traduction.getTextUp(buttonLvl1));
+		textUpArray.push(Traduction.getTextUp(buttonLvl2));
+		textUpArray.push(Traduction.getTextUp(buttonLvl3));
+		textUpArray.push(Traduction.getTextUp(buttonLvl4));
+		textUpArray.push(Traduction.getTextUp(buttonLvl5));
+		textUpArray.push(Traduction.getTextUp(buttonLvl6));
+		textUpArray.push(Traduction.getTextUp(buttonLvl7));
+		textUpArray.push(Traduction.getTextUp(buttonLvl8));
+		textUpArray.push(Traduction.getTextUp(buttonLvl9));
+		textUpArray.push(Traduction.getTextUp(buttonLvl10));
+		textUpArray.push(Traduction.getTextUp(buttonLvl11));
+		textUpArray.push(Traduction.getTextUp(buttonLvl12));
+		
+		textDownArray.push(Traduction.getTextOver(buttonLvl1));
+		textDownArray.push(Traduction.getTextOver(buttonLvl2));
+		textDownArray.push(Traduction.getTextOver(buttonLvl3));
+		textDownArray.push(Traduction.getTextOver(buttonLvl4));
+		textDownArray.push(Traduction.getTextOver(buttonLvl5));
+		textDownArray.push(Traduction.getTextOver(buttonLvl6));
+		textDownArray.push(Traduction.getTextOver(buttonLvl7));
+		textDownArray.push(Traduction.getTextOver(buttonLvl8));
+		textDownArray.push(Traduction.getTextOver(buttonLvl9));
+		textDownArray.push(Traduction.getTextOver(buttonLvl10));
+		textDownArray.push(Traduction.getTextOver(buttonLvl11));
+		textDownArray.push(Traduction.getTextOver(buttonLvl12));
+		
 		buttonBack.addEventListener(MouseEvent.CLICK, onClickBack);
 		buttonTuto.addEventListener(MouseEvent.CLICK, onClickTuto);
 		buttonLvl1.addEventListener(MouseEvent.CLICK, onClick1);
@@ -125,20 +173,22 @@ class LevelScreen extends Screen
 		buttonLvl11 .alpha = 0;
 		buttonLvl12 .alpha = 0;
 
-		Actuate.tween (buttonBack,	1, {alpha:1});
-		Actuate.tween (levelTitle,	1, {alpha:1});
-		Actuate.tween (buttonLvl1,	1, {alpha:1});
-		Actuate.tween (buttonLvl2,	1, {alpha:1});
-		Actuate.tween (buttonLvl3,	1, {alpha:1});
-		Actuate.tween (buttonLvl4,	1, {alpha:1});
-		Actuate.tween (buttonLvl5,	1, {alpha:1});
-		Actuate.tween (buttonLvl6,	1, {alpha:1});
-		Actuate.tween (buttonLvl7,	1, {alpha:1});
-		Actuate.tween (buttonLvl8,	1, {alpha:1});
-		Actuate.tween (buttonLvl9,	1, {alpha:1});
-		Actuate.tween (buttonLvl10,	1, {alpha:1});
-		Actuate.tween (buttonLvl11,	1, {alpha:1});
-		Actuate.tween (buttonLvl12,	1, {alpha:1});
+		Actuate.tween (buttonBack,	5, {alpha:1});
+		Actuate.tween (levelTitle,	5, {alpha:1});
+		Actuate.tween (buttonLvl1,	5, {alpha:1});
+		Actuate.tween (buttonLvl2,	5, {alpha:1});
+		Actuate.tween (buttonLvl3,	5, {alpha:1});
+		Actuate.tween (buttonLvl4,	5, {alpha:1});
+		Actuate.tween (buttonLvl5,	5, {alpha:1});
+		Actuate.tween (buttonLvl6,	5, {alpha:1});
+		Actuate.tween (buttonLvl7,	5, {alpha:1});
+		Actuate.tween (buttonLvl8,	5, {alpha:1});
+		Actuate.tween (buttonLvl9,	5, {alpha:1});
+		Actuate.tween (buttonLvl10,	5, {alpha:1});
+		Actuate.tween (buttonLvl11,	5, {alpha:1});
+		Actuate.tween (buttonLvl12,	5, {alpha:1});
+		
+		translateButtonsLevelScreen(Traduction.english);
 	}
 
 	public static function getInstance (): LevelScreen
@@ -346,6 +396,41 @@ class LevelScreen extends Screen
 		LevelManager.selectLevel(LevelManager.levelNum);
 
 		GameManager.start();
+	}
+	
+	public function translateButtonsLevelScreen(pEnglish:Bool):Void
+	{
+		if (pEnglish){
+			txtTutoUp.text = Traduction.getField("TUTORIAL").en;
+			txtTutoDown.text = Traduction.getField("TUTORIAL").en;
+			
+			txtBackUp.text = Traduction.getField("BACK").en;
+			txtBackDown.text = Traduction.getField("BACK").en;
+			
+			trace (txtBackUp.text, txtBackDown.text);
+			
+			for (i in 0...textDownArray.length){
+				textUpArray[i].text = Traduction.getField("LEVEL").en + " " + (i + 1);
+				textDownArray[i].text = Traduction.getField("LEVEL").en + " " + (i + 1);
+				
+				trace (textUpArray[i].text, textDownArray[i].text);
+				trace (i);
+			}
+		} else{
+			txtTutoUp.text = Traduction.getField("TUTORIAL").fr;
+			txtTutoDown.text = Traduction.getField("TUTORIAL").fr;
+			
+			txtBackUp.text = Traduction.getField("BACK").fr;
+			txtBackDown.text = Traduction.getField("BACK").fr;
+			
+			for (i in 0...textDownArray.length){
+				textUpArray[i].text = Traduction.getField("LEVEL").fr + " " + (i + 1);
+				textDownArray[i].text = Traduction.getField("LEVEL").fr + " " + (i + 1);
+				
+				trace (textUpArray[i].text, textDownArray[i].text);
+				trace (i);
+			}
+		}
 	}
 
 	override public function destroy (): Void

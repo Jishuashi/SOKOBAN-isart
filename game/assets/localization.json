@@ -33,6 +33,11 @@
     {
     "en":"Tutorial",
     "fr":"Tutoriel"
-    }
+    },
+	"LABEL_RANKING":
+	{
+	"en":"Ranking",
+    "fr":"Classement"
+	}
 }
 

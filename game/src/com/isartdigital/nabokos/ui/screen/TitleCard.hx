@@ -34,7 +34,14 @@ class TitleCard extends Screen
 	private var soundOff:DisplayObject;
 	private var soundOn:DisplayObject;
 	
-	private var txt: TextField;
+	private var txtPlayUp: TextField;
+	private var txtPlayOver: TextField;
+	
+	private var txtHelpUp: TextField;
+	private var txtHelpOver: TextField;
+	
+	private var txtHighScoreUp: TextField;
+	private var txtHighScoreOver: TextField;
 
 	private function new()
 	{
@@ -49,6 +56,15 @@ class TitleCard extends Screen
 		frenchBtn			= content.getChildByName("frenchBtn");
 		soundOff			= content.getChildByName("soundOff");
 		soundOn				= content.getChildByName("soundOn");
+		
+		txtPlayUp = Traduction.getTextUp(buttonPlay);
+		txtPlayOver = Traduction.getTextOver(buttonPlay);
+		
+		txtHelpUp = Traduction.getTextUp(buttonHelp);
+		txtHelpOver = Traduction.getTextOver(buttonHelp);
+		
+		txtHighScoreUp = Traduction.getTextUp(buttonHighscores);
+		txtHighScoreOver = Traduction.getTextOver(buttonHighscores);
 		
 		buttonPlay.addEventListener(MouseEvent.CLICK, onClickPlay);
 		buttonHelp.addEventListener(MouseEvent.CLICK, onClickHelp);
@@ -73,7 +89,10 @@ class TitleCard extends Screen
 		Actuate.tween (buttonPlay,	 		1, {y:1300}, false).reverse().ease(Cubic.easeIn);
 		Actuate.tween (buttonHelp,	 		1.5, {x:1700}, false).reverse().ease(Cubic.easeIn);
 		Actuate.tween (buttonHighscores,	1.5, {x:-1700}, false).reverse().ease(Cubic.easeIn);
-		Actuate.tween (btnCredits,			2, {y:-1300}, false).reverse().ease(Cubic.easeIn);
+		Actuate.tween (btnCredits,			2, {y: -1300}, false).reverse().ease(Cubic.easeIn);
+		
+		trace (Traduction.english);
+		translateButtonsTitleCard(Traduction.english);
 	}
 
 	public static function getInstance() : TitleCard
@@ -110,12 +129,14 @@ class TitleCard extends Screen
 	private function onClickFrench(pEvent:MouseEvent) : Void
 	{
 		SoundManager.clickSound();
+		Traduction.english = false;
 		Traduction.translateToFrench();
 	}
 	
 	private function onClickEnglish(pEvent:MouseEvent) : Void
 	{
 		SoundManager.clickSound();
+		Traduction.english = true;
 		Traduction.translateToEnglish();
 	}
 	
@@ -133,11 +154,23 @@ class TitleCard extends Screen
 	public function translateButtonsTitleCard(pEnglish:Bool):Void
 	{
 		if (pEnglish){
-			//buttonPlay.text = Traduction.getField("PLAY").en;
-			trace ("english");
+			txtPlayUp.text = Traduction.getField("PLAY").en;
+			txtPlayOver.text = Traduction.getField("PLAY").en;
+			
+			txtHelpUp.text = Traduction.getField("HELP").en;
+			txtHelpOver.text = Traduction.getField("HELP").en;
+			
+			txtHighScoreUp.text = Traduction.getField("RANKING").en;
+			txtHighScoreOver.text = Traduction.getField("RANKING").en;
 		} else{
-			//buttonBack.text = Traduction.getField("PLAY").fr;
-			trace ("french");
+			txtPlayUp.text = Traduction.getField("PLAY").fr;
+			txtPlayOver.text = Traduction.getField("PLAY").fr;
+			
+			txtHelpUp.text = Traduction.getField("HELP").fr;
+			txtHelpOver.text = Traduction.getField("HELP").fr;
+			
+			txtHighScoreUp.text = Traduction.getField("RANKING").fr;
+			txtHighScoreOver.text = Traduction.getField("RANKING").fr;
 		}
 	}
 

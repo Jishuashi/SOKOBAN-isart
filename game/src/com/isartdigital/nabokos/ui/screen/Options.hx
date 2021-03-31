@@ -33,7 +33,8 @@ class Options extends Screen
 	private var buttonBigWall:DisplayObject;
 	private var buttonBack:DisplayObject;
 	
-	private var textBack:TextField;
+	private var textBackUp:TextField;
+	private var textBackDown:TextField;
 
 	private function new()
 	{
@@ -47,7 +48,8 @@ class Options extends Screen
 		buttonSoundOff			= content.getChildByName("buttonSoundOff");
 		buttonBack				= content.getChildByName("btnBack");
 		
-		textBack = Traduction.getText(buttonBack);
+		textBackUp = Traduction.getTextUp(buttonBack);
+		textBackDown = Traduction.getTextOver(buttonBack);
 		
 		buttonBack.addEventListener(MouseEvent.CLICK, onClickBack);
 		buttonFrench.addEventListener(MouseEvent.CLICK, onClickFrench);
@@ -66,6 +68,8 @@ class Options extends Screen
 		Actuate.tween (buttonEnglish,	1, {x:215, y:-160}).ease(Elastic.easeOut);
 		Actuate.tween (buttonSoundOn,	1, {x:-215, y:50}).ease(Elastic.easeOut);
 		Actuate.tween (buttonSoundOff,	1, {x:215, y:50}).ease(Elastic.easeOut);
+		
+		//translateButtonsOption(Traduction.english);
 	}
 
 	public static function getInstance (): Options
@@ -83,12 +87,14 @@ class Options extends Screen
 	private function onClickFrench(pEvent:MouseEvent) : Void
 	{
 		SoundManager.clickSound();
+		Traduction.english = false;
 		Traduction.translateToFrench();
 	}
 	
 	private function onClickEnglish(pEvent:MouseEvent) : Void
 	{
 		SoundManager.clickSound();
+		Traduction.english = true;
 		Traduction.translateToEnglish();
 	}
 	
@@ -103,14 +109,16 @@ class Options extends Screen
 		SoundManager.mainVolume = 0;
 	}
 	
-	public function translateButtonsOption(pEnglish:Bool):Void
-	{
-		if (pEnglish){
-			textBack.text = Traduction.getField("BACK").en;
-		} else{
-			textBack.text = Traduction.getField("BACK").fr;
-		}
-	}
+	//public function translateButtonsOption(pEnglish:Bool):Void
+	//{
+		//if (pEnglish){
+			//textBackUp.text = Traduction.getField("BACK").en;
+			//textBackDown.text = Traduction.getField("BACK").en;
+		//} else{
+			//textBackUp.text = Traduction.getField("BACK").fr;
+			//textBackDown.text = Traduction.getField("BACK").fr;
+		//}
+	//}
 	
 	override public function destroy (): Void
 	{
