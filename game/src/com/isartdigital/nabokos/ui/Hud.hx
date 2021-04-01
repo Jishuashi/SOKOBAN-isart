@@ -32,7 +32,7 @@ class Hud extends Screen
 	private var btnRetry : DisplayObject;
 	private var btnUndo : DisplayObject;
 	private var btnRedo : DisplayObject;
-	//private var btnQuit : DisplayObject;
+	private var btnQuit : DisplayObject;
 	//private var backgroundHud : DisplayObject;
 	public var levelNumber : TextField;
 	private static var mcTopCenter : MovieClip;
@@ -64,23 +64,23 @@ class Hud extends Screen
 		btnRetry = content.getChildByName("btnRetry");
 		btnUndo = content.getChildByName("btnUndo");
 		btnRedo = content.getChildByName("btnRedo");
-		//btnQuit = content.getChildByName("btnQuit");
+		btnQuit = content.getChildByName("btnQuit");
 		//btnPause = content.getChildByName("backgroundHud");
 		levelNumber = cast(content.getChildByName("levelNumber"), TextField);
 
 		btnRetry.addEventListener(MouseEvent.CLICK, retry);
 		btnRedo.addEventListener(MouseEvent.CLICK, redo);
 		btnUndo.addEventListener(MouseEvent.CLICK, undo);
-		//btnQuit.addEventListener(MouseEvent.CLICK, quit);
+		btnQuit.addEventListener(MouseEvent.CLICK, quit);
 		
-		lPositionnable = { item:btnRetry, align:AlignType.TOP_RIGHT, offsetY:100, offsetX:250};
+		lPositionnable = { item:btnRetry, align:AlignType.TOP, offsetY:100};
 		positionables.push(lPositionnable);
 		lPositionnable = { item:btnUndo, align:AlignType.BOTTOM_RIGHT, offsetY:100, offsetX:250};
 		positionables.push(lPositionnable);
 		lPositionnable = { item:btnRedo, align:AlignType.BOTTOM_RIGHT, offsetY:250, offsetX:250};
 		positionables.push(lPositionnable);
-		//lPositionnable = { item:btnQuit, align:AlignType.TOP_LEFT, offsetY:100, offsetX:650};
-		//positionables.push(lPositionnable);
+		lPositionnable = { item:btnQuit, align:AlignType.TOP, offsetY:100};
+		positionables.push(lPositionnable);
 		//lPositionnable = { item:backgroundHud, align:AlignType.FIT_SCREEN};
 		//positionables.push(lPositionnable);
 	}
@@ -136,9 +136,10 @@ class Hud extends Screen
 	
 	private function quit(pEvent:MouseEvent) : Void
 	{
+		trace("oui soit");
 		UIManager.addScreen(LevelScreen.getInstance());
-		//Hud.getInstance().visible = false;
-		SoundManager.getSound("click").start();
+		Hud.getInstance().destroy();
+		SoundManager.clickSound();
 	}
 
 	override public function destroy():Void
@@ -147,7 +148,7 @@ class Hud extends Screen
 		btnRetry.removeEventListener(MouseEvent.CLICK, retry);
 		btnRedo.removeEventListener(MouseEvent.CLICK, redo);
 		btnUndo.removeEventListener(MouseEvent.CLICK, undo);
-		//btnQuit.removeEventListener(MouseEvent.CLICK, quit);
+		btnQuit.removeEventListener(MouseEvent.CLICK, quit);
 		super.destroy();
 	}
 }
