@@ -4,6 +4,7 @@ import com.isartdigital.nabokos.game.model.PlayerActions;
 import com.isartdigital.nabokos.game.presenter.GameManager;
 import com.isartdigital.nabokos.game.view.IsoView;
 import com.isartdigital.nabokos.ui.UIManager;
+import com.isartdigital.nabokos.ui.screen.FinalWin;
 import com.isartdigital.nabokos.ui.screen.LevelScreen;
 import com.isartdigital.nabokos.ui.screen.Highscores;
 import com.isartdigital.nabokos.ui.screen.WinScreen;
@@ -565,8 +566,14 @@ class LevelManager
 			LevelScreen.levelCompleteList[levelNum] = true;
 			SaveStorage.getInstance().updateStorage();
 		}
-
-		UIManager.addScreen(WinScreen.getInstance());
+		
+		
+		if (levelNum == 12){
+			UIManager.addScreen(FinalWin.getInstance());
+		}else{
+			UIManager.addScreen(WinScreen.getInstance());
+		}
+		
 		UIManager.closeHud();
 		
 		LevelScreen.getInstance().unlockLevel();
@@ -600,12 +607,14 @@ class LevelManager
 		//trace(allStars);
 	//}
 	
-	private static function sumallStars():Int
+	public static function sumallStars():Int
 	{
 		var lStarNum: Int = 0;
 		
 		for (j in 0...levels.length){
-			lStarNum = allStars[j] + lStarNum;
+			if (allStars[j] != null){
+				lStarNum = allStars[j] + lStarNum;
+			}
 		}
 		
 		return lStarNum;

@@ -1,5 +1,6 @@
 package com.isartdigital.nabokos.ui.screen;
 
+import com.isartdigital.nabokos.game.model.LevelManager;
 import com.isartdigital.utils.sound.SoundManager;
 import com.isartdigital.utils.ui.AlignType;
 import com.isartdigital.utils.ui.Screen;
@@ -45,6 +46,8 @@ class FinalWin extends Screen
 		totalStars .alpha = 0;
 		btnHighscores.alpha = 0;
 		btnMenu .alpha = 0;
+		
+		totalStars.text = "totalStars : " + LevelManager.sumallStars() + " / 26";
 		
 		Actuate.tween (FinalWinTitle,		1, {alpha:1});
 		Actuate.tween (totalStars,			1, {alpha:1});
