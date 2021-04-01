@@ -35,6 +35,7 @@ class LevelScreen extends Screen
 	private var buttonLvl10:DisplayObject;
 	private var buttonLvl11:DisplayObject;
 	private var buttonLvl12:DisplayObject;
+	private var unlockBtn:DisplayObject;
 	
 	private var txtTutoUp:TextField;
 	private var txtTutoDown:TextField;
@@ -72,6 +73,7 @@ class LevelScreen extends Screen
 		buttonLvl10			= content.getChildByName("btnLvl10");
 		buttonLvl11			= content.getChildByName("btnLvl11");
 		buttonLvl12			= content.getChildByName("btnLvl12");
+		unlockBtn			= content.getChildByName("unlockBtn");
 		
 		textUpArray = new Array<TextField>();
 		textDownArray = new Array<TextField>();
@@ -156,6 +158,8 @@ class LevelScreen extends Screen
 		lPositionnable = { item:buttonLvl11, align:AlignType.TOP, offsetY:1150};
 		positionables.push(lPositionnable);
 		lPositionnable = { item:buttonLvl12, align:AlignType.TOP, offsetY:1150};
+		positionables.push(lPositionnable);
+		lPositionnable = { item:unlockBtn, align:AlignType.TOP_RIGHT, offsetY:350, offsetX:350};
 		positionables.push(lPositionnable);
 
 		buttonBack .alpha = 0;
