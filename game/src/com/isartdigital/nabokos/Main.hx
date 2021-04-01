@@ -3,13 +3,13 @@
 import com.isartdigital.nabokos.game.model.LevelManager;
 import com.isartdigital.nabokos.game.model.SaveStorage;
 import com.isartdigital.nabokos.game.model.ScoreManager;
+import com.isartdigital.nabokos.game.presenter.GameManager;
 import com.isartdigital.nabokos.ui.GraphicLoader;
 import com.isartdigital.nabokos.ui.Traduction;
 import com.isartdigital.nabokos.ui.screen.LevelScreen;
 import com.isartdigital.nabokos.ui.screen.Highscores;
 import com.isartdigital.nabokos.ui.screen.LoginScreen;
 import com.isartdigital.nabokos.ui.screen.TitleCard;
-import com.isartdigital.nabokos.ui.screen.Options;
 import com.isartdigital.nabokos.ui.screen.Credits;
 import com.isartdigital.nabokos.ui.Hud;
 import com.isartdigital.nabokos.ui.UIManager;
@@ -137,6 +137,9 @@ class Main extends Sprite
 		ambiance1.volume = 0.5;
 		game1 =	SoundManager.getSound("game1");
 		game1.volume = 0.5;
+		
+		GameManager.soundOn = true;
+		GameManager.englishOn = true;
 		
 		//Ajout des colliders des stateObjects
 		StateManager.addColliders(Json.parse(GameLoader.getText("assets/colliders.json")));

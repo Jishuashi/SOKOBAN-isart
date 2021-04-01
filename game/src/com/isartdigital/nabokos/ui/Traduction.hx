@@ -1,6 +1,5 @@
 package com.isartdigital.nabokos.ui;
 import com.isartdigital.nabokos.ui.screen.LevelScreen;
-import com.isartdigital.nabokos.ui.screen.Options;
 import com.isartdigital.nabokos.ui.screen.TitleCard;
 import haxe.Json;
 import openfl.display.DisplayObject;

@@ -7,8 +7,8 @@ import com.isartdigital.nabokos.game.model.ScoreManager;
 import com.isartdigital.nabokos.game.presenter.GameManager;
 import com.isartdigital.nabokos.game.view.IsoView;
 import com.isartdigital.nabokos.game.view.RadarView;
-import com.isartdigital.nabokos.ui.screen.Pause;
 import com.isartdigital.utils.game.GameStage;
+import com.isartdigital.nabokos.ui.screen.LevelScreen;
 import com.isartdigital.utils.sound.SoundManager;
 import com.isartdigital.utils.ui.AlignType;
 import com.isartdigital.utils.ui.Screen;
@@ -32,7 +32,7 @@ class Hud extends Screen
 	private var btnRetry : DisplayObject;
 	private var btnUndo : DisplayObject;
 	private var btnRedo : DisplayObject;
-	private var btnPause : DisplayObject;
+	private var btnQuit : DisplayObject;
 	//private var backgroundHud : DisplayObject;
 	public var levelNumber : TextField;
 	private static var mcTopCenter : MovieClip;
@@ -64,14 +64,14 @@ class Hud extends Screen
 		btnRetry = content.getChildByName("btnRetry");
 		btnUndo = content.getChildByName("btnUndo");
 		btnRedo = content.getChildByName("btnRedo");
-		btnPause = content.getChildByName("btnPause");
+		btnQuit = content.getChildByName("btnQuit");
 		//btnPause = content.getChildByName("backgroundHud");
 		levelNumber = cast(content.getChildByName("levelNumber"), TextField);
 
 		btnRetry.addEventListener(MouseEvent.CLICK, retry);
 		btnRedo.addEventListener(MouseEvent.CLICK, redo);
 		btnUndo.addEventListener(MouseEvent.CLICK, undo);
-		btnPause.addEventListener(MouseEvent.CLICK, pause);
+		btnQuit.addEventListener(MouseEvent.CLICK, quit);
 		
 		lPositionnable = { item:btnRetry, align:AlignType.TOP_RIGHT, offsetY:100, offsetX:250};
 		positionables.push(lPositionnable);
@@ -79,7 +79,7 @@ class Hud extends Screen
 		positionables.push(lPositionnable);
 		lPositionnable = { item:btnRedo, align:AlignType.BOTTOM_RIGHT, offsetY:250, offsetX:250};
 		positionables.push(lPositionnable);
-		lPositionnable = { item:btnPause, align:AlignType.TOP_RIGHT, offsetY:100, offsetX:650};
+		lPositionnable = { item:btnQuit, align:AlignType.TOP_LEFT, offsetY:100, offsetX:650};
 		positionables.push(lPositionnable);
 		//lPositionnable = { item:backgroundHud, align:AlignType.FIT_SCREEN};
 		//positionables.push(lPositionnable);
@@ -134,10 +134,10 @@ class Hud extends Screen
 		RadarView.getInstance().updateView(LevelManager.getCurrentLevel());
 	}
 	
-	private function pause(pEvent:MouseEvent) : Void
+	private function quit(pEvent:MouseEvent) : Void
 	{
-		UIManager.addScreen(Pause.getInstance());
-		Hud.getInstance().visible = false;
+		UIManager.addScreen(LevelScreen.getInstance());
+		//Hud.getInstance().visible = false;
 		SoundManager.getSound("click").start();
 	}
 
@@ -147,7 +147,7 @@ class Hud extends Screen
 		btnRetry.removeEventListener(MouseEvent.CLICK, retry);
 		btnRedo.removeEventListener(MouseEvent.CLICK, redo);
 		btnUndo.removeEventListener(MouseEvent.CLICK, undo);
-		btnPause.removeEventListener(MouseEvent.CLICK, pause);
+		btnQuit.removeEventListener(MouseEvent.CLICK, quit);
 		super.destroy();
 	}
 }

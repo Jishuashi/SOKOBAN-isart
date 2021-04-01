@@ -92,6 +92,23 @@ class TitleCard extends Screen
 		Actuate.tween (btnCredits,			2, {y: -1300}, false).reverse().ease(Cubic.easeIn);
 		
 		translateButtonsTitleCard(Traduction.english);
+		
+		if (GameManager.soundOn) {
+			soundOn.alpha = 1;
+			soundOff.alpha = 0;
+		}
+		else{
+			soundOn.alpha = 0;
+			soundOff.alpha = 1;
+		}
+		if (GameManager.englishOn) {
+			englishBtn.alpha = 1;
+			frenchBtn.alpha = 0;
+		}
+		else{
+			englishBtn.alpha = 0;
+			frenchBtn.alpha = 1;
+		}
 	}
 
 	public static function getInstance() : TitleCard
@@ -127,29 +144,41 @@ class TitleCard extends Screen
 		SoundManager.clickSound();
 	}
 	
-	private function onClickFrench(pEvent:MouseEvent) : Void
+	private function onClickEnglish(pEvent:MouseEvent) : Void
 	{
 		SoundManager.clickSound();
 		Traduction.english = false;
 		Traduction.translateToFrench();
+		frenchBtn.alpha = 1;
+		englishBtn.alpha = 0;
+		GameManager.englishOn = false;
 	}
 	
-	private function onClickEnglish(pEvent:MouseEvent) : Void
+	private function onClickFrench(pEvent:MouseEvent) : Void
 	{
 		SoundManager.clickSound();
 		Traduction.english = true;
 		Traduction.translateToEnglish();
-	}
-	
-	private function onClickOn(pEvent:MouseEvent) : Void
-	{
-		SoundManager.mainVolume = 0.5;
-		Main.getInstance().ambiance1.loop();
+		frenchBtn.alpha = 0;
+		englishBtn.alpha = 1;
+		GameManager.englishOn = true;
 	}
 	
 	private function onClickOff(pEvent:MouseEvent) : Void
 	{
+		SoundManager.mainVolume = 0.5;
+		Main.getInstance().ambiance1.loop();
+		soundOn.alpha = 1;
+		soundOff.alpha = 0;
+		GameManager.soundOn = true;
+	}
+	
+	private function onClickOn(pEvent:MouseEvent) : Void
+	{
 		SoundManager.mainVolume = 0;
+		soundOn.alpha = 0;
+		soundOff.alpha = 1;
+		GameManager.soundOn = false;
 	}
 	
 	public function translateButtonsTitleCard(pEnglish:Bool):Void

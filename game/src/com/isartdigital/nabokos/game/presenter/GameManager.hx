@@ -42,6 +42,8 @@ class GameManager
 	public static var mouseController: MouseController;
 	private static var particleSystem :ParticleSystem;
 	private static var controls:DisplayObject;
+	public static var soundOn:Bool;
+	public static var englishOn:Bool;
 
 	public static function start() : Void
 	{
@@ -56,7 +58,7 @@ class GameManager
 		Main.getInstance().game1.fadeIn(0.005);
 		
 		UIManager.openHud();
-		Hud.getInstance().visible = true;
+		//Hud.getInstance().visible = true;
 		Hud.getInstance().levelNumber.text = "level " + LevelManager.levelNum;
 		//if (LevelManager.levelNum == 0)
 		//{
