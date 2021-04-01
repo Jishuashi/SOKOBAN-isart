@@ -32,7 +32,7 @@ class LevelManager
 
 	public static var levels(default, null): Array<Array<Array<Array<Blocks>>>>;
 
-	public static var levelNum: Int = 1;
+	public static var levelNum: Int = 0;
 
 	public static var bigWallOn : Bool = true;
 
