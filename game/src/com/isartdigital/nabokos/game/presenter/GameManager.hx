@@ -101,7 +101,7 @@ class GameManager
 
 	public static function pauseGame() : Void
 	{
-		
+		Lib.current.stage.removeEventListener(Event.ENTER_FRAME, gameLoop);
 	}
 
 	private static function gameLoop(pEvent:Event) : Void
@@ -128,6 +128,8 @@ class GameManager
 				IsoView.getInstance().updatePlayerAsset(lPlayerAction);
 				IsoView.getInstance().updateView(LevelManager.getCurrentLevel());
 				RadarView.getInstance().updateView(LevelManager.getCurrentLevel());
+				
+				LevelManager.winCondition();
 			}
 		}
 		controller.doAction();

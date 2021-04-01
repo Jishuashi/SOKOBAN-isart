@@ -185,13 +185,12 @@ class IsoView extends GameView {
 						!oldLevel[Std.int(cell.y)][Std.int(cell.x) - 1].contains(Blocks.BOX)
 					) {
 						lBox.alpha = 0;
-						Actuate.tween(lBox, 0.5, {alpha:1}).ease(Linear.easeNone);
+						trace(Actuate.tween(lBox, 0.5, {alpha:1}).ease(Linear.easeNone));
 					}
 					
 					viewTab[Std.int(cell.y)][Std.int(cell.x)].addChild(lBox);
 					
 					animTab[Std.int(cell.y)][Std.int(cell.x)].push(lBox);
-					
 				}
 				
 				z--;
@@ -222,16 +221,30 @@ class IsoView extends GameView {
 		
 		for (pos in pCoords) {
 			for (i in 0...animTab[Std.int(pos.y)][Std.int(pos.x)].length) {
-				trace(animTab[Std.int(pos.y)][Std.int(pos.x)][i].name);
 				if (animTab[Std.int(pos.y)][Std.int(pos.x)][i].name == "IsoBox") {
-					Actuate.tween(animTab[Std.int(pos.y)][Std.int(pos.x)][i], 0.2, {alpha: 0}).ease(Linear.easeNone);
+					trace(Actuate.tween(animTab[Std.int(pos.y)][Std.int(pos.x)][i], 0.2, {alpha: 0}).ease(Linear.easeNone));
 					
 					fadingOutBoxes.push(animTab[Std.int(pos.y)][Std.int(pos.x)][i]);
 				}
 			}
 		}
+	}
+	
+	public function winAnimation(): Void {
+		for (y in 0...animTab.length) {
+			for (x in 0...animTab[y].length) {
+				for (z in 0...animTab[y][x].length) {
+					if (animTab[y][x][z].name == "IsoBox") {
+						
+						Actuate.transform(animTab[y][x][z], 0.5).color(0xFFFFFF, 0.2).ease(Linear.easeNone);
+						
+						Actuate.transform(animTab[y][x][z], 0.5, false).color(0xFFFFFF, 0).ease(Linear.easeNone).delay(0.5);
+					}
+				}
+			}
+		}
 		
-		trace(fadingOutBoxes);
+		Actuate.timer(1.2).onComplete(LevelManager.win);
 	}
 	
 	override public function destroy(): Void {

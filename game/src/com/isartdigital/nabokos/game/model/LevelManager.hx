@@ -213,7 +213,6 @@ class LevelManager
 				updateBoxArrays(lNextPosBox, lPlayerNextPos);
 				removeReflections();
 				reflectBoxes();
-				winCondition();
 
 				return true;
 			}
@@ -507,7 +506,7 @@ class LevelManager
 	/**
 	 * vérifie si il y a une boite sur toutes les targets
 	 */
-	private static function winCondition(): Void
+	public static function winCondition(): Void
 	{
 		var lTargetPosition:Point = new Point();
 		var lBoxPosition:Point = new Point();
@@ -531,42 +530,46 @@ class LevelManager
 			}
 		}
 
-		if (lSucces == lCurrentSucces)
+		if (lSucces == lCurrentSucces) {
+			GameManager.pauseGame();
+			IsoView.getInstance().winAnimation();
+		}
+	}
+	
+	public static function win(): Void {
+		trace("TESUTOOOOOOOOO");
+		//trace(ScoreManager.score);
+		//trace(ScoreManager.levelScore[levelNum]);
+
+		if (ScoreManager.levelScore[levelNum] > ScoreManager.score && LevelScreen.levelCompleteList[levelNum])
 		{
 
-			//trace(ScoreManager.score);
-			//trace(ScoreManager.levelScore[levelNum]);
-
-			if (ScoreManager.levelScore[levelNum] > ScoreManager.score && LevelScreen.levelCompleteList[levelNum])
-			{
-
-				ScoreManager.levelScore[levelNum] = ScoreManager.score;
-				ScoreManager.updateHighScore();
-				SaveStorage.getInstance().updateStorage();
-			}
-			else if (!LevelScreen.levelCompleteList[levelNum])
-			{
-				ScoreManager.levelScore[levelNum] = ScoreManager.score;
-				ScoreManager.updateHighScore();
-				LevelScreen.levelCompleteList[levelNum] = true;
-				SaveStorage.getInstance().updateStorage();
-			}
-
-			UIManager.addScreen(WinScreen.getInstance());
-			UIManager.closeHud();
-			
-			LevelScreen.getInstance().unlockLevel();
-			LevelScreen.levelCompleteCheck = LevelScreen.allLevelComplete();
-			trace(LevelScreen.levelCompleteCheck, "end level");
-			
-			Highscores.getInstance().updateHighscores();
-			SaveStorage.getInstance().updateHighScoreStorage();
-			
-			ScoreManager.score = 0;
-			ScoreManager.updateScore();
-			
-			//trace (ScoreManager.levelScore);
+			ScoreManager.levelScore[levelNum] = ScoreManager.score;
+			ScoreManager.updateHighScore();
+			SaveStorage.getInstance().updateStorage();
 		}
+		else if (!LevelScreen.levelCompleteList[levelNum])
+		{
+			ScoreManager.levelScore[levelNum] = ScoreManager.score;
+			ScoreManager.updateHighScore();
+			LevelScreen.levelCompleteList[levelNum] = true;
+			SaveStorage.getInstance().updateStorage();
+		}
+
+		UIManager.addScreen(WinScreen.getInstance());
+		UIManager.closeHud();
+		
+		LevelScreen.getInstance().unlockLevel();
+		LevelScreen.levelCompleteCheck = LevelScreen.allLevelComplete();
+		trace(LevelScreen.levelCompleteCheck, "end level");
+		
+		Highscores.getInstance().updateHighscores();
+		SaveStorage.getInstance().updateHighScoreStorage();
+		
+		ScoreManager.score = 0;
+		ScoreManager.updateScore();
+		
+		//trace (ScoreManager.levelScore);
 	}
 
 	public static function getPlayerPosition(): Point
