@@ -38,6 +38,11 @@
 	{
 	"en":"Ranking",
     "fr":"Classement"
+	},
+	"LABEL_STEPS":
+	{
+	"en":"steps",
+    "fr":"coups"
 	}
 }
 

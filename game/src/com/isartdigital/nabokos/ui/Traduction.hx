@@ -1,4 +1,5 @@
 package com.isartdigital.nabokos.ui;
+import com.isartdigital.nabokos.ui.screen.Highscores;
 import com.isartdigital.nabokos.ui.screen.LevelScreen;
 import com.isartdigital.nabokos.ui.screen.TitleCard;
 import haxe.Json;
@@ -37,16 +38,16 @@ class Traduction
 	
 	public static function translateToFrench():Void
 	{
-		//Options.getInstance().translateButtonsOption(false);
 		TitleCard.getInstance().translateButtonsTitleCard(false);
 		LevelScreen.getInstance().translateButtonsLevelScreen(false);
+		Highscores.getInstance().translateButtonsHighscore(false);
 	}
 	
 	public static function translateToEnglish():Void
 	{
-		//Options.getInstance().translateButtonsOption(true);
 		TitleCard.getInstance().translateButtonsTitleCard(true);
 		LevelScreen.getInstance().translateButtonsLevelScreen(true);
+		Highscores.getInstance().translateButtonsHighscore(true);
 	}
 	
 	public static function getTextUp(pButton:DisplayObject): TextField

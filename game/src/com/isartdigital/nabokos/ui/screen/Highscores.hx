@@ -25,6 +25,11 @@ class Highscores extends Screen
 	private var backgroundHighscores:DisplayObject;
 	private var highscoresTitle:DisplayObject;
 	private var buttonBack:DisplayObject;
+	
+	private var txtBackUp: TextField;
+	private var txtBackOver: TextField;
+	
+	private var txtTile: TextField;
 
 	private var actuateX : Float = 2300;
 	private var actuateVar: Float = 1.1;
@@ -36,6 +41,8 @@ class Highscores extends Screen
 
 	static inline var MAX_SCORE:Int = 1000000;
 	static inline var NB_TEXT_HIGHSCORE :Int = 11;
+	
+	private static var counter: Int = 0;
 
 	private function new()
 	{
@@ -44,6 +51,11 @@ class Highscores extends Screen
 		backgroundHighscores	= content.getChildByName("backgroundHighscores");
 		highscoresTitle			= content.getChildByName("highscoresTitle");
 		buttonBack				= content.getChildByName("btnBack");
+		
+		txtBackUp = Traduction.getTextUp(buttonBack);
+		txtBackOver = Traduction.getTextOver(buttonBack);
+		
+		txtTile = cast(highscoresTitle, TextField);
 
 		buttonBack.addEventListener(MouseEvent.CLICK, onClickBack);
 
@@ -64,6 +76,14 @@ class Highscores extends Screen
 		Actuate.tween (highscoresTitle,	0.5, {x:-1215, y:-1100}, false).reverse().ease(Cubic.easeIn);
 		Actuate.tween (buttonBack,	 	0.5, {x:0, y:850}, false).reverse().ease(Cubic.easeIn);
 
+		if (counter == 0){
+			counter++;
+			updateHigscoreText(Traduction.english);
+			txtTile.text = Traduction.getField("RANKING").en; 
+		}else{
+			translateButtonsHighscore(Traduction.english);
+		}
+		
 	}
 
 	public function initTextScore():Void
@@ -114,26 +134,26 @@ class Highscores extends Screen
 			if (i < 5)
 			{
 				Actuate.tween (textScoreList[i], 	actuateVar, {x: -actuateX}, false).reverse();
-				//trace ("actuate < 5");
 			}
 			else
 			{
 				Actuate.tween (textScoreList[i], 	actuateVar, {x: actuateX}, false).reverse();
-				//trace ("autre");
 			}
 
 			actuateVar -= 0.1;
 		}
 	}
 
-	private function updateHigscoreText():Void
+	public function updateHigscoreText(pEnglish:Bool):Void
 	{
 		for (i in 0...textPseudoScoreList.length){
-			textPseudoScoreList[i] = (i + 1) + ") " + textPseudoList[i] + " : " + highscorelist[i] + " coups";
+			if (pEnglish){
+				textPseudoScoreList[i] = (i + 1) + ") " + textPseudoList[i] + " : " + highscorelist[i] + " " + Traduction.getField("STEPS").en;
+			}else{
+				textPseudoScoreList[i] = (i + 1) + ") " + textPseudoList[i] + " : " + highscorelist[i] + " " + Traduction.getField("STEPS").fr;
+			}
 			textScoreList[i].text = textPseudoScoreList[i];
 		}
-		
-		
 	}
 
 	public function updateHighscores():Void
@@ -142,7 +162,7 @@ class Highscores extends Screen
 		{
 			if (SaveStorage.getInstance().pseudo == textPseudoList[k]){
 				highscorelist[k] = ScoreManager.endScore;
-				updateHigscoreText();
+				updateHigscoreText(Traduction.english);
 			}
 			
 			if (ScoreManager.endScore == highscorelist[k])
@@ -193,7 +213,7 @@ class Highscores extends Screen
 						l--;
 					}
 					
-					updateHigscoreText();
+					updateHigscoreText(Traduction.english);
 					SaveStorage.getInstance().updateHighScoreStorage();
 					return;
 				}
@@ -211,6 +231,23 @@ class Highscores extends Screen
 	{
 		UIManager.addScreen(TitleCard.getInstance());
 		SoundManager.clickSound();
+	}
+	
+	public function translateButtonsHighscore(pEnglish:Bool):Void
+	{
+		if (pEnglish){
+			txtBackUp.text = Traduction.getField("BACK").en;
+			txtBackOver.text = Traduction.getField("BACK").en;
+			
+			txtTile.text = Traduction.getField("RANKING").en;
+		} else{
+			txtBackUp.text = Traduction.getField("BACK").fr;
+			txtBackOver.text = Traduction.getField("BACK").fr;
+			
+			txtTile.text = Traduction.getField("RANKING").fr;
+		}
+		
+		updateHigscoreText(pEnglish);
 	}
 
 	override public function destroy (): Void
