@@ -47,6 +47,12 @@ class LevelManager
 	private static var targetPosition : Array<Point>;
 
 	public static var initLevelCheck: Int = 0;
+	
+	public static var starNumber: Int = 0;
+	public static var allStars: Array<Int>;
+	private static var levelDesign: Array<Level>;
+
+	public static var everyStar: Int = 0;
 
 	private function new() {}
 
@@ -55,11 +61,16 @@ class LevelManager
 	 */
 	public static function init(): Void
 	{
+		levelDesign = new Array<Level>();
+		allStars = new Array<Int>();
+		
 		var levelData: String = GameLoader.getText("assets/levels/leveldesign.json");
 
 		var levelObject: Dynamic = Json.parse(levelData);
 
-		var levelDesign: Array<Level> = Reflect.field(levelObject, "levelDesign");
+		var lLevelDesign: Array<Level> = Reflect.field(levelObject, "levelDesign");
+
+		levelDesign = lLevelDesign;
 
 		currentLevel = new Array<Array<Array<Blocks>>>();
 
@@ -528,6 +539,18 @@ class LevelManager
 	}
 	
 	public static function win(): Void {
+		starNumber = 1;
+
+		if (levelDesign[LevelManager.levelNum].par >= ScoreManager.score)
+		{
+			starNumber = 2;
+			trace(starNumber);
+		}
+
+		allStars[LevelManager.levelNum] = starNumber;
+
+		trace (allStars);
+		
 		if (ScoreManager.levelScore[levelNum] > ScoreManager.score && LevelScreen.levelCompleteList[levelNum])
 		{
 
@@ -554,6 +577,38 @@ class LevelManager
 		
 		ScoreManager.score = 0;
 		ScoreManager.updateScore();
+	}
+	
+	//public static function updateAllStars():Void
+	//{
+		//for (i in 0...levels.length)
+		//{
+			//if (ScoreManager.levelScore[i] != 0)
+			//{
+				//starNumber = 1;
+				//
+				//if (ScoreManager.levelScore[i] <= levelDesign[LevelManager.levelNum].par)
+				//{
+					//starNumber = 2;
+				//}
+			//}
+			//
+			//allStars[LevelManager.levelNum] = starNumber;
+		//}
+		//
+		//sumallStars();
+		//trace(allStars);
+	//}
+	
+	private static function sumallStars():Int
+	{
+		var lStarNum: Int = 0;
+		
+		for (j in 0...levels.length){
+			lStarNum = allStars[j] + lStarNum;
+		}
+		
+		return lStarNum;
 	}
 
 	public static function getPlayerPosition(): Point

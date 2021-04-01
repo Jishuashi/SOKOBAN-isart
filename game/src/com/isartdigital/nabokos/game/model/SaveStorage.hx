@@ -20,7 +20,7 @@ class SaveStorage extends SharedObject
 	public var saveAllStorage : SharedObject;
 	private var prefix : String = "SEL";
 
-	private var storageObject : Dynamic;
+	public var storageObject : Dynamic;
 	public var storageHighScoreObject : Dynamic;
 	public var pseudo : String;
 
@@ -51,7 +51,7 @@ class SaveStorage extends SharedObject
 		var lName: String = prefix + pseudo;
 		var lPath : String = prefix + "/nabokos/saves";
 
-		storageObject = {complete : LevelScreen.levelCompleteList, score : ScoreManager.levelScore, levelComplete: false};
+		storageObject = {complete : LevelScreen.levelCompleteList, score : ScoreManager.levelScore, levelComplete: false, stars : LevelManager.allStars};
 
 		saveStorage = SharedObject.getLocal(lName, lPath);
 
@@ -62,6 +62,7 @@ class SaveStorage extends SharedObject
 			ScoreManager.levelScore = storageObject.score;
 			LevelScreen.levelCompleteList = storageObject.complete;
 			LevelScreen.levelCompleteCheck = storageObject.levelComplete;
+			LevelManager.allStars = storageObject.stars;
 
 			LevelScreen.allLevelComplete();
 			LevelScreen.getInstance().unlockLevelSave();
@@ -78,6 +79,7 @@ class SaveStorage extends SharedObject
 
 		trace (storageObject);
 
+		//LevelManager.updateAllStars();
 		saveStorage.flush(0);
 	}
 
@@ -125,7 +127,7 @@ class SaveStorage extends SharedObject
 		var lName: String = prefix + pseudo;
 		var lPath : String = prefix + "/nabokos/saves";
 
-		storageObject = {complete : LevelScreen.levelCompleteList, score : ScoreManager.levelScore, levelComplete : LevelScreen.allLevelComplete()};
+		storageObject = {complete : LevelScreen.levelCompleteList, score : ScoreManager.levelScore, levelComplete : LevelScreen.allLevelComplete(), stars : LevelManager.allStars};
 
 		saveStorage.setProperty(lName, storageObject);
 		saveStorage.setDirty(lName);
