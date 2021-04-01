@@ -83,6 +83,8 @@ class Hud extends Screen
 		positionables.push(lPositionnable);
 		lPositionnable = { item:controls, align:AlignType.BOTTOM_LEFT, offsetY:100, offsetX:100};
 		positionables.push(lPositionnable);
+		lPositionnable = { item:levelNumber, align:AlignType.TOP, offsetY:150};
+		positionables.push(lPositionnable);
 		
 		if (LevelManager.levelNum == 0)
 		{

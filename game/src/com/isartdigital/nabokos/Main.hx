@@ -61,7 +61,7 @@ class Main extends Sprite
 
 		//SETUP du gamestage
 		GameStage.getInstance().scaleMode = GameStageScale.SHOW_ALL;
-		GameStage.getInstance().init(null, 2160, 1440);
+		GameStage.getInstance().init(null, 3000, 1440);
 		
 		DeviceCapabilities.init();
 		
