@@ -2,6 +2,7 @@ package com.isartdigital.nabokos.game.model;
 import com.isartdigital.nabokos.game.model.Blocks;
 import com.isartdigital.nabokos.game.model.PlayerActions;
 import com.isartdigital.nabokos.game.presenter.GameManager;
+import com.isartdigital.nabokos.game.view.IsoView;
 import com.isartdigital.nabokos.ui.UIManager;
 import com.isartdigital.nabokos.ui.screen.LevelScreen;
 import com.isartdigital.nabokos.ui.screen.Highscores;
@@ -355,7 +356,9 @@ class LevelManager
 		var lPreviousPosition: Point;
 		var lTargetTile: Array<Blocks> = new Array<Blocks>();
 		var lCheck:Int = 0;
-
+		var lRemovedBoxedCoords: Array<Point> = new Array<Point>();
+		
+		
 		for (h in 0...boxList.length)
 		{
 			if (lCheck != 0)
@@ -374,8 +377,10 @@ class LevelManager
 						{
 							lCheck++;
 							lTargetTile = currentLevel[Std.int(boxCurrentPosition[h][l].y)][Std.int(boxCurrentPosition[h][l].x)];
-							if (lTargetTile[0] == Blocks.BOX)
+							if (lTargetTile[0] == Blocks.BOX) {
 								lTargetTile.shift();
+								lRemovedBoxedCoords.push(new Point(boxCurrentPosition[h][l].x, boxCurrentPosition[h][l].y));
+							}
 						}
 					}
 
@@ -393,6 +398,8 @@ class LevelManager
 				}
 			}
 		}
+		
+		IsoView.getInstance().removeReflections(lRemovedBoxedCoords);
 	}
 
 	public static function reInitBoxesForUndo(pCurrentBoxesPosition: Array<Array<Point>>):Void

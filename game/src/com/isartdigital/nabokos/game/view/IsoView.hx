@@ -13,6 +13,8 @@ import flash.display.Sprite;
 import flash.geom.Point;
 import haxe.ds.HashMap;
 import haxe.ds.Map;
+import motion.Actuate;
+import motion.easing.Linear;
 
 
 /**
@@ -22,6 +24,9 @@ import haxe.ds.Map;
 class IsoView extends GameView {
 
 	private var viewTab: Array<Array<Sprite>>;
+	private var animTab: Array<Array<Array<Animation>>>;
+	
+	private var fadingOutBoxes: Array<Animation>;
 	
 	private var playerAnim: String;
 	
@@ -42,14 +47,19 @@ class IsoView extends GameView {
 	
 	public function init(pLevel: Array<Array<Array<Blocks>>>): Void {
 		viewTab = new Array<Array<Sprite>>();
-		var lAllObjects: Array<CellDef> = new Array<CellDef>();
+		animTab = new Array<Array<Array<Animation>>>();
+		fadingOutBoxes = new Array<Animation>();
 		
+		var lAllObjects: Array<CellDef> = new Array<CellDef>();
+		var lAsset: Animation;
 		
 		for (y in 0...pLevel.length) {
 			viewTab[y] = new Array<Sprite>();
-			
+			animTab[y] = new Array<Array<Animation>>();
+
 			for (x in 0...pLevel[y].length) {
 				viewTab[y][x] = new Sprite();
+				animTab[y][x] = new Array<Animation>();
 				
 				var z: Int = pLevel[y][x].length - 1;
 				
@@ -57,28 +67,31 @@ class IsoView extends GameView {
 					
 					switch (pLevel[y][x][z]) {
 						case Blocks.BOX:
-							viewTab[y][x].addChild(GameLoader.getAnimationFromAtlas("IsoBox"));
+							lAsset = GameLoader.getAnimationFromAtlas("IsoBox");
 						
 						case Blocks.GROUND:
-							viewTab[y][x].addChild(GameLoader.getAnimationFromAtlas("IsoFloor" + Math.ceil(Math.random()*3)));
+							lAsset = GameLoader.getAnimationFromAtlas("IsoFloor" + Math.ceil(Math.random()*3));
 						
 						case Blocks.MIRROR:
-							viewTab[y][x].addChild(GameLoader.getAnimationFromAtlas("IsoMirror"));
+							lAsset = GameLoader.getAnimationFromAtlas("IsoMirror");
 						
 						case Blocks.PLAYER:
-							viewTab[y][x].addChild(GameLoader.getAnimationFromAtlas("Player_IDLE_UP"));
+							lAsset = GameLoader.getAnimationFromAtlas("Player_IDLE_UP");
 						
 						case Blocks.TARGET:
-							viewTab[y][x].addChild(GameLoader.getAnimationFromAtlas("IsoGoal"));
+							lAsset = GameLoader.getAnimationFromAtlas("IsoGoal");
 						
 						case Blocks.WALL:
-							viewTab[y][x].addChild(GameLoader.getAnimationFromAtlas("IsoWall" + Math.ceil(Math.random() * 3)));
+							lAsset = GameLoader.getAnimationFromAtlas("IsoWall" + Math.ceil(Math.random() * 3));
 							
 						
 						case Blocks.EMPTY:
-							viewTab[y][x].addChild(GameLoader.getAnimationFromAtlas("IsoEmpty"));
-							viewTab[y][x].getChildAt(viewTab[y][x].numChildren - 1).visible = false;
+							lAsset = GameLoader.getAnimationFromAtlas("IsoEmpty");
+							lAsset.visible = false;
 					}
+					
+					viewTab[y][x].addChild(lAsset);
+					animTab[y][x].push(lAsset);
 					
 					z--;
 				}
@@ -135,34 +148,50 @@ class IsoView extends GameView {
 		}
 		
 		for (cell in lCellsChanged) {
-			viewTab[Std.int(cell.y)][Std.int(cell.x)].removeChildren();
+			for (i in 0...animTab[Std.int(cell.y)][Std.int(cell.x)].length) {
+				var lAnim: Animation = animTab[Std.int(cell.y)][Std.int(cell.x)][i];
+				
+				if (!fadingOutBoxes.contains(lAnim)) {
+					viewTab[Std.int(cell.y)][Std.int(cell.x)].removeChild(lAnim);
+				}
+				
+				if (lAnim.name == "IsoBox" || lAnim.name.indexOf("Player") != -1) {
+					animTab[Std.int(cell.y)][Std.int(cell.x)].splice(i, 1);
+				}
+			}
 			
 			var z: Int = pLevel[Std.int(cell.y)][Std.int(cell.x)].length - 1;
 			
 			while (z >= 0) {
 				
-				switch (pLevel[Std.int(cell.y)][Std.int(cell.x)][z]) {
-					case Blocks.BOX:
-						viewTab[Std.int(cell.y)][Std.int(cell.x)].addChild(GameLoader.getAnimationFromAtlas("IsoBox"));
+				var lBlock: Blocks = pLevel[Std.int(cell.y)][Std.int(cell.x)][z];
+				
+				if (lBlock == Blocks.GROUND || lBlock == Blocks.MIRROR || lBlock == Blocks.TARGET || lBlock == Blocks.EMPTY) {
+					viewTab[Std.int(cell.y)][Std.int(cell.x)].addChild(animTab[Std.int(cell.y)][Std.int(cell.x)][0]);
+				} 
+				else if (lBlock == Blocks.PLAYER) {
+					var lAnim: Animation = GameLoader.getAnimationFromAtlas("Player_IDLE_" + playerAnim);
 					
-					case Blocks.GROUND:
-						viewTab[Std.int(cell.y)][Std.int(cell.x)].addChild(GameLoader.getAnimationFromAtlas("IsoFloor" + Math.ceil(Math.random()*3)));
+					viewTab[Std.int(cell.y)][Std.int(cell.x)].addChild(lAnim);
 					
-					case Blocks.MIRROR:
-						viewTab[Std.int(cell.y)][Std.int(cell.x)].addChild(GameLoader.getAnimationFromAtlas("IsoMirror"));
+					animTab[Std.int(cell.y)][Std.int(cell.x)].push(lAnim);
+				} else if (lBlock == Blocks.BOX) {
+					var lBox: Animation = GameLoader.getAnimationFromAtlas("IsoBox");
 					
-					case Blocks.PLAYER:
-						viewTab[Std.int(cell.y)][Std.int(cell.x)].addChild(GameLoader.getAnimationFromAtlas("Player_IDLE_" + playerAnim));
+					if (!oldLevel[Std.int(cell.y)][Std.int(cell.x)].contains(Blocks.BOX) &&
+						!oldLevel[Std.int(cell.y) + 1][Std.int(cell.x)].contains(Blocks.BOX) &&
+						!oldLevel[Std.int(cell.y) - 1][Std.int(cell.x)].contains(Blocks.BOX) &&
+						!oldLevel[Std.int(cell.y)][Std.int(cell.x) + 1].contains(Blocks.BOX) &&
+						!oldLevel[Std.int(cell.y)][Std.int(cell.x) - 1].contains(Blocks.BOX)
+					) {
+						lBox.alpha = 0;
+						Actuate.tween(lBox, 0.5, {alpha:1}).ease(Linear.easeNone);
+					}
 					
-					case Blocks.TARGET:
-						viewTab[Std.int(cell.y)][Std.int(cell.x)].addChild(GameLoader.getAnimationFromAtlas("IsoGoal"));
+					viewTab[Std.int(cell.y)][Std.int(cell.x)].addChild(lBox);
 					
-					case Blocks.WALL:
-						viewTab[Std.int(cell.y)][Std.int(cell.x)].addChild(GameLoader.getAnimationFromAtlas("IsoWall" + Math.ceil(Math.random() * 3)));
+					animTab[Std.int(cell.y)][Std.int(cell.x)].push(lBox);
 					
-					case Blocks.EMPTY:
-						viewTab[Std.int(cell.y)][Std.int(cell.x)].addChild(GameLoader.getAnimationFromAtlas("IsoEmpty"));
-						viewTab[Std.int(cell.y)][Std.int(cell.x)].getChildAt(viewTab[Std.int(cell.y)][Std.int(cell.x)].numChildren - 1).visible = false;
 				}
 				
 				z--;
@@ -186,6 +215,23 @@ class IsoView extends GameView {
 			case PlayerActions.DOWN:
 				playerAnim = "DOWN";
 		}
+	}
+	
+	public function removeReflections(pCoords: Array<Point>){
+		fadingOutBoxes = new Array<Animation>();
+		
+		for (pos in pCoords) {
+			for (i in 0...animTab[Std.int(pos.y)][Std.int(pos.x)].length) {
+				trace(animTab[Std.int(pos.y)][Std.int(pos.x)][i].name);
+				if (animTab[Std.int(pos.y)][Std.int(pos.x)][i].name == "IsoBox") {
+					Actuate.tween(animTab[Std.int(pos.y)][Std.int(pos.x)][i], 0.2, {alpha: 0}).ease(Linear.easeNone);
+					
+					fadingOutBoxes.push(animTab[Std.int(pos.y)][Std.int(pos.x)][i]);
+				}
+			}
+		}
+		
+		trace(fadingOutBoxes);
 	}
 	
 	override public function destroy(): Void {
