@@ -97,9 +97,6 @@ class MoveHistory {
 		
 		moveTab.push(pLevel);
 		boxPositionTab.push(pBoxesPosition);
-		
-		//trace (boxPositionTab);
-		
 		cursor++;
 	}
 	

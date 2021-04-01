@@ -185,7 +185,6 @@ class IsoView extends GameView {
 						!oldLevel[Std.int(cell.y)][Std.int(cell.x) - 1].contains(Blocks.BOX)
 					) {
 						lBox.alpha = 0;
-						trace(Actuate.tween(lBox, 0.5, {alpha:1}).ease(Linear.easeNone));
 					}
 					
 					viewTab[Std.int(cell.y)][Std.int(cell.x)].addChild(lBox);
@@ -222,7 +221,6 @@ class IsoView extends GameView {
 		for (pos in pCoords) {
 			for (i in 0...animTab[Std.int(pos.y)][Std.int(pos.x)].length) {
 				if (animTab[Std.int(pos.y)][Std.int(pos.x)][i].name == "IsoBox") {
-					trace(Actuate.tween(animTab[Std.int(pos.y)][Std.int(pos.x)][i], 0.2, {alpha: 0}).ease(Linear.easeNone));
 					
 					fadingOutBoxes.push(animTab[Std.int(pos.y)][Std.int(pos.x)][i]);
 				}

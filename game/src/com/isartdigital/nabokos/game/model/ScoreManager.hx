@@ -37,8 +37,6 @@ class ScoreManager {
 		{
 			levelScore[i] = 0;
 		}
-		
-		//trace(levelScore , "Score");
 	}
 	
 	/**

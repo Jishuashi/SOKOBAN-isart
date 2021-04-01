@@ -32,8 +32,6 @@ class RadarView extends GameView
 		viewContainer = new Sprite();
 		viewContainer.scaleX = 0.66;
 		viewContainer.scaleY = 0.66;
-		
-		trace ("new level");
 	}
 	
 	/**

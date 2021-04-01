@@ -105,11 +105,6 @@ class LevelManager
 				levels[levels.length - 1].unshift(FULL_WALL.copy());
 			}
 		}
-
-		//for (i in 0...levels.length)
-		//{
-		////trace(levels[i] + "\n");
-		//}
 	}
 
 	/**
@@ -142,7 +137,6 @@ class LevelManager
 	public static function playerAction(pMove: PlayerActions): Bool
 	{
 		initLevelCheck++;
-		//trace(initLevelCheck);
 
 		var lPlayerPos: Point = new Point();
 
@@ -406,7 +400,6 @@ class LevelManager
 		boxList = new Array<Array<Blocks>>();
 		boxCurrentPosition = new Array<Array<Point>>();
 		boxPreviousPosition = new Array<Array<Point>>();
-		//trace (pCurrentBoxesPosition);
 
 		for (i in 0...pCurrentBoxesPosition.length)
 		{
@@ -421,8 +414,6 @@ class LevelManager
 				boxPreviousPosition[i].push(new Point());
 			}
 		}
-
-		//trace (boxList, boxCurrentPosition, boxPreviousPosition);
 	}
 
 	/**
@@ -537,10 +528,6 @@ class LevelManager
 	}
 	
 	public static function win(): Void {
-		trace("TESUTOOOOOOOOO");
-		//trace(ScoreManager.score);
-		//trace(ScoreManager.levelScore[levelNum]);
-
 		if (ScoreManager.levelScore[levelNum] > ScoreManager.score && LevelScreen.levelCompleteList[levelNum])
 		{
 
@@ -561,15 +548,12 @@ class LevelManager
 		
 		LevelScreen.getInstance().unlockLevel();
 		LevelScreen.levelCompleteCheck = LevelScreen.allLevelComplete();
-		trace(LevelScreen.levelCompleteCheck, "end level");
 		
 		Highscores.getInstance().updateHighscores();
 		SaveStorage.getInstance().updateHighScoreStorage();
 		
 		ScoreManager.score = 0;
 		ScoreManager.updateScore();
-		
-		//trace (ScoreManager.levelScore);
 	}
 
 	public static function getPlayerPosition(): Point

@@ -36,8 +36,6 @@ class TutorialHelpScreen extends Screen
 	
 	private function onClickArrow(pEvent:MouseEvent) : Void
 	{
-		trace("tuto selected");
-		
 		LevelManager.levelNum = 0;
 		
 		LevelManager.selectLevel(LevelManager.levelNum);
