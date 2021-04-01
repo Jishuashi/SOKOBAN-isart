@@ -9,6 +9,7 @@ import com.isartdigital.utils.ui.UIPositionable;
 import com.isartdigital.nabokos.ui.screen.TutorialHelpScreen;
 import motion.Actuate;
 import openfl.display.DisplayObject;
+import openfl.events.Event;
 import openfl.events.MouseEvent;
 import openfl.text.TextField;
 
@@ -46,6 +47,8 @@ class LevelScreen extends Screen
 	private var textUpArray: Array<TextField>;
 	private var textDownArray: Array<TextField>;
 
+	private var lockDisplayList: Array<LockedLevel>;
+	
 	private var levelIndex : Int;
 	private static var lock : Array<Bool> = new Array<Bool>();
 	static inline var LEVEL_NB:Float = 12;
@@ -195,12 +198,17 @@ class LevelScreen extends Screen
 		Actuate.tween (buttonLvl12,	5, {alpha:1});
 		Actuate.tween (unlockBtn,	5, {alpha:1});
 		
+		lockDisplayList = new Array<LockedLevel>();
+		
+		updateLockDisplay();
+		
 		translateButtonsLevelScreen(Traduction.english);
 	}
 
 	public static function getInstance (): LevelScreen
 	{
 		if (instance == null) instance = new LevelScreen();
+		else instance.updateLockDisplay();
 		return instance;
 	}
 
@@ -211,20 +219,21 @@ class LevelScreen extends Screen
 			levelCompleteList[i] = false;
 		}
 
-		for (j in 0... LevelManager.levels.length)
+		for (j in 1... LevelManager.levels.length)
 		{
 			lock [j] = true;
 
 		}
+		
+		lock[0] = false;
 	}
 
 	public function unlockLevel():Void
 	{
-		if (levelCompleteList[LevelManager.levelNum] && LevelManager.levelNum < 1)
+		if (levelCompleteList[LevelManager.levelNum] && LevelManager.levelNum < LEVEL_NB - 1)
 		{
 			lock[LevelManager.levelNum + 1] = false;
 		}
-
 	}
 	
 	public function unlockLevelSave()
@@ -446,6 +455,97 @@ class LevelScreen extends Screen
 		}
 	}
 
+	public function displayLockButton(pLvlNum: Int, pBtn: DisplayObject): Void {
+		if (lock[pLvlNum] && lockDisplayList[pLvlNum] == null) {
+			var lLock: LockedLevel = new LockedLevel();
+			
+			lLock.x = pBtn.x;
+			lLock.y = pBtn.y;
+			
+			content.addChild(lLock);
+			lockDisplayList[pLvlNum] = lLock;
+			
+			Actuate.transform(pBtn, 0).color(0x000000, 0.75);
+		} else if (!lock[pLvlNum]) {
+			content.removeChild(lockDisplayList[pLvlNum]);
+			lockDisplayList[pLvlNum] = null;
+			Actuate.transform(pBtn, 0).color(0x000000, 0);
+		}
+	}
+	
+	public function updateLockDisplay(): Void {
+		displayLockButton(0, buttonTuto);
+		displayLockButton(1, buttonLvl1);
+		displayLockButton(2, buttonLvl2);
+		displayLockButton(3, buttonLvl3);
+		displayLockButton(4, buttonLvl4);
+		displayLockButton(5, buttonLvl5);
+		displayLockButton(6, buttonLvl6);
+		displayLockButton(7, buttonLvl7);
+		displayLockButton(8, buttonLvl8);
+		displayLockButton(9, buttonLvl9);
+		displayLockButton(10, buttonLvl10);
+		displayLockButton(11, buttonLvl11);
+		displayLockButton(12, buttonLvl12);
+	}
+	
+	override function onResize(pEvent:Event = null):Void {
+		super.onResize(pEvent);
+		
+		if (lockDisplayList[0] != null) {
+			lockDisplayList[0].x = buttonTuto.x;
+			lockDisplayList[0].y = buttonTuto.y;
+		}
+		if (lockDisplayList[1] != null) {
+			lockDisplayList[1].x = buttonLvl1.x;
+			lockDisplayList[1].y = buttonLvl1.y;
+		}
+		if (lockDisplayList[2] != null) {
+			lockDisplayList[2].x = buttonLvl2.x;
+			lockDisplayList[2].y = buttonLvl2.y;
+		}
+		if (lockDisplayList[3] != null) {
+			lockDisplayList[3].x = buttonLvl3.x;
+			lockDisplayList[3].y = buttonLvl3.y;
+		}
+		if (lockDisplayList[4] != null) {
+			lockDisplayList[4].x = buttonLvl4.x;
+			lockDisplayList[4].y = buttonLvl4.y;
+		}
+		if (lockDisplayList[5] != null) {
+			lockDisplayList[5].x = buttonLvl5.x;
+			lockDisplayList[5].y = buttonLvl5.y;
+		}
+		if (lockDisplayList[6] != null) {
+			lockDisplayList[6].x = buttonLvl6.x;
+			lockDisplayList[6].y = buttonLvl6.y;
+		}
+		if (lockDisplayList[7] != null) {
+			lockDisplayList[7].x = buttonLvl7.x;
+			lockDisplayList[7].y = buttonLvl7.y;
+		}
+		if (lockDisplayList[8] != null) {
+			lockDisplayList[8].x = buttonLvl8.x;
+			lockDisplayList[8].y = buttonLvl8.y;
+		}
+		if (lockDisplayList[9] != null) {
+			lockDisplayList[9].x = buttonLvl9.x;
+			lockDisplayList[9].y = buttonLvl9.y;
+		}
+		if (lockDisplayList[10] != null) {
+			lockDisplayList[10].x = buttonLvl10.x;
+			lockDisplayList[10].y = buttonLvl10.y;
+		}
+		if (lockDisplayList[11] != null) {
+			lockDisplayList[11].x = buttonLvl11.x;
+			lockDisplayList[11].y = buttonLvl11.y;
+		}
+		if (lockDisplayList[12] != null) {
+			lockDisplayList[12].x = buttonLvl12.x;
+			lockDisplayList[12].y = buttonLvl12.y;
+		}
+	}
+	
 	override public function destroy (): Void
 	{
 		instance = null;
