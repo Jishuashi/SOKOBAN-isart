@@ -29,14 +29,10 @@ class Highscores extends Screen
 	private var actuateX : Float = 2300;
 	private var actuateVar: Float = 1.1;
 
-	//private var textScoreList : Array<TextField>;// = new Array<TextField>();
-	//public var textPseudoScoreList : Array<String>;// = new Array<String>();
-	//public var highscorelist : Array<Int>;// = new Array<Int>();
-
-	private static var textScoreList : Array<TextField>;// = new Array<TextField>();
-	public static var textPseudoScoreList : Array<String>;// = new Array<String>();
-	public static var textPseudoList : Array<String>;// = new Array<String>();
-	public static var highscorelist : Array<Int>;// = new Array<Int>();
+	private static var textScoreList : Array<TextField>;
+	public static var textPseudoScoreList : Array<String>;
+	public static var textPseudoList : Array<String>;
+	public static var highscorelist : Array<Int>;
 
 	static inline var MAX_SCORE:Int = 1000000;
 	static inline var NB_TEXT_HIGHSCORE :Int = 11;

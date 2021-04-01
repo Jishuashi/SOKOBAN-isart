@@ -94,19 +94,19 @@ class TitleCard extends Screen
 		translateButtonsTitleCard(Traduction.english);
 		
 		if (GameManager.soundOn) {
-			soundOn.alpha = 1;
-			soundOff.alpha = 0;
-		}
-		else{
-			soundOn.alpha = 0;
+			soundOn.alpha = 0.5;
 			soundOff.alpha = 1;
 		}
-		if (GameManager.englishOn) {
+		else{
+			soundOn.alpha = 1;
+			soundOff.alpha = 0.5;
+		}
+		if (Traduction.english) {
 			englishBtn.alpha = 1;
-			frenchBtn.alpha = 0;
+			frenchBtn.alpha = 0.5;
 		}
 		else{
-			englishBtn.alpha = 0;
+			englishBtn.alpha = 0.5;
 			frenchBtn.alpha = 1;
 		}
 	}
@@ -131,8 +131,6 @@ class TitleCard extends Screen
 
 	private function onClickHighscores(pEvent:MouseEvent) : Void
 	{
-		//Highscores.getInstance().initTextScore();
-		
 		UIManager.addScreen(Highscores.getInstance());
 		SoundManager.clickSound();
 		
@@ -147,37 +145,35 @@ class TitleCard extends Screen
 	private function onClickEnglish(pEvent:MouseEvent) : Void
 	{
 		SoundManager.clickSound();
-		Traduction.english = false;
-		Traduction.translateToFrench();
-		frenchBtn.alpha = 1;
-		englishBtn.alpha = 0;
-		GameManager.englishOn = false;
+		Traduction.english = true;
+		frenchBtn.alpha = 0.5;
+		englishBtn.alpha = 1;
+		Traduction.translateToEnglish();
 	}
 	
 	private function onClickFrench(pEvent:MouseEvent) : Void
 	{
 		SoundManager.clickSound();
-		Traduction.english = true;
-		Traduction.translateToEnglish();
-		frenchBtn.alpha = 0;
-		englishBtn.alpha = 1;
-		GameManager.englishOn = true;
+		Traduction.english = false;
+		frenchBtn.alpha = 1;
+		englishBtn.alpha = 0.5;
+		Traduction.translateToFrench();
 	}
 	
 	private function onClickOff(pEvent:MouseEvent) : Void
 	{
 		SoundManager.mainVolume = 0.5;
 		Main.getInstance().ambiance1.loop();
-		soundOn.alpha = 1;
-		soundOff.alpha = 0;
+		soundOn.alpha = 0.5;
+		soundOff.alpha = 1;
 		GameManager.soundOn = true;
 	}
 	
 	private function onClickOn(pEvent:MouseEvent) : Void
 	{
 		SoundManager.mainVolume = 0;
-		soundOn.alpha = 0;
-		soundOff.alpha = 1;
+		soundOn.alpha = 1;
+		soundOff.alpha = 0.5;
 		GameManager.soundOn = false;
 	}
 	
