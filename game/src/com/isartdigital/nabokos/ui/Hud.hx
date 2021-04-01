@@ -146,6 +146,8 @@ class Hud extends Screen
 		UIManager.addScreen(LevelScreen.getInstance());
 		Hud.getInstance().destroy();
 		SoundManager.clickSound();
+		IsoView.getInstance().resetView();
+		RadarView.getInstance().resetView();
 	}
 
 	override public function destroy():Void
