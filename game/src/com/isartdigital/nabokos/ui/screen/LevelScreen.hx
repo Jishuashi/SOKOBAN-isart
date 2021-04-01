@@ -209,15 +209,13 @@ class LevelScreen extends Screen
 			lock [j] = true;
 
 		}
-
-		//trace(lock);
 	}
 
 	public function unlockLevel():Void
 	{
 		if (levelCompleteList[LevelManager.levelNum] && LevelManager.levelNum < 1)
 		{
-			lock [LevelManager.levelNum + 1] = false;
+			lock[LevelManager.levelNum + 1] = false;
 		}
 
 	}
