@@ -126,6 +126,7 @@ class LevelScreen extends Screen
 		buttonLvl10.addEventListener(MouseEvent.CLICK, onClick10);
 		buttonLvl11.addEventListener(MouseEvent.CLICK, onClick11);
 		buttonLvl12.addEventListener(MouseEvent.CLICK, onClick12);
+		unlockBtn.addEventListener(MouseEvent.CLICK, onClickUnlock);
 
 		var lPositionnable:UIPositionable = { item:backgroundLevel, align:AlignType.FIT_SCREEN};
 		positionables.push(lPositionnable);
@@ -176,6 +177,7 @@ class LevelScreen extends Screen
 		buttonLvl10 .alpha = 0;
 		buttonLvl11 .alpha = 0;
 		buttonLvl12 .alpha = 0;
+		unlockBtn  .alpha = 0;
 
 		Actuate.tween (buttonBack,	5, {alpha:1});
 		Actuate.tween (levelTitle,	5, {alpha:1});
@@ -191,6 +193,7 @@ class LevelScreen extends Screen
 		Actuate.tween (buttonLvl10,	5, {alpha:1});
 		Actuate.tween (buttonLvl11,	5, {alpha:1});
 		Actuate.tween (buttonLvl12,	5, {alpha:1});
+		Actuate.tween (unlockBtn,	5, {alpha:1});
 		
 		translateButtonsLevelScreen(Traduction.english);
 	}
@@ -389,6 +392,14 @@ class LevelScreen extends Screen
 				//trace("1 selected");
 				levelSelect(levelIndex);
 			}
+	}
+	
+	private function onClickUnlock(e:MouseEvent):Void {
+		LevelManager.levelNum = 12;
+		
+		for (i in 0...13) {
+			lock[i] = false;
+		}
 	}
 
 	private function levelSelect(pLevel : Int):Void
