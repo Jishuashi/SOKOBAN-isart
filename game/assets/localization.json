@@ -43,6 +43,21 @@
 	{
 	"en":"steps",
     "fr":"coups"
+	},
+	"LABEL_HELP1":
+	{
+	"en":"this is a mirror",
+    "fr":"ceci est un miroir"
+	},
+	"LABEL_HELP2":
+	{
+	"en":"it reflects the boxes in its area",
+    "fr":"il reflete les caisses a sa portee"
+	},
+	"LABEL_HELP3":
+	{
+	"en":"use them to reach the goal with the boxes",
+    "fr":"utilise les pour atteindre les objectifs avec les caisses"
 	}
 }
 

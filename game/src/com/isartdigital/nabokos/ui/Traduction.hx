@@ -1,4 +1,5 @@
 package com.isartdigital.nabokos.ui;
+import com.isartdigital.nabokos.ui.screen.Help;
 import com.isartdigital.nabokos.ui.screen.Highscores;
 import com.isartdigital.nabokos.ui.screen.LevelScreen;
 import com.isartdigital.nabokos.ui.screen.TitleCard;
@@ -41,6 +42,7 @@ class Traduction
 		TitleCard.getInstance().translateButtonsTitleCard(false);
 		LevelScreen.getInstance().translateButtonsLevelScreen(false);
 		Highscores.getInstance().translateButtonsHighscore(false);
+		Help.getInstance().translateButtonsHelp(false);
 	}
 	
 	public static function translateToEnglish():Void
@@ -48,6 +50,7 @@ class Traduction
 		TitleCard.getInstance().translateButtonsTitleCard(true);
 		LevelScreen.getInstance().translateButtonsLevelScreen(true);
 		Highscores.getInstance().translateButtonsHighscore(true);
+		Help.getInstance().translateButtonsHelp(true);
 	}
 	
 	public static function getTextUp(pButton:DisplayObject): TextField
@@ -100,6 +103,30 @@ class Traduction
                 }
             }
         }
+		
+		return lReturn;
+	}
+	
+	public static function getTextHelp(pObject: DisplayObject):TextField
+	{
+		var lObjectContainer: DisplayObjectContainer = cast(pObject, DisplayObjectContainer);
+		var lReturn: TextField = new TextField();
+		
+		for (i in 0...lObjectContainer.numChildren)
+		{
+			if (Std.is(lObjectContainer.getChildAt(i), MovieClip))
+            {
+                var lChildDisplay : DisplayObjectContainer = cast(lObjectContainer.getChildAt(i) , DisplayObjectContainer);
+                
+                for (j in 0... lChildDisplay.numChildren)
+                {
+                    if (Std.is(lChildDisplay.getChildAt(j) ,TextField))
+                    {
+                        lReturn = cast(lChildDisplay.getChildAt(j), TextField);
+                    }
+                }
+            }
+		}
 		
 		return lReturn;
 	}
