@@ -1,11 +1,11 @@
 {
 	"configString": "texte d'exemple",
-	"configBoolean": true,
 	"configNumber": 3.5,
+	"configBoolean": true,
 	"levelDesign": [
 		{
-			"locked": false,
 			"par": 11,
+			"locked": false,
 			"map": [
 				"VVVVVVVVV",
 				"V#######V",
@@ -19,8 +19,8 @@
 			]
 		},
 		{
-			"locked": false,
 			"par": 17,
+			"locked": false,
 			"map": [
 				"VVVVVVVVV",
 				"V#######V",
@@ -34,8 +34,8 @@
 			]
 		},
 		{
+			"par": 11,
 			"locked": false,
-			"par": 17,
 			"map": [
 				"VVVVVVVVV",
 				"VVVVVVVVV",
@@ -49,8 +49,8 @@
 			]
 		},
 		{
+			"par": 5,
 			"locked": false,
-			"par": 17,
 			"map": [
 				"VVVVVVVVV",
 				"V#######V",
@@ -64,8 +64,8 @@
 			]
 		},
 		{
-			"locked": false,
 			"par": 35,
+			"locked": false,
 			"map": [
 				"VVVVVVVVV",
 				"V#######V",
@@ -79,8 +79,8 @@
 			]
 		},
 		{
-			"locked": true,
 			"par": 55,
+			"locked": true,
 			"map": [
 				"##. M .##",
 				"#######  ",
@@ -94,8 +94,8 @@
 			]
 		},
 		{
-			"locked": true,
 			"par": 20,
+			"locked": true,
 			"map": [
 				"#########",
 				"     M  #",
@@ -109,38 +109,8 @@
 			]
 		},
 		{
-			"locked": false,
-			"par": 112,
-			"map": [
-				"V########",
-				"V#  .. ##",
-				"V# #   ##",
-				"V# $ M  #",
-				"V#  M@ ##",
-				"V# $ M$ #",
-				"V# #    #",
-				"V#    M.#",
-				"V########"
-			]
-		},
-		{
-			"locked": true,
-			"par": 30,
-			"map": [
-				"VVVV#####",
-				"V####   #",
-				"V#   .  #",
-				"V# #@  ##",
-				"V# MMM$#V",
-				"V# .#$$#V",
-				"V#  .# #V",
-				"V#     #V",
-				"V#######V"
-			]
-		},
-		{
-			"locked": true,
 			"par": 51,
+			"locked": true,
 			"map": [
 				"##   M# #",
 				"##  #  ##",
@@ -154,8 +124,23 @@
 			]
 		},
 		{
+			"par": 68,
 			"locked": true,
+			"map": [
+				"    $  . ",
+				"@# #M# # ",
+				" #M#   # ",
+				"         ",
+				" ###M##  ",
+				"#### ##$ ",
+				"####.##  ",
+				"#######  ",
+				"#########"
+			]
+		},
+		{
 			"par": 36,
+			"locked": true,
 			"map": [
 				"##.  M  #",
 				"#  M  M  ",
@@ -169,23 +154,8 @@
 			]
 		},
 		{
-			"locked": true,
-			"par": 68,
-			"map": [
-				"    $    ",
-				"@# #M# # ",
-				" #M#   # ",
-				"         ",
-				" ###M##  ",
-				"#### ##$ ",
-				"####.##  ",
-				"#######  ",
-				"#########"
-			]
-		},
-		{
-			"locked": false,
 			"par": 54,
+			"locked": false,
 			"map": [
 				"VVV#####V",
 				"VVV#   #V",
@@ -196,6 +166,36 @@
 				"##$#.###V",
 				"V#  .#VVV",
 				"V#####VVV"
+			]
+		},
+		{
+			"par": 112,
+			"locked": false,
+			"map": [
+				"V########",
+				"V#  .. ##",
+				"V# #   ##",
+				"V# $ M  #",
+				"V#  M@ ##",
+				"V# $ M$ #",
+				"V# #    #",
+				"V#    M.#",
+				"V########"
+			]
+		},
+		{
+			"par": 123,
+			"locked": false,
+			"map": [
+				"VVVV#####",
+				"V####   #",
+				"V#   .  #",
+				"V# #@  ##",
+				"V# MMM$#V",
+				"V# .#$$#V",
+				"V#  .# #V",
+				"V#     #V",
+				"V#######V"
 			]
 		}
 	]
