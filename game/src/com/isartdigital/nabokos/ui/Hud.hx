@@ -33,7 +33,7 @@ class Hud extends Screen
 	private var btnUndo : DisplayObject;
 	private var btnRedo : DisplayObject;
 	private var btnQuit : DisplayObject;
-	private var controls : DisplayObject;
+	public var controls : DisplayObject;
 	public var levelNumber : TextField;
 	private static var mcTopCenter : MovieClip;
 
@@ -85,12 +85,6 @@ class Hud extends Screen
 		positionables.push(lPositionnable);
 		lPositionnable = { item:levelNumber, align:AlignType.TOP, offsetY:150};
 		positionables.push(lPositionnable);
-		
-		if (LevelManager.levelNum == 0)
-		{
-			controls.alpha = 1;
-		}
-		else controls.alpha = 0;
 	}
 
 	public function redo(pEvent : MouseEvent): Void

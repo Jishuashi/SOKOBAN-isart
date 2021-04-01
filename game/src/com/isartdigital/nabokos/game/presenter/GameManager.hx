@@ -60,6 +60,13 @@ class GameManager
 		UIManager.openHud();
 		//Hud.getInstance().visible = true;
 		Hud.getInstance().levelNumber.text = "level " + LevelManager.levelNum;
+		
+		Hud.getInstance().controls.alpha = 0;
+		if (LevelManager.levelNum == 0)
+		{
+			Hud.getInstance().controls.alpha = 1;
+		}
+		
 		//if (LevelManager.levelNum == 0)
 		//{
 			//controls = content.getChildByName("controls");
