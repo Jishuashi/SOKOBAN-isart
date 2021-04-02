@@ -95,6 +95,8 @@ class Main extends Sprite
 		lGameLoader.addText("assets/settings/player.json");
 		
         //Chargement des particules
+		lGameLoader.addText("assets/particles/particle.plist");
+		lGameLoader.addBitmapData("assets/particles/texture.png");
 		
 		//Chargement des swf
 		lGameLoader.addLibrary("assets");

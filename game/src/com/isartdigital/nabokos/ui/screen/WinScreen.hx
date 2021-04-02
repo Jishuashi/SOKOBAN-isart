@@ -13,9 +13,14 @@ import haxe.Timer;
 import motion.Actuate;
 import motion.easing.Elastic;
 import openfl.display.DisplayObject;
+import openfl.display.DisplayObjectContainer;
 import openfl.display.MovieClip;
 import openfl.events.MouseEvent;
 import openfl.text.TextField;
+import org.zamedev.particles.Particle;
+import org.zamedev.particles.ParticleSystem;
+import org.zamedev.particles.loaders.ParticleLoader;
+import org.zamedev.particles.renderers.DefaultParticleRenderer;
 
 /**
  * ...
@@ -30,6 +35,10 @@ class WinScreen extends Screen
 	private var buttonQuit:DisplayObject;
 	private var victoryAnimation:MovieClip;
 	
+	private var star1 : DisplayObject;
+	private var star2 : DisplayObject;
+	private var blue : DisplayObject;
+
 	private var txtScore : TextField;
 	private var txtHighscore : TextField;
 
@@ -43,16 +52,21 @@ class WinScreen extends Screen
 		buttonQuit			= content.getChildByName("btnQuit");
 		victoryAnimation 	= cast(content.getChildByName("victoryAnimation"), MovieClip);
 		
+		star1 = content.getChildByName("star1");
+		star2 = content.getChildByName("star2");
+		blue = content.getChildByName("blueStar");
+		
+		star1.scaleX = star1.scaleY = star2.scaleX = star2.scaleY = 0;
+		
 		txtScore = cast(content.getChildByName("txtScore"), TextField);
 		txtHighscore = cast(content.getChildByName("txtHighscore"), TextField);
-		
+
 		buttonContinue.addEventListener(MouseEvent.CLICK, onClickContinue);
 		buttonQuit.addEventListener(MouseEvent.CLICK, onClickQuit);
-		
-		
+
 		txtScore.text = "Nombre de coups : " + ScoreManager.score;
 		txtHighscore.text = "Highscore : " + ScoreManager.endScore;
-		
+
 		var lPositionnable:UIPositionable = {item:backgroundVictory, align:AlignType.FIT_SCREEN};
 		positionables.push(lPositionnable);
 		lPositionnable = { item:victoryTitle, align:AlignType.TOP, offsetY:200};
@@ -67,7 +81,7 @@ class WinScreen extends Screen
 		victoryAnimation .alpha = 0;
 		txtScore.alpha = 0;
 		txtHighscore .alpha = 0;
-		
+
 		Actuate.tween (victoryTitle, 		1, {scaleX:3, scaleY:3}).ease(Elastic.easeIn).reverse();
 		Actuate.tween (buttonContinue, 		2, {alpha:1}).delay(1);
 		Actuate.tween (buttonQuit, 			2, {alpha:1}).delay(1);
@@ -81,6 +95,26 @@ class WinScreen extends Screen
 		if (instance == null) instance = new WinScreen();
 		return instance;
 	}
+	
+	public function displayStars():Void
+	{
+		if (LevelManager.allStars[LevelManager.levelNum] == 1)
+		{
+			Actuate.tween(star1 , 1 , {scaleX : 3 , scaleY : 3});
+		}
+		else 
+		{
+			
+			Actuate.tween(star1 , 1 , {scaleX : 3 , scaleY : 3});
+			Actuate.tween(star2 , 1 , {scaleX : 3 , scaleY : 3});
+			
+			blue.visible = false;
+			
+			Actuate.tween(star1 , 2 , {rotation : 360});
+			Actuate.tween(star2 , 2 , {rotation : 360});
+		}
+		
+	}	
 
 	private function onClickContinue(pEvent:MouseEvent) : Void
 	{
@@ -88,12 +122,11 @@ class WinScreen extends Screen
 		RadarView.getInstance().resetView();
 		GameManager.mouseController.destroy();
 
-		
-		LevelManager.levelNum += 1;		
+		LevelManager.levelNum += 1;
 		LevelManager.selectLevel(LevelManager.levelNum);
-		
+
 		GameManager.start();
-		
+
 		SoundManager.clickSound();
 	}
 
@@ -103,14 +136,14 @@ class WinScreen extends Screen
 		RadarView.getInstance().resetView();
 		GameManager.mouseController.destroy();
 
-		
 		Main.getInstance().game1.fadeOut(0.005);
-		Timer.delay(function(){
+		Timer.delay(function()
+		{
 			Main.getInstance().game1.stop();
 		}, 500);
 		Main.getInstance().ambiance1.start();
 		Main.getInstance().ambiance1.fadeIn(0.005);
-		
+
 		UIManager.addScreen(TitleCard.getInstance());
 		SoundManager.clickSound();
 	}

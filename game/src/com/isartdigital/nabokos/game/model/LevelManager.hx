@@ -568,9 +568,12 @@ class LevelManager
 		}
 		
 		
+		
+		
 		if (levelNum == 12){
 			UIManager.addScreen(FinalWin.getInstance());
 		}else{
+			WinScreen.getInstance().displayStars();			
 			UIManager.addScreen(WinScreen.getInstance());
 		}
 		
